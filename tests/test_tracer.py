@@ -14,8 +14,7 @@ class _FakeGraph:
         self._updates = updates
 
     def stream(self, initial: dict, stream_mode: str = "updates"):
-        for u in self._updates:
-            yield u
+        yield from self._updates
 
 
 # ----------------------------- run_traced -----------------------------

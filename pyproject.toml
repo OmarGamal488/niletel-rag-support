@@ -35,3 +35,33 @@ dependencies = [
     "streamlit-shadcn-ui>=0.1.19",
     "uvicorn[standard]>=0.46.0",
 ]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = [
+    ".venv",
+    "data/chroma_db",
+    "frontend/node_modules",
+    "huggingface",
+]
+
+[tool.ruff.lint]
+# E (pycodestyle errors), F (pyflakes), I (isort), W (warnings), UP (pyupgrade), B (bugbear)
+select = ["E", "F", "I", "W", "UP", "B"]
+ignore = [
+    "E501",   # line length is handled by the formatter
+    "B008",   # FastAPI/Pydantic use function-call defaults intentionally
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Streamlit entrypoint injects sys.path before importing project modules — by design.
+"app/streamlit_app.py" = ["E402"]
+# Tests can keep loose-fixture imports / unused variables in arrange blocks.
+"tests/**/*.py" = ["F841"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "live: tests that require external infrastructure (LLM, n8n, Tavily). Excluded in CI.",
+]

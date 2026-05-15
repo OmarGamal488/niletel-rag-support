@@ -34,7 +34,6 @@ from pydantic import BaseModel, Field
 
 from src.config import settings
 from src.llm import get_llm
-from src.retriever import retrieve
 
 logger = logging.getLogger(__name__)
 

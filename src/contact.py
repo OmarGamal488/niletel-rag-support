@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import re
 from dataclasses import asdict, dataclass
-from typing import Optional
 
 from src.pii import _RECOGNISERS  # noqa: SLF001 — reuse compiled patterns
 
@@ -32,9 +31,9 @@ _NAME_LABEL_RE = re.compile(
 
 @dataclass(frozen=True)
 class Contact:
-    name: Optional[str] = None
-    phone: Optional[str] = None
-    email: Optional[str] = None
+    name: str | None = None
+    phone: str | None = None
+    email: str | None = None
 
     def is_actionable(self) -> bool:
         """At minimum we need a way to reach the customer back."""
@@ -72,7 +71,7 @@ def parse_contact(text: str) -> Contact:
     leftover = re.sub(r"[,،.\-:|\n]+", " ", leftover)
     leftover = re.sub(r"\s{2,}", " ", leftover).strip()
 
-    name: Optional[str] = None
+    name: str | None = None
     if leftover:
         # Cap to a reasonable length so we don't store entire sentences
         # as "names" if the user typed a paragraph.

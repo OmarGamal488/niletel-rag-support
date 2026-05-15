@@ -190,7 +190,7 @@ docker compose logs -f api
 
 UI at <http://localhost:8501>, API at <http://localhost:8000>, Swagger at `/docs`.
 
-### Public demo URL
+### Public demo URL — ngrok / Cloudflare Quick Tunnel
 
 ngrok's free tier shows an interstitial warning page on first browser visit. Cloudflare's Quick Tunnel does not — use:
 
@@ -200,6 +200,34 @@ ngrok's free tier shows an interstitial warning page on first browser visit. Clo
 ```
 
 (See script header for `cloudflared` install instructions.)
+
+### Hosted demo — Hugging Face Spaces
+
+For an always-on shareable URL, push to a Hugging Face Space. The repo ships everything you need under `huggingface/`:
+
+```bash
+# one-time setup
+pip install --user huggingface_hub
+huggingface-cli login
+# create the Space in the HF UI (SDK: Docker), then clone it
+git clone https://huggingface.co/spaces/OmarGamal48812/niletel-rag-support ../space
+
+# every deploy
+./scripts/deploy_hf.sh ../space
+cd ../space && git add -A && git commit -m "deploy" && git push
+```
+
+The deploy script copies `src/`, `api/`, `app/`, `data/raw/`, `eval/`, `pyproject.toml`, `uv.lock`, plus the HF-specific `Dockerfile` / `start.sh` / `README.md` from `huggingface/`. It does **not** copy `.env`, `tests/`, `frontend/`, `infra/`, or the local Docker setup — those don't belong in the Space.
+
+After the first push, set these as **Repository secrets** in the Space UI (`Settings → Repository secrets`):
+
+| Required | Optional |
+|---|---|
+| `LLM_PROVIDER`, `LIGHTNING_API_KEY`, `LIGHTNING_BASE_URL`, `LIGHTNING_MODEL` | `TAVILY_API_KEY`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_HOST`, `N8N_WEBHOOK_URL` |
+
+First boot takes 1–2 minutes — the container builds the ChromaDB + BM25 index from `data/raw/` on demand and downloads the bge-m3 embedder. Subsequent boots reuse the cached weights.
+
+The public URL is **<https://omargamal48812-niletel-rag-support.hf.space/>**.
 
 ## Knowledge base
 

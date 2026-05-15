@@ -27,7 +27,7 @@ import threading
 import time
 from collections import OrderedDict
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Any
 
 import numpy as np
 
@@ -78,7 +78,7 @@ class SemanticCache:
         return vec / n if n > 0 else vec
 
     # ----------------------------------------------------------------
-    def lookup(self, query: str) -> Optional[dict[str, Any]]:
+    def lookup(self, query: str) -> dict[str, Any] | None:
         """Return the cached payload for the closest match above threshold,
         or None. Also increments the entry's hit counter."""
         if not settings.semantic_cache_enabled or not query:

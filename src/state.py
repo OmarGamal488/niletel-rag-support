@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Literal, Optional, TypedDict
+from typing import Annotated, Literal, TypedDict
 
 from langchain_core.documents import Document
 from langgraph.graph.message import add_messages
@@ -17,7 +17,7 @@ class SupportState(TypedDict, total=False):
     confidence: float
     context_docs: list[Document]
     answer: str
-    ticket_id: Optional[str]
+    ticket_id: str | None
     session_id: str
     history: list[dict]  # prior turns: [{"role": "user"|"assistant", "content": str}]
     citations: list[int]  # ALCE: 1-indexed chunk numbers cited by the answer

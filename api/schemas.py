@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from pydantic import BaseModel, Field
 
 from src.state import Category
@@ -17,7 +15,7 @@ class QueryRequest(BaseModel):
 class SourceDoc(BaseModel):
     source: str
     snippet: str
-    rerank_score: Optional[float] = None
+    rerank_score: float | None = None
     cited: bool = False  # set True if this chunk appears in `citations`
 
 
@@ -27,7 +25,7 @@ class ToolCall(BaseModel):
     result: str = ""
     # Parsed result (when JSON-able) — frontends use this to pick a
     # generative-UI renderer per tool.
-    data: Optional[dict | list] = None
+    data: dict | list | None = None
 
 
 class TraceEvent(BaseModel):
@@ -43,13 +41,13 @@ class TraceEvent(BaseModel):
 class QueryResponse(BaseModel):
     answer: str
     category: Category
-    confidence: Optional[float] = None
-    ticket_id: Optional[str] = None
+    confidence: float | None = None
+    ticket_id: str | None = None
     source_docs: list[SourceDoc] = []
     # ALCE: 1-indexed chunk numbers referenced inline as [N] in `answer`.
     citations: list[int] = []
     # CRAG: "correct" | "ambiguous" | "incorrect" — empty when feature is off.
-    retrieval_quality: Optional[str] = None
+    retrieval_quality: str | None = None
     used_web_search: bool = False
     # Tier 3 — observability fields:
     used_cache: bool = False
@@ -61,7 +59,7 @@ class QueryResponse(BaseModel):
     awaiting_contact: bool = False
     # Under-the-hood trace — one entry per LangGraph node that fired.
     trace: list[TraceEvent] = []
-    total_elapsed_ms: Optional[float] = None
+    total_elapsed_ms: float | None = None
 
 
 class HealthResponse(BaseModel):

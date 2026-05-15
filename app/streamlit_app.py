@@ -23,9 +23,9 @@ if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 import html as _html
+
 import httpx
 import streamlit as st
-
 from styles import (
     BRAND_CSS,
     render_assistant_message,

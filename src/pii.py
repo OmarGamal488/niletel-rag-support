@@ -17,7 +17,6 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import Iterable
 
 # Order matters: more specific patterns first. Each entry is
 # (entity_kind, compiled_regex).

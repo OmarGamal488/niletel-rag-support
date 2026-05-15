@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import httpx
 
@@ -31,7 +31,7 @@ def create_ticket(
         "query": query,
         "session_id": session_id,
         "category": "COMPLAINT",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
     if contact:
         payload["contact"] = contact
