@@ -1,0 +1,57 @@
+# Build / Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+build/
+dist/
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# Local secrets (mount via compose, never bake)
+.env
+.env.local
+.env.bak
+
+# Large generated artifacts — mount as volume, don't copy into image
+data/chroma_db/
+data/bm25_index.pkl
+data/processed/
+
+# Notebooks + reports
+notebooks/
+eval/ragas_report.json
+
+# Git / IDE / OS
+.git/
+.github/
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Demo + docs not needed at runtime
+*.pdf
+*.mp4
+README.md
+CLAUDE.md
+OBSERVABILITY.md
+SYSTEM.md
+"NileTel Support v2 Vibrant.html"
+
+# Frontend scaffolding not used by the FastAPI/Streamlit images
+frontend/
+
+# Observability stack is composed separately
+infra/
+
+# CI artifacts
+.coverage
+htmlcov/

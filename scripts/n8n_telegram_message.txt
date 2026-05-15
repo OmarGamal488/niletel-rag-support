@@ -1,0 +1,12 @@
+🎫 <b>New NileTel Ticket</b>
+
+<b>ID:</b> <code>{{ $('Issue ticket_id').item.json.ticket_id }}</code>
+<b>Customer:</b> {{ $('Issue ticket_id').item.json.contact.name }}
+<b>Phone:</b> <code>{{ $('Issue ticket_id').item.json.contact.phone }}</code>
+<b>Email:</b> {{ $('Issue ticket_id').item.json.contact.email }}
+<b>Category:</b> {{ $('Issue ticket_id').item.json.category }}
+
+<b>Complaint:</b>
+<i>{{ $('Issue ticket_id').item.json.query }}</i>
+
+<a href="https://docs.google.com/spreadsheets/">📄 View in Sheet</a>

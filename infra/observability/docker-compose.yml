@@ -1,0 +1,53 @@
+# NileTel observability stack — Prometheus + Grafana.
+#
+# Bring up:
+#   docker compose -f infra/observability/docker-compose.yml up -d
+# Bring down:
+#   docker compose -f infra/observability/docker-compose.yml down
+#
+# Prometheus scrapes the FastAPI app running on the host at :8000/metrics
+# (host.docker.internal works on Linux ≥20.10 thanks to the extra_hosts
+# entry below; on Mac/Win it's resolved natively).
+#
+# Grafana is provisioned with the Prometheus datasource + a starter
+# NileTel dashboard on boot — no manual UI clicks required.
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    container_name: niletel-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.retention.time=14d"
+      - "--web.enable-lifecycle"
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    container_name: niletel-grafana
+    restart: unless-stopped
+    ports:
+      - "3001:3000"   # 3000 reserved for the parked Next.js frontend
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+
+volumes:
+  prometheus-data: {}
+  grafana-data: {}

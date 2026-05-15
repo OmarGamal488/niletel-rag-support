@@ -1,0 +1,40 @@
+# Environment / secrets
+.env
+.env.local
+.env.bak
+
+# Virtual environment
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Vector indexes (regenerate via src/ingestion.py)
+data/chroma_db/
+data/bm25_index.pkl
+data/processed/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Node / frontend
+node_modules/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Claude Code working files (not part of the deliverable)
+CLAUDE.md
+.claude/

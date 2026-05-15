@@ -1,0 +1,1 @@
+'NileTel Support — Your ticket ' + $('Issue ticket_id').item.json.ticket_id + ' has been received'

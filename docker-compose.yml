@@ -1,0 +1,76 @@
+# NileTel RAG Customer Support — application stack.
+#
+# Bring up:    docker compose up -d
+# Rebuild:     docker compose build --no-cache
+# Logs:        docker compose logs -f api
+# Tear down:   docker compose down                  # keep volumes
+#              docker compose down -v               # also drop chroma + hf cache
+#
+# First run will be slow — the bge-m3 embedding model (~2 GB) is fetched on
+# demand into the `hf-cache` volume. Subsequent runs reuse it.
+#
+# This file does NOT bring up the Prometheus + Grafana observability stack —
+# that lives at infra/observability/docker-compose.yml and is opt-in.
+
+services:
+  # One-shot ingestion: builds data/chroma_db/ + data/bm25_index.pkl into
+  # the shared `kb-index` volume. Re-run whenever data/raw/ changes:
+  #   docker compose run --rm ingest
+  ingest:
+    build:
+      context: .
+      target: source
+    image: niletel-ingest:latest
+    env_file: .env
+    environment:
+      HF_HOME: /cache/huggingface
+    volumes:
+      - kb-index:/app/data
+      - hf-cache:/cache/huggingface
+      - ./data/raw:/app/data/raw:ro
+    command: ["python", "-m", "src.ingestion"]
+    profiles: ["ingest"]
+
+  api:
+    build:
+      context: .
+      target: api
+    image: niletel-api:latest
+    container_name: niletel-api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HF_HOME: /cache/huggingface
+    ports:
+      - "8000:8000"
+    volumes:
+      - kb-index:/app/data
+      - hf-cache:/cache/huggingface
+    extra_hosts:
+      # Lets the container reach the host (useful when ngrok is on the host).
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      ingest:
+        condition: service_completed_successfully
+        required: false
+
+  streamlit:
+    build:
+      context: .
+      target: streamlit
+    image: niletel-streamlit:latest
+    container_name: niletel-streamlit
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # Streamlit reaches FastAPI over the compose network by service name.
+      API_URL: http://api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  kb-index:        # persists data/chroma_db + data/bm25_index.pkl between runs
+  hf-cache:        # persists bge-m3 + reranker weights across rebuilds

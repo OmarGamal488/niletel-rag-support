@@ -1,0 +1,12 @@
+🚨 <b>NileTel Workflow Error</b>
+
+<b>Workflow:</b> {{ $json.workflow.name }}
+<b>Failed node:</b> <code>{{ $json.execution.lastNodeExecuted }}</code>
+
+<b>Error:</b>
+<code>{{ $json.execution.error.message }}</code>
+
+<b>Mode:</b> {{ $json.execution.mode }}
+<b>Time:</b> {{ $now.toISO() }}
+
+<a href="{{ $json.execution.url }}">🔎 Open execution in n8n</a>

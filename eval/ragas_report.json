@@ -1,0 +1,236 @@
+{
+  "timestamp": "2026-05-07T00:17:56.637560",
+  "provider": "lightning",
+  "model": "lightning-ai/deepseek-v4-pro",
+  "n_items": 11,
+  "routing": {
+    "routing_accuracy": 1.0,
+    "n": 11
+  },
+  "retrieval": {
+    "retrieval_hit_rate": 0.7142857142857143,
+    "n": 7
+  },
+  "ragas": {
+    "n_evaluated": 9,
+    "scores": {
+      "faithfulness": 0.5714285714285715,
+      "answer_relevancy": 0.6153305215763599,
+      "context_precision": 0.5416666666125,
+      "context_recall": 0.5972222222222222
+    }
+  },
+  "items": [
+    {
+      "question": "ليه النت بطيء أوي بعد تفعيل الـ FTTH؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "يا فندم، في أسباب كتير ممكن تسبب بطء في الـ FTTH:\n1. WiFi interference من أجهزة تانية\n2. Old router مش مدعوم\n3. Quota exceeded → throttling\n4. Problem في الـ splitter port\n\nنعمل إيه دلوقتي؟\n- اعمل speed test مباشرة من الـ ONT (مش من الواي فاي)\n- لو السرعة كويسة من الـ ONT، المشكلة في الـ WiFi\n- لو لسه بطيئة، هنرفع ticket P2 ونبعت engineer",
+      "contexts": [
+        "FAQ: Why is my fiber internet slow?\n\nأسئلة شائعة - بطء السرعة في الـ FTTH\n\nسؤال شائع: \"ليه النت بطيء أوي بعد تفعيل الفايبر؟\"\n\nالرد الموصى به:\n\"يا فندم، في أسباب كتير ممكن تسبب بطء في الـ FTTH:\n1. WiFi interference من أجهزة تانية\n2. Old router مش مدعوم\n3. Quota exceeded → throttling\n4. Problem في الـ splitter port\n\nنعمل إيه دلوقتي؟\n- اعمل speed test مباشرة من الـ ONT (مش من الواي فاي)\n- لو السرعة كويسة من الـ ONT، المشكلة في الـ WiFi\n- لو لسه بطيئة، هنرفع ticket P2 ونبعت engineer\"",
+        "الهدف: تقليل الـ churn للـ VIP customers لأقل من 2% شهرياً.\n\nLast Updated: March 2026 | Retention Department",
+        "Fiber Activation Policy - NileTel 2026\n\nسياسة تفعيل الـ FTTH في 2026\n\nيا فندم، النهاردة هنتكلم عن سياسة تفعيل الفايبر. \nالـ installation fee دلوقتي 1500 جنيه مصري ويتم دفعه قبل ما نبدأ الـ provisioning خالص.\nالوقت المتوسط للتفعيل من 3 لـ 5 أيام عمل في المنصورة والدلتا والقاهرة، بس لو العميل VIP بنعمل priority provisioning خلال 48 ساعة بالكتير.",
+        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support"
+      ],
+      "retrieved_sources": [
+        "faq_fiber_slow_speed.md",
+        "vip_retention_script.md",
+        "fiber_activation_policy_2026.md",
+        "roaming_charges_guide.md"
+      ],
+      "expected_source": "faq_fiber_slow_speed.md",
+      "ground_truth": "في كذا سبب: WiFi interference، router قديم مش مدعوم، تجاوز الـ quota و throttling، أو مشكلة في splitter port. الحل: speed test من الـ ONT مباشرة، ولو السرعة كويسة المشكلة في الـ WiFi.",
+      "ticket_id": null
+    },
+    {
+      "question": "إزاي أصلح مشكلة الـ 5G لما مش بيتصل؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "أهلاً بك. لتصلح مشكلة عدم اتصال الـ 5G، اتبع الخطوات التالية بالترتيب:\n\n1.  تأكد أولاً أن جهازك يدعم تقنية 5G SA (وليس فقط NSA).\n2.  قم بعمل إعادة تشغيل للجهاز، ثم شغّل وضع الطيران لمدة 30 ثانية.\n3.  اذهب إلى الإعدادات → شبكة المحمول → واختر 5G/4G تلقائي.\n\nلو المشكلة ما زالت موجودة بعد هذه الخطوات، سأقوم بعمل فحص تشخيصي عن بُعد لجهازك، وإذا لزم الأمر سأرفع تذكرة دعم فني للمختصين.",
+      "contexts": [
+        "FAQ: 5G not connecting\n\nأسئلة شائعة - الـ 5G مش بيتصل\n\nسؤال: \"الـ 5G مش بيشتغل على موبايلي\"\n\nالخطوات:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس)\n2. اعمل restart + Airplane mode 30 ثانية\n3. روح Settings → Mobile Network → اختار 5G/4G auto\n4. شوف في الـ OSS لو في congestion في الـ cell site\n\nلو لسه مش بيتصل:\n\"يا فندم، هنعمل remote diagnostics ولو محتاج نرفع ticket\"\n\nLast Updated: March 2026",
+        "5G Throttling Troubleshooting Guide\n\nدليل حل مشاكل الـ 5G Throttling\n\nيا فندم، لو العميل شاكي إن السرعة بطيئة على الـ 5G، نتبع الخطوات دي بالترتيب:\n\nأول حاجة نسأله: \"هل تجاوزت الـ monthly quota بتاعتك؟\" لأن بعد الـ Fair Usage Policy بيحصل throttling تلقائي.\nثانياً، نطلب منه يشيك الـ signal strength: لازم الـ RSRP يكون أفضل من -90 dBm والـ SINR أعلى من 10 dB.\nثالثاً: \"اعمل restart للجهاز، شغل Airplane mode لمدة 30 ثانية، وبعدين re-attach للـ 5G SA network\".",
+        "الفئات الرئيسية:\n- Network Issue → 5G Slow Speed / 4G Drop / FTTH Outage / ADSL Problem\n- Billing → Overcharge / Refund Request / Double Billing / Roaming Charges\n- Service Request → New Line Activation / Upgrade Package / Cancellation / Prepaid to Postpaid Migration\n- Technical → Device Not Connecting / App Error / Account Lock / ONT Issue\n- VIP / Retention → Special handling for high-value customers\n\nنصيحة: لو المشكلة فيها أكتر من فئة، اختار الأهم ودوّن التفاصيل في الـ description.",
+        "Contract Cancellation Process\n\nإجراءات إلغاء العقد\n\nيا فندم، لما العميل يطلب cancellation، لازم نتبع الإجراء ده عشان نقلل الـ churn ونحاول نعمل retention أولاً."
+      ],
+      "retrieved_sources": [
+        "faq_5g_not_connecting.md",
+        "5g_throttling_troubleshooting.md",
+        "ticket_categories_list.md",
+        "contract_cancellation_process.md"
+      ],
+      "expected_source": "faq_5g_not_connecting.md",
+      "ground_truth": "تأكد إن الجهاز يدعم 5G SA، اعمل restart مع Airplane mode 30 ثانية، روح Settings → Mobile Network واختار 5G/4G auto، ولو لسه فيه مشكلة هنعمل remote diagnostics ونرفع ticket لو محتاج.",
+      "ticket_id": null
+    },
+    {
+      "question": "إزاي أعمل refund للفاتورة؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "يا فندم، فهمت طلبك. عشان نعمل refund لازم نعمل review للـ usage logs أولاً.  \nهفتح ticket P3 دلوقتي وهتابع مع الـ billing team.  \nلو الشكوى صحيحة، الـ credit note هيحصل خلال 48 ساعة.  \nلو عايز تعرف الخطوات، هقولك التفاصيل.",
+      "contexts": [
+        "FAQ: Refund Request\n\nأسئلة شائعة - طلب استرداد فلوس\n\nسؤال: \"عايز أرجع فلوسي من الفاتورة\"\n\nالرد:\n\"يا فندم، فهمت طلبك. عشان نعمل refund لازم نعمل review للـ usage logs أولاً.\nهفتح ticket P3 دلوقتي وهتابع مع الـ billing team.\nلو الشكوى صحيحة، الـ credit note هيحصل خلال 48 ساعة.\nلو عايز تعرف الخطوات، هقولك التفاصيل.\"\n\nممنوع توعد باسترداد قبل الموافقة.\n\nLast Updated: April 2026",
+        "النقاط المهمة:\n- دايماً اطلب الـ Corporate Account ID أو Company Contract Number في أول الاتصال.\n- معظم الشكاوى بتكون متعلقة بـ SD-WAN أو leased lines أو multiple FTTH connections.\n- الـ SLA بتاعهم أقوى: response time 10 دقايق و resolution time 2 ساعات لـ critical issues.\n- لو في outage، ارفع التذكرة كـ P1 فوراً وأبلغ الـ Key Account Manager.",
+        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support",
+        "Corporate Customer Handling Guide\n\nدليل التعامل مع العملاء الـ Corporate\n\nيا فندم، العملاء الـ Corporate (شركات ومؤسسات) ليهم معاملة مختلفة شوية عن العملاء العاديين لأن ARPU بتاعهم عالي وعدد الـ lines كتير."
+      ],
+      "retrieved_sources": [
+        "faq_refund_request.md",
+        "corporate_customer_handling.md",
+        "roaming_charges_guide.md",
+        "corporate_customer_handling.md"
+      ],
+      "expected_source": "faq_refund_request.md",
+      "ground_truth": "عشان نعمل refund لازم review للـ usage logs أولاً. هنفتح ticket P3 ونتابع مع billing team. لو الشكوى صحيحة، credit note يحصل خلال 48 ساعة. ممنوع نوعد بـ refund قبل الموافقة.",
+      "ticket_id": null
+    },
+    {
+      "question": "الـ 5G مش بيشتغل على موبايلي خالص!",
+      "category": "COMPLAINT",
+      "expected_category": "COMPLAINT",
+      "answer": "أهلاً بيك يا فندم، خلينا نتبع الخطوات دي بالترتيب عشان نحل المشكلة:\n\n1.  تأكد إن جهازك بيدعم تقنية 5G SA (مش بس NSA).\n2.  اعمل إعادة تشغيل للجهاز، وبعدين شغّل Airplane mode لمدة 30 ثانية.\n3.  روح على Settings → Mobile Network واختار 5G/4G auto.\n4.  هشوف في النظام لو فيه ضغط على الـ cell site اللي انت متصل بيه.\n\nلو لسه المشكلة موجودة، هنعمل remote diagnostics ولو احتجنا هنرفع ticket.",
+      "contexts": [
+        "FAQ: 5G not connecting\n\nأسئلة شائعة - الـ 5G مش بيتصل\n\nسؤال: \"الـ 5G مش بيشتغل على موبايلي\"\n\nالخطوات:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس)\n2. اعمل restart + Airplane mode 30 ثانية\n3. روح Settings → Mobile Network → اختار 5G/4G auto\n4. شوف في الـ OSS لو في congestion في الـ cell site\n\nلو لسه مش بيتصل:\n\"يا فندم، هنعمل remote diagnostics ولو محتاج نرفع ticket\"\n\nLast Updated: March 2026",
+        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support",
+        "5G Throttling Troubleshooting Guide\n\nدليل حل مشاكل الـ 5G Throttling\n\nيا فندم، لو العميل شاكي إن السرعة بطيئة على الـ 5G، نتبع الخطوات دي بالترتيب:\n\nأول حاجة نسأله: \"هل تجاوزت الـ monthly quota بتاعتك؟\" لأن بعد الـ Fair Usage Policy بيحصل throttling تلقائي.\nثانياً، نطلب منه يشيك الـ signal strength: لازم الـ RSRP يكون أفضل من -90 dBm والـ SINR أعلى من 10 dB.\nثالثاً: \"اعمل restart للجهاز، شغل Airplane mode لمدة 30 ثانية، وبعدين re-attach للـ 5G SA network\".",
+        "الفئات الرئيسية:\n- Network Issue → 5G Slow Speed / 4G Drop / FTTH Outage / ADSL Problem\n- Billing → Overcharge / Refund Request / Double Billing / Roaming Charges\n- Service Request → New Line Activation / Upgrade Package / Cancellation / Prepaid to Postpaid Migration\n- Technical → Device Not Connecting / App Error / Account Lock / ONT Issue\n- VIP / Retention → Special handling for high-value customers\n\nنصيحة: لو المشكلة فيها أكتر من فئة، اختار الأهم ودوّن التفاصيل في الـ description."
+      ],
+      "retrieved_sources": [
+        "faq_5g_not_connecting.md",
+        "roaming_charges_guide.md",
+        "5g_throttling_troubleshooting.md",
+        "ticket_categories_list.md"
+      ],
+      "expected_source": null,
+      "ground_truth": "",
+      "ticket_id": "LOCAL-45A4F540"
+    },
+    {
+      "question": "إزاي أعمل escalate لمشكلة فاتورة كبيرة؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "أهلاً بيك يا فندم. بناءً على المعلومات المتاحة، إليك خطوات التصعيد لمشكلة الفاتورة:\n\n1.  **كمستوى أول (Level 1):** حاول تحل المشكلة بنفسك خلال 30 دقيقة باستخدام كل خطوات استكشاف الأخطاء المتاحة في قاعدة المعرفة. لو قدرت تحلها، قفل التذكرة واطلب تقييم الخدمة.\n2.  **لو محتاج تصعّد:** لو المشكلة معقدة أو العميل مش راضي وعايز يكلم مشرف، تقدر تقول له: \"تمام يا فندم، أنا هصعد التذكرة دلوقتي للـ supervisor. هيتصل بيك خلال 15 دقيقة بالكتير.\" ومتنساش تبعت له رسالة تأكيد بعد التصعيد.\n\nلو محتاج مساعدة في حاجة تانية، أنا موجود.",
+      "contexts": [
+        "Customer Escalation Matrix\n\nمصفوفة التصعيد لشكاوى العملاء\n\nيا فندم، لو المشكلة معقدة أو العميل زعلان أوي، لازم نعرف نعمل escalate بالطريقة الصحيحة عشان نحافظ على الـ CSAT ونمنع الـ churn.\n\nLevel 1 – Support Agent:\n- حل المشكلة خلال 30 دقيقة كحد أقصى.\n- استخدم كل الـ troubleshooting steps المتاحة في الـ knowledge base.\n- لو قدرت تحلها، قفل التذكرة واطلب feedback.",
+        "FAQ: Customer Wants to Escalate\n\nأسئلة شائعة - العميل عايز يصعد الشكوى\n\nسؤال: \"مش راضي، عايز أكلم supervisor\"\n\nالرد الموصى:\n\"تمام يا فندم، أنا هصعد التذكرة دلوقتي للـ supervisor.\nهيتصل بيك خلال 15 دقيقة بالكتير.\nرقم التذكرة دلوقتي هو #T-78452.\nلو عايز أي حاجة تانية قولي.\"\n\nدايماً ابعت confirmation message بعد التصعيد.\n\nLast Updated: April 2026",
+        "القواعد المهمة:\n- ممنوع تماماً مشاركة رقم الموبايل أو contract details أو usage history مع أي حد خارج الـ ticketing system.\n- كل التفاعلات (مكالمات، شات، تذاكر) لازم تتسجل في الـ CRM لأغراض الـ compliance.\n- لو العميل طلب يعرف إيه البيانات اللي عندنا عنه، نرجعه للـ privacy portal في التطبيق.\n- في حال أي شك في data breach (حتى لو صغير)، escalate فوراً للـ InfoSec team خلال 15 دقيقة.",
+        "نصيحة: دايماً قول \"يا فندم، إحنا ملتزمين بكل لوائح الـ NTRA وهنحل مشكلتك في أسرع وقت\".\n\nLast Updated: March 2026 | Department: Legal & Compliance"
+      ],
+      "retrieved_sources": [
+        "escalation_matrix.md",
+        "faq_escalation.md",
+        "data_privacy_policy.md",
+        "ntra_regulations_summary.md"
+      ],
+      "expected_source": "escalation_matrix.md",
+      "ground_truth": "Level 1 يحاول يحل في 30 دقيقة. لو فشل أو العميل ذكر NTRA يصعد لـ Level 2 (Supervisor) اللي يقدر يعمل goodwill credit. VIP أو لو فيه legal threat يروح Level 3 (Retention). مشاكل network/OSS تروح Level 4 (NOC).",
+      "ticket_id": null
+    },
+    {
+      "question": "ما هي خطوات إلغاء العقد؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "أهلاً بك! بناءً على المعلومات المتوفرة عندي، لما العميل يطلب إلغاء العقد، لازم نتبع إجراء معين عشان نحاول نعمل **retention** أولاً ونقلل الـ **churn**. لكن للأسف، التفاصيل الكاملة لخطوات الإجراء مش مذكورة في السياق اللي قدامي.\n\nهل تحب أحولك لفريق **Retention Department** عشان يساعدك بالتفاصيل الكاملة؟",
+      "contexts": [
+        "نصيحة: استخدم المصطلحات الإنجليزية زي ما هي في كل التذاكر، بس شرحها للعميل بالعربي المصري عشان يفهم.\n\nLast Updated: April 2026 | Department: Training & Quality",
+        "الهدف: تقليل الـ churn للـ VIP customers لأقل من 2% شهرياً.\n\nLast Updated: March 2026 | Retention Department",
+        "Contract Cancellation Process\n\nإجراءات إلغاء العقد\n\nيا فندم، لما العميل يطلب cancellation، لازم نتبع الإجراء ده عشان نقلل الـ churn ونحاول نعمل retention أولاً.",
+        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support"
+      ],
+      "retrieved_sources": [
+        "telecom_glossary.md",
+        "vip_retention_script.md",
+        "contract_cancellation_process.md",
+        "roaming_charges_guide.md"
+      ],
+      "expected_source": "contract_cancellation_process.md",
+      "ground_truth": "1) اسأل عن سبب الإلغاء، 2) جرب retention offer، 3) لو مصر، اتأكد من outstanding balance، 4) أنشئ cancellation request وخد confirmation، 5) port-out لو ينقل الرقم. Cancellation fee في commitment period. VIP يصعد لـ Retention team أولاً.",
+      "ticket_id": null
+    },
+    {
+      "question": "العميل بيقول روح NTRA — أعمل إيه؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "يا فندم، إحنا ملتزمين بكل لوائح الـ NTRA وهنحل مشكلتك في أسرع وقت.  \n\nممكن توضح لي المشكلة اللي بتواجهها عشان أقدر أساعدك وأسجل التفاصيل بشكل كامل، ولو احتجت تصعيد هنعمل كده فوراً.",
+      "contexts": [
+        "نصيحة: دايماً قول \"يا فندم، إحنا ملتزمين بكل لوائح الـ NTRA وهنحل مشكلتك في أسرع وقت\".\n\nLast Updated: March 2026 | Department: Legal & Compliance",
+        "NTRA Key Regulations Summary 2026\n\nملخص اللوائح التنظيمية من الجهاز القومي لتنظيم الاتصالات (NTRA)\n\nيا فندم، كل الـ agents لازم يعرفوا القواعد دي عشان نتجنب أي غرامات أو complaints رسمية.",
+        "Audit & Compliance Logging Requirements\n\nمتطلبات تسجيل التفاعلات للـ audit والامتثال\n\nيا فندم، كل تفاعل مع العميل لازم يتسجل كويس عشان الـ NTRA والـ internal audit.\n\nما يجب تسجيله:\n- Full customer statements and sentiment.\n- All troubleshooting steps taken.\n- Any promises or compensation offered.\n- Ticket category, priority, and resolution code.\n\nنصيحة: \"لو مش متأكد، دوّن أكتر من اللي محتاج\" – ده بيحميك وبيحمي الشركة.\n\nLast Updated: March 2026 | Compliance Department",
+        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support"
+      ],
+      "retrieved_sources": [
+        "ntra_regulations_summary.md",
+        "ntra_regulations_summary.md",
+        "audit_and_compliance_logging.md",
+        "roaming_charges_guide.md"
+      ],
+      "expected_source": "escalation_matrix.md",
+      "ground_truth": "ده trigger للتصعيد لـ Level 2 (Supervisor) فوراً حسب الـ escalation matrix. الـ supervisor يقدر يعمل goodwill credit أو يعدل الـ priority لـ P2.",
+      "ticket_id": null
+    },
+    {
+      "question": "ما المقصود بـ ONT و OLT؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "عذراً، المعلومات المتوفرة لدي لا تحتوي على شرح لمصطلحي ONT و OLT. هل تريد أن أقوم بتصعيد استفسارك إلى فريق الدعم الفني المتخصص؟",
+      "contexts": [
+        "Field Engineer Dispatch Rules\n\nقواعد إرسال المهندس الميداني\n\nيا فندم، الـ field engineer يتم إرساله فقط بعد ما نفشل في كل خطوات الـ remote troubleshooting.\n\nالأولوية في الإرسال:\n1. VIP و Golden customers\n2. Corporate customers\n3. Residential customers عاديين\n\nالمعلومات المطلوبة في التذكرة قبل الـ dispatch:\n- العنوان الكامل + GPS coordinates\n- وصف الأعراض بالعربي المصري (مثلاً: \"النت بيقطع كل 10 دقايق\")\n- serial number للـ ONT\n- كل الخطوات اللي عملها الـ agent قبل كده",
+        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support",
+        "Handling CSAT Survey After Ticket Closure\n\nالتعامل مع استطلاع رضا العملاء بعد إغلاق التذكرة\n\nيا فندم، بعد ما تقفل التذكرة، العميل بياخد CSAT survey.\n\nنصائح عشان تحسن الـ score:\n- قبل ما تقفل، قول: \"يا فندم، لو المشكلة اتحلت، لو سمحت قيم الخدمة عشان نتحسن.\"\n- لو العميل زعلان، اعمل follow-up call قبل ما يملى الاستطلاع.\n- Target: CSAT > 85% و FCR > 75%.\n\nLast Updated: March 2026 | Quality Assurance",
+        "الهدف: تقليل الـ churn للـ VIP customers لأقل من 2% شهرياً.\n\nLast Updated: March 2026 | Retention Department"
+      ],
+      "retrieved_sources": [
+        "field_engineer_dispatch.md",
+        "roaming_charges_guide.md",
+        "customer_satisfaction_survey_handling.md",
+        "vip_retention_script.md"
+      ],
+      "expected_source": "telecom_glossary.md",
+      "ground_truth": "ONT (Optical Network Terminal) هو الجهاز اللي بيتركب عند العميل في الـ FTTH. الـ OLT (Optical Line Terminal) هو الجهاز الرئيسي في الـ central office.",
+      "ticket_id": null
+    },
+    {
+      "question": "الانترنت مش شغال خالص!",
+      "category": "COMPLAINT",
+      "expected_category": "COMPLAINT",
+      "answer": "عذراً على المشكلة يا فندم.  \nهل تقدر توضح لي أكتر؟ هل المشكلة في كل الأجهزة ولا جهاز واحد؟ وهل ظهرت لك أي رسالة خطأ معينة؟  \nلو الانقطاع عام في منطقتك، الفريق الفني شغال على حلها والمتوقع رجوع الخدمة خلال ساعتين بالكتير.",
+      "contexts": [
+        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support",
+        "FAQ: 5G not connecting\n\nأسئلة شائعة - الـ 5G مش بيتصل\n\nسؤال: \"الـ 5G مش بيشتغل على موبايلي\"\n\nالخطوات:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس)\n2. اعمل restart + Airplane mode 30 ثانية\n3. روح Settings → Mobile Network → اختار 5G/4G auto\n4. شوف في الـ OSS لو في congestion في الـ cell site\n\nلو لسه مش بيتصل:\n\"يا فندم، هنعمل remote diagnostics ولو محتاج نرفع ticket\"\n\nLast Updated: March 2026",
+        "الهدف: تقليل الـ churn للـ VIP customers لأقل من 2% شهرياً.\n\nLast Updated: March 2026 | Retention Department",
+        "Network Outage Communication Templates\n\nقوالب الرد على انقطاع الشبكة\n\nيا فندم، لما يحصل network outage، لازم نرد على العملاء بنفس الطريقة المهنية والواضحة.\n\nTemplate 1 – Phone / Chat:\n\"عزيزي العميل، بنعتذر جداً عن انقطاع الخدمة في منطقتك. الفريق الفني شغال دلوقتي على حل المشكلة. Expected resolution time: ساعتين بالكتير. هنبعتلك إشعار فور ما ترجع الخدمة. شكراً لصبرك يا فندم.\"\n\nTemplate 2 – SMS / App Notification:\n\"نعتذر عن انقطاع الـ FTTH في منطقتك. Expected fix: 2 ساعات. NileTel\""
+      ],
+      "retrieved_sources": [
+        "roaming_charges_guide.md",
+        "faq_5g_not_connecting.md",
+        "vip_retention_script.md",
+        "network_outage_template.md"
+      ],
+      "expected_source": null,
+      "ground_truth": "",
+      "ticket_id": "LOCAL-AB114559"
+    },
+    {
+      "question": "مرحبا",
+      "category": "GREETING",
+      "expected_category": "GREETING",
+      "answer": "مرحباً! كيف أقدر أساعدك اليوم؟",
+      "contexts": [],
+      "retrieved_sources": [],
+      "expected_source": null,
+      "ground_truth": "",
+      "ticket_id": null
+    },
+    {
+      "question": "What is 2+2?",
+      "category": "OUT_OF_SCOPE",
+      "expected_category": "OUT_OF_SCOPE",
+      "answer": "يا فندم، أنا مساعد NileTel وبقدر أساعدك بس في حاجات تخص خدمات NileTel (الإنترنت، الفواتير، الباقات، إلخ). ممكن تسألني سؤال يخص الخدمة؟",
+      "contexts": [],
+      "retrieved_sources": [],
+      "expected_source": null,
+      "ground_truth": "",
+      "ticket_id": null
+    }
+  ]
+}

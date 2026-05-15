@@ -1,0 +1,3 @@
+Complaint: {{ $('Issue ticket_id').item.json.query }}
+
+Priority:

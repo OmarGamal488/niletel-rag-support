@@ -1,0 +1,68 @@
+[
+  {
+    "question": "ليه النت بطيء أوي بعد تفعيل الـ FTTH؟",
+    "ground_truth": "في كذا سبب: WiFi interference، router قديم مش مدعوم، تجاوز الـ quota و throttling، أو مشكلة في splitter port. الحل: speed test من الـ ONT مباشرة، ولو السرعة كويسة المشكلة في الـ WiFi.",
+    "expected_source": "faq_fiber_slow_speed.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "إزاي أصلح مشكلة الـ 5G لما مش بيتصل؟",
+    "ground_truth": "تأكد إن الجهاز يدعم 5G SA، اعمل restart مع Airplane mode 30 ثانية، روح Settings → Mobile Network واختار 5G/4G auto، ولو لسه فيه مشكلة هنعمل remote diagnostics ونرفع ticket لو محتاج.",
+    "expected_source": "faq_5g_not_connecting.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "إزاي أعمل refund للفاتورة؟",
+    "ground_truth": "عشان نعمل refund لازم review للـ usage logs أولاً. هنفتح ticket P3 ونتابع مع billing team. لو الشكوى صحيحة، credit note يحصل خلال 48 ساعة. ممنوع نوعد بـ refund قبل الموافقة.",
+    "expected_source": "faq_refund_request.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "الـ 5G مش بيشتغل على موبايلي خالص!",
+    "ground_truth": "",
+    "expected_source": null,
+    "expected_category": "COMPLAINT"
+  },
+  {
+    "question": "إزاي أعمل escalate لمشكلة فاتورة كبيرة؟",
+    "ground_truth": "Level 1 يحاول يحل في 30 دقيقة. لو فشل أو العميل ذكر NTRA يصعد لـ Level 2 (Supervisor) اللي يقدر يعمل goodwill credit. VIP أو لو فيه legal threat يروح Level 3 (Retention). مشاكل network/OSS تروح Level 4 (NOC).",
+    "expected_source": "escalation_matrix.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "ما هي خطوات إلغاء العقد؟",
+    "ground_truth": "1) اسأل عن سبب الإلغاء، 2) جرب retention offer، 3) لو مصر، اتأكد من outstanding balance، 4) أنشئ cancellation request وخد confirmation، 5) port-out لو ينقل الرقم. Cancellation fee في commitment period. VIP يصعد لـ Retention team أولاً.",
+    "expected_source": "contract_cancellation_process.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "العميل بيقول روح NTRA — أعمل إيه؟",
+    "ground_truth": "ده trigger للتصعيد لـ Level 2 (Supervisor) فوراً حسب الـ escalation matrix. الـ supervisor يقدر يعمل goodwill credit أو يعدل الـ priority لـ P2.",
+    "expected_source": "escalation_matrix.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "ما المقصود بـ ONT و OLT؟",
+    "ground_truth": "ONT (Optical Network Terminal) هو الجهاز اللي بيتركب عند العميل في الـ FTTH. الـ OLT (Optical Line Terminal) هو الجهاز الرئيسي في الـ central office.",
+    "expected_source": "telecom_glossary.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "الانترنت مش شغال خالص!",
+    "ground_truth": "",
+    "expected_source": null,
+    "expected_category": "COMPLAINT"
+  },
+  {
+    "question": "مرحبا",
+    "ground_truth": "",
+    "expected_source": null,
+    "expected_category": "GREETING"
+  },
+  {
+    "question": "What is 2+2?",
+    "ground_truth": "",
+    "expected_source": null,
+    "expected_category": "OUT_OF_SCOPE"
+  }
+]

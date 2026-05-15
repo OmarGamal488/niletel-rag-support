@@ -1,0 +1,1 @@
+🎫 New NileTel Support Ticket — {{ $('Issue ticket_id').item.json.ticket_id }}

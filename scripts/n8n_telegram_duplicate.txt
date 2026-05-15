@@ -1,0 +1,14 @@
+⚠️ <b>Duplicate Ticket from Existing Customer</b>
+
+<b>Existing Ticket ID:</b> <code>{{ $('Lookup by Phone').first().json['Ticket Number'] }}</code>
+<b>Customer:</b> {{ $('Issue ticket_id').item.json.contact.name }}
+<b>Phone:</b> <code>{{ $('Issue ticket_id').item.json.contact.phone }}</code>
+<b>Email:</b> {{ $('Issue ticket_id').item.json.contact.email }}
+
+<b>New complaint message:</b>
+<i>{{ $('Issue ticket_id').item.json.query }}</i>
+
+<b>Original complaint:</b>
+<i>{{ $('Lookup by Phone').first().json['Query'] }}</i>
+
+<i>Customer retried — no new ticket created. Please follow up on the existing one.</i>

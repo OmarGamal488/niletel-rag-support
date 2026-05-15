@@ -1,0 +1,62 @@
+{
+  "generate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "context": "[1] FAQ: Why is my fiber internet slow?\n\nأسئلة شائعة - بطء السرعة في الـ FTTH\n\nسؤال شائع: \"ليه النت بطيء أوي بعد تفعيل الفايبر؟\"\n\nالرد الموصى به:\n\"يا فندم، في أسباب كتير ممكن تسبب بطء في الـ FTTH:\n1. WiFi interference من أجهزة تانية\n2. Old router مش مدعوم\n3. Quota exceeded → throttling\n4. Problem في الـ splitter port\n\nنعمل إيه دلوقتي؟\n- اعمل speed test مباشرة من الـ ONT (مش من الواي فاي)\n- لو السرعة كويسة من الـ ONT، المشكلة في الـ WiFi\n- لو لسه بطيئة، هنرفع ticket P2 ونبعت engineer\"\n\n[2] الهدف: تقليل الـ churn للـ VIP customers لأقل من 2% شهرياً.\n\nLast Updated: March 2026 | Retention Department\n\n[3] Fiber Activation Policy - NileTel 2026\n\nسياسة تفعيل الـ FTTH في 2026\n\nيا فندم، النهاردة هنتكلم عن سياسة تفعيل الفايبر. \nالـ installation fee دلوقتي 1500 جنيه مصري ويتم دفعه قبل ما نبدأ الـ provisioning خالص.\nالوقت المتوسط للتفعيل من 3 لـ 5 أيام عمل في المنصورة والدلتا والقاهرة، بس لو العميل VIP بنعمل priority provisioning خلال 48 ساعة بالكتير.\n\n[4] لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support",
+        "question": "ليه النت بطيء أوي بعد تفعيل الـ FTTH؟",
+        "reasoning": "The user is asking in Arabic why their fiber internet is slow after activation. The context provides a direct FAQ answer for this exact question in chunk [1]. I will extract the relevant information from that chunk, which lists possible causes and immediate steps to take. The answer must be in the same language (Arabic) and grounded only in the provided context.",
+        "answer": "يا فندم، في أسباب كتير ممكن تسبب بطء في الـ FTTH:\n1. WiFi interference من أجهزة تانية\n2. Old router مش مدعوم\n3. Quota exceeded → throttling\n4. Problem في الـ splitter port\n\nنعمل إيه دلوقتي؟\n- اعمل speed test مباشرة من الـ ONT (مش من الواي فاي)\n- لو السرعة كويسة من الـ ONT، المشكلة في الـ WiFi\n- لو لسه بطيئة، هنرفع ticket P2 ونبعت engineer"
+      },
+      {
+        "augmented": true,
+        "context": "[1] FAQ: 5G not connecting\n\nأسئلة شائعة - الـ 5G مش بيتصل\n\nسؤال: \"الـ 5G مش بيشتغل على موبايلي\"\n\nالخطوات:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس)\n2. اعمل restart + Airplane mode 30 ثانية\n3. روح Settings → Mobile Network → اختار 5G/4G auto\n4. شوف في الـ OSS لو في congestion في الـ cell site\n\nلو لسه مش بيتصل:\n\"يا فندم، هنعمل remote diagnostics ولو محتاج نرفع ticket\"\n\nLast Updated: March 2026\n\n[2] 5G Throttling Troubleshooting Guide\n\nدليل حل مشاكل الـ 5G Throttling\n\nيا فندم، لو العميل شاكي إن السرعة بطيئة على الـ 5G، نتبع الخطوات دي بالترتيب:\n\nأول حاجة نسأله: \"هل تجاوزت الـ monthly quota بتاعتك؟\" لأن بعد الـ Fair Usage Policy بيحصل throttling تلقائي.\nثانياً، نطلب منه يشيك الـ signal strength: لازم الـ RSRP يكون أفضل من -90 dBm والـ SINR أعلى من 10 dB.\nثالثاً: \"اعمل restart للجهاز، شغل Airplane mode لمدة 30 ثانية، وبعدين re-attach للـ 5G SA network\".\n\n[3] الفئات الرئيسية:\n- Network Issue → 5G Slow Speed / 4G Drop / FTTH Outage / ADSL Problem\n- Billing → Overcharge / Refund Request / Double Billing / Roaming Charges\n- Service Request → New Line Activation / Upgrade Package / Cancellation / Prepaid to Postpaid Migration\n- Technical → Device Not Connecting / App Error / Account Lock / ONT Issue\n- VIP / Retention → Special handling for high-value customers\n\nنصيحة: لو المشكلة فيها أكتر من فئة، اختار الأهم ودوّن التفاصيل في الـ description.\n\n[4] Contract Cancellation Process\n\nإجراءات إلغاء العقد\n\nيا فندم، لما العميل يطلب cancellation، لازم نتبع الإجراء ده عشان نقلل الـ churn ونحاول نعمل retention أولاً.",
+        "question": "إزاي أصلح مشكلة الـ 5G لما مش بيتصل؟",
+        "reasoning": "The user is asking in Arabic how to fix the issue of 5G not connecting. The context provides relevant information in FAQ [1] and guide [2]. I will extract the steps from [1] as it directly addresses the question \"الـ 5G مش بيتصل\". I will present the steps concisely in Arabic, as per the user's language. If the steps don't resolve the issue, I'll mention escalation as indicated in the context.",
+        "answer": "يا فندم، عشان تصلح مشكلة إن الـ 5G مش بيتصل، اتبع الخطوات دي بالترتيب:\n1. تأكد إن جهازك بيدعم 5G SA (مش NSA بس).\n2. اعمل Restart للجهاز، وشغّل Airplane mode لمدة 30 ثانية.\n3. روح على Settings → Mobile Network واختار 5G/4G auto.\n4. لو لسه المشكلة موجودة، بنعمل remote diagnostics ولو لزم الأمر هنرفع ticket للفريق المختص."
+      },
+      {
+        "augmented": true,
+        "context": "[1] FAQ: Refund Request\n\nأسئلة شائعة - طلب استرداد فلوس\n\nسؤال: \"عايز أرجع فلوسي من الفاتورة\"\n\nالرد:\n\"يا فندم، فهمت طلبك. عشان نعمل refund لازم نعمل review للـ usage logs أولاً.\nهفتح ticket P3 دلوقتي وهتابع مع الـ billing team.\nلو الشكوى صحيحة، الـ credit note هيحصل خلال 48 ساعة.\nلو عايز تعرف الخطوات، هقولك التفاصيل.\"\n\nممنوع توعد باسترداد قبل الموافقة.\n\nLast Updated: April 2026\n\n[2] النقاط المهمة:\n- دايماً اطلب الـ Corporate Account ID أو Company Contract Number في أول الاتصال.\n- معظم الشكاوى بتكون متعلقة بـ SD-WAN أو leased lines أو multiple FTTH connections.\n- الـ SLA بتاعهم أقوى: response time 10 دقايق و resolution time 2 ساعات لـ critical issues.\n- لو في outage، ارفع التذكرة كـ P1 فوراً وأبلغ الـ Key Account Manager.\n\n[3] لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support\n\n[4] Corporate Customer Handling Guide\n\nدليل التعامل مع العملاء الـ Corporate\n\nيا فندم، العملاء الـ Corporate (شركات ومؤسسات) ليهم معاملة مختلفة شوية عن العملاء العاديين لأن ARPU بتاعهم عالي وعدد الـ lines كتير.",
+        "question": "إزاي أعمل refund للفاتورة؟",
+        "reasoning": "The user is asking in Arabic how to get a refund for their bill. The context provides a direct FAQ entry [1] that answers this question. It states that a refund requires a review of usage logs first, a P3 ticket will be opened, and if the complaint is valid, a credit note will be issued within 48 hours. It also warns not to promise a refund before approval. I will use this information to formulate a concise, grounded answer in Arabic, as the user asked in Arabic.",
+        "answer": "يا فندم، عشان نعمل استرداد للفاتورة، لازم الأول نعمل مراجعة لسجلات الاستخدام (usage logs). هفتحلك تذكرة (ticket) من نوع P3 وأتابع مع فريق الفوترة. لو الشكوى صحيحة، هتوصلك مذكرة دائنة (credit note) خلال 48 ساعة. أقدر أشرحلك الخطوات بالتفصيل لو حابب."
+      },
+      {
+        "question": "ما المقصود بـ ONT و OLT؟",
+        "ground_truth": "ONT (Optical Network Terminal) هو الجهاز اللي بيتركب عند العميل في الـ FTTH. الـ OLT (Optical Line Terminal) هو الجهاز الرئيسي في الـ central office."
+      }
+    ],
+    "signature": {
+      "instructions": "Answer a NileTel customer-support question using ONLY the provided context.\n\nReply in the same language the user used (Arabic, English, or mixed).\nIf the answer is not in the context, say you don't know and offer to escalate.\nBe concise and grounded — never invent facts.",
+      "fields": [
+        {
+          "prefix": "Context:",
+          "description": "Retrieved KB chunks, separated by newlines."
+        },
+        {
+          "prefix": "Question:",
+          "description": "${question}"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Answer:",
+          "description": "Concise grounded answer in the user's language."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.13",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}
