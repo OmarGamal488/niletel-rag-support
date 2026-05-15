@@ -49,6 +49,13 @@ cp "$ROOT/huggingface/README.md"  "$DEST/README.md"
 cp "$ROOT/huggingface/start.sh"   "$DEST/start.sh"
 chmod +x "$DEST/start.sh"
 
+# Streamlit theme + toolbar config — without this, radio-button labels turn
+# invisible on the default theme and Streamlit shows its dark deploy bar.
+if [ -f "$ROOT/.streamlit/config.toml" ]; then
+    mkdir -p "$DEST/.streamlit"
+    cp "$ROOT/.streamlit/config.toml" "$DEST/.streamlit/config.toml"
+fi
+
 echo "Copying application source..."
 mkdir -p "$DEST/src" "$DEST/api" "$DEST/app" "$DEST/data/raw" "$DEST/scripts" "$DEST/eval"
 # rsync gives us a clean mirror; --delete is intentionally scoped per-folder.
