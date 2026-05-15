@@ -65,7 +65,8 @@ jobs:
           OPENAI_API_KEY: ci-stub
           TAVILY_API_KEY: ci-stub
           LANGFUSE_ENABLED: "false"
-          PROMETHEUS_ENABLED: "false"
+          # Keep ON so test_prometheus_metrics_endpoint can assert /metrics is mounted.
+          PROMETHEUS_ENABLED: "true"
           N8N_WEBHOOK_URL: https://example.invalid/webhook/niletel-ticket
           PII_REDACTION_ENABLED: "true"
           SEMANTIC_CACHE_ENABLED: "false"
