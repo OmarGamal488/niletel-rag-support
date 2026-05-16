@@ -1,6 +1,6 @@
 # NileTel RAG Customer Support System
 
-> Bilingual (Egyptian Arabic + English) Retrieval-Augmented Generation system for a fictional Egyptian telecom — routes customer queries, grounds answers in a 35-doc knowledge base, and auto-creates support tickets via n8n.
+> Bilingual (Egyptian Arabic + English) Retrieval-Augmented Generation system for a fictional Egyptian telecom — routes customer queries, grounds answers in a 54-doc knowledge base, and auto-creates support tickets via n8n.
 
 **Author** — Omar Gamal ElKady · ITI Advanced AI Program · Intake 46 · May 2026
 **Stack** — FastAPI · LangGraph · LangChain · ChromaDB + BM25 + RRF · DSPy · RAGAS · Streamlit · n8n · Docker
@@ -68,7 +68,7 @@ flowchart LR
         end
     end
 
-    KB[("ChromaDB + BM25<br/>35 docs · Contextual<br/>Retrieval")]
+    KB[("ChromaDB + BM25<br/>54 docs · 218 chunks<br/>Contextual Retrieval")]
     LLM[("Lightning AI<br/>DeepSeek V4 Pro")]
 
     subgraph N8N["n8n Cloud Workflow"]
@@ -145,14 +145,16 @@ When the LangGraph ticketer fires, it POSTs to a cloud n8n workflow that handles
 | **Memory** | Per-session chat history + pending-complaint store |
 | **Agents** | Triad eval (judge + audit), action agent (ReAct + Tavily web fallback), tool agent |
 | **DSPy** | `BootstrapFewShot`-optimised `SupportRAG` module (`eval/dspy_compiled.json`) |
-| **Streaming** | SSE endpoint `POST /query/stream` |
+| **Streaming** | SSE endpoint `POST /query/stream` (emits per-chunk JSON + closing metadata event); Streamlit consumes it with a `▌` cursor + instant-feedback rerun so the user's bubble appears on submit, not after the LLM finishes |
 | **API** | FastAPI: `/query`, `/query/stream`, `/health`, `/metrics`, `/stats`, `DELETE /history/{sid}` |
-| **Frontend** | Streamlit chat UI with sidebar (provider / retrieval-mode toggles), source cards, ticket badge, RAGAS panel |
-| **Automation** | n8n workflow (8 nodes) with duplicate detection + dual email + Telegram alerts |
-| **Observability** | Langfuse (LLM traces) + Prometheus (metrics) + Grafana (8-panel dashboard) |
-| **Testing** | pytest suite — router / retriever / ingestion / graph / API / contact / memory / tracer |
-| **CI/CD** | GitHub Actions — ruff lint, pytest, Docker build smoke, GHCR publish on tag |
-| **Demo tooling** | Cloudflare Quick Tunnel script (no ngrok warning page) |
+| **Frontend** | Streamlit chat UI with sidebar (retrieval-mode toggle, backend toggle, conversation clear), source cards, ticket badge, RAGAS panel |
+| **CRM tools** | Consolidated to two tools — `get_account_status(msisdn)` (identity + plan + balance + open tickets in one call) and `escalate_to_human(msisdn, reason, priority)` — both keyed on phone, no chained lookups (Vercel d0 reduction pattern) |
+| **Automation** | n8n workflow (9 nodes) with duplicate detection + dual email + Telegram alerts |
+| **Observability** | Langfuse (LLM traces, 30 s OTLP timeout) + Prometheus (metrics) + Grafana (8-panel dashboard) |
+| **Eval modes** | Default fast live mode + `--eval-mode` flag flips Chain-of-Verification, CRAG, and triad-eval on for one run only |
+| **Testing** | pytest suite (97 tests) — router / retriever / ingestion / graph / API / contact / memory / tracer / tools |
+| **CI/CD** | GitHub Actions — ruff lint, pytest, Docker build smoke (`ci.yml`), GHCR publish on tag (`release.yml`), auto-deploy to HF Spaces on push to main (`deploy_hf.yml`) |
+| **Demo tooling** | Cloudflare Quick Tunnel wrapper (`scripts/demo_tunnel.sh`, no ngrok warning page) + HF Space deploy script (`scripts/deploy_hf.sh`) + bulk variable provisioner (`scripts/setup_hf_space.py`) |
 
 ## Quickstart
 
@@ -237,24 +239,39 @@ The public URL is **<https://omargamal48812-niletel-rag-support.hf.space/>**.
 
 ## Knowledge base
 
-`data/raw/` holds 35 Markdown documents (~140 KB) covering FAQs, escalation matrices, fiber/5G troubleshooting, NTRA regulations, VIP / golden-customer SLAs, NileTel Eid + Ramadan + back-to-school offers, contract cancellation, and supervisor-only goodwill credit policy. Documents are bilingual — most chunks contain a mix of Egyptian Arabic and English.
+`data/raw/` holds **54 Markdown documents (~236 KB)** spanning:
 
-Re-run `python -m src.ingestion` after editing any file in `data/raw/`. With `CONTEXTUAL_RETRIEVAL=true`, the ingester prepends an LLM-generated one-sentence context to each chunk before embedding (Anthropic Contextual Retrieval, Sep 2024).
+- **Network troubleshooting** — 5G, FTTH, ONT, ADSL legacy, modem/router firmware
+- **Billing** — disputes, refunds, goodwill credits, auto-pay, roaming fraud, outage compensation
+- **Plans + offers** — Ramadan / Eid / back-to-school, student/youth, family plans, data-only / MiFi, IoT/M2M SIMs
+- **Compliance / NTRA** — consumer-rights timeline, KYC onboarding, data privacy, audit logging, lawful intercept
+- **Corporate / B2B** — account-manager workflow, static-IP allocation, SLAs by tier
+- **Devices** — supported hardware, replacement + warranty policy
+- **Operations** — escalation matrix, field-engineer dispatch, peak-hour management, agent shift-handover, win-back / churn-prevention
+- **Numbering** — mobile number portability (MNP), premium-number reservation
+
+Documents are bilingual — most chunks contain a mix of Egyptian Arabic and English. Re-run `python -m src.ingestion` after editing any file in `data/raw/`. With `CONTEXTUAL_RETRIEVAL=true`, the ingester prepends an LLM-generated one-sentence context to each chunk before embedding (Anthropic Contextual Retrieval, Sep 2024) — applied to 213 / 218 chunks in the current index.
 
 ## Evaluation
 
-A 11-question evaluation set (`eval/ragas_testset.json`, bilingual, covers all 4 categories) was run via `src/evaluator.py`. Latest report at `eval/ragas_report.json` (provider: Lightning AI · `deepseek-v4-pro`):
+A **27-question bilingual testset** (`eval/ragas_testset.json`, covers all 4 categories + new-doc coverage) is run via `src/evaluator.py`. Latest report at `eval/ragas_report.json` (provider: Lightning AI · `deepseek-v4-pro`):
 
-| Metric | Score |
-|---|---|
-| Routing accuracy | **1.00** |
-| Retrieval hit-rate | 0.71 |
-| Faithfulness | 0.57 |
-| Answer relevancy | 0.62 |
-| Context precision | 0.54 |
-| Context recall | 0.60 |
+| Metric | Score (54-doc + Contextual Retrieval) | Baseline (35-doc) |
+|---|---|---|
+| Routing accuracy | **0.96** | 1.00 |
+| Retrieval hit-rate | **0.86** | 0.71 (+15 pp) |
+| Faithfulness | **0.82** | 0.57 (+25 pp) |
+| Answer relevancy | **0.75** | 0.62 (+13 pp) |
+| Context recall | **0.62** | 0.60 |
+| Context precision | 0.29 | 0.54 |
 
-These are pre-Contextual-Retrieval numbers; the index was rebuilt with Contextual Retrieval on after this report. A fresh evaluation pass is the natural next step.
+The expanded KB + Contextual Retrieval lifted faithfulness by 25 pp and retrieval hit-rate by 15 pp. Context precision regressed under a larger candidate pool combined with sporadic free-tier rate-limit failures during scoring; a paid-tier re-run is the natural next step.
+
+Use the eval-mode flag to enable Chain-of-Verification + CRAG + triad eval for one run (slower but higher-quality RAGAS numbers):
+
+```bash
+./.venv/bin/python -m src.evaluator --eval-mode --throttle 30
+```
 
 ## Testing
 
@@ -294,31 +311,36 @@ All settings flow through `src/config.py` (Pydantic-settings + `.env`). Notable 
 | `RETRIEVAL_MODE` | `hybrid` \| `hyde` \| `rag_fusion` |
 | `PII_REDACTION_ENABLED` | Strip + restore phone/email/national-id |
 | `SEMANTIC_CACHE_ENABLED` | Embedding-based query cache |
-| `TRIAD_EVAL_ENABLED` | Faithfulness audit on every answer |
+| `TRIAD_EVAL_ENABLED` | Faithfulness audit on every answer (~+3-6 s/query) |
+| `CHAIN_OF_VERIFICATION` | CoVe verify-then-revise (~+5-10 s/query — off by default; eval-mode only) |
+| `CRAG_ENABLED` | Corrective RAG evaluator (~+3-6 s/query — off by default; eval-mode only) |
 | `TOOL_AGENT_ENABLED` | ReAct action agent with Tavily fallback |
 | `LANGFUSE_ENABLED` / `PROMETHEUS_ENABLED` | Observability toggles |
 | `N8N_WEBHOOK_URL` | Cloud n8n webhook for ticket creation |
+| `OTEL_EXPORTER_OTLP_TIMEOUT` | Langfuse trace-export timeout (defaults to 30 s, overrides the OTLP exporter's 5 s default to avoid noisy log spam when Langfuse Cloud is slow) |
 
-See `.env.example` for the full list.
+See `.env.example` for the full list. Two-mode pattern: keep `RERANKER_ENABLED`, `CHAIN_OF_VERIFICATION`, `CRAG_ENABLED` off for live demos (fast); flip them on via `python -m src.evaluator --eval-mode` for the highest-quality RAGAS run.
 
 ## Project structure
 
 ```
 niletel-rag-support/
-├── api/                 FastAPI app, schemas, deps
-├── app/                 Streamlit UI + HTML components
-├── data/raw/            35 KB markdown docs
-├── eval/                RAGAS testset + report + DSPy compiled artefact
-├── infra/observability/ Prometheus + Grafana docker-compose
-├── scripts/             demo launcher, tunnel, n8n smoke / setup, integration test
+├── api/                 FastAPI app, schemas, metrics
+├── app/                 Streamlit UI + HTML components + CSS
+├── data/raw/            54 bilingual markdown docs (KB)
+├── eval/                RAGAS testset (27 q) + report + DSPy compiled artefact
+├── huggingface/         HF Space overlay — Dockerfile, start.sh, README frontmatter
+├── infra/observability/ Prometheus + Grafana docker-compose (local only)
+├── scripts/             demo_tunnel, deploy_hf, setup_hf_space, start_demo,
+│                        test_n8n, test_integration, setup_n8n
 ├── src/                 ingestion, retriever, router, nodes, graph,
 │                        contact, memory, pii, ticketer, observability, tracer,
 │                        evaluator, triad_eval, dspy_module, cache, tools, agent
-├── tests/               pytest unit + integration
-├── .github/workflows/   ci.yml + release.yml
+├── tests/               pytest unit + integration (97 tests)
+├── docs/                images + assets referenced from README
+├── .github/workflows/   ci.yml + release.yml + deploy_hf.yml
 ├── Dockerfile           multi-stage: base → deps → source → {api, streamlit}
-├── docker-compose.yml   ingest + api + streamlit services
-└── CLAUDE.md            engineering notes / runbook
+└── docker-compose.yml   ingest + api + streamlit services
 ```
 
 ## Acknowledgements
