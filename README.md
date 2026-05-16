@@ -24,6 +24,12 @@
 
 ---
 
+## Demo
+
+https://github.com/user-attachments/assets/44dfaf3c-f51e-4d2f-9324-37ae04f00701
+
+A short walkthrough showing all four query types (INFO / COMPLAINT / GREETING / OUT_OF_SCOPE), the bilingual Egyptian-Arabic + English answers, source-card citations, and the COMPLAINT → n8n round-trip that creates a Google Sheets ticket plus customer + agent emails and a Telegram team alert.
+
 ## What it does
 
 A user asks a question in Arabic or English. The system:
@@ -154,7 +160,7 @@ When the LangGraph ticketer fires, it POSTs to a cloud n8n workflow that handles
 
 - Python 3.13+
 - [uv](https://docs.astral.sh/uv/) (`curl -LsSf https://astral.sh/uv/install.sh | sh`)
-- An LLM provider key — Lightning AI / Groq / DeepSeek (any OpenAI-compatible chat endpoint)
+- A Lightning AI API key (the project uses Lightning's OpenAI-compatible endpoint to call DeepSeek V4 Pro)
 - *(optional)* n8n cloud workflow for ticketing, Tavily key for web fallback
 
 ### Local (uv)
@@ -281,7 +287,7 @@ All settings flow through `src/config.py` (Pydantic-settings + `.env`). Notable 
 
 | Var | Purpose |
 |---|---|
-| `LLM_PROVIDER` | `lightning` \| `groq` \| `deepseek` |
+| `LLM_PROVIDER` | `lightning` (only supported provider) |
 | `CONTEXTUAL_RETRIEVAL` | Anthropic-style contextual chunking on ingest |
 | `LONG_CONTEXT_REORDER` | Reorder retrieved chunks to head + tail |
 | `RERANKER_ENABLED` | bge-reranker-v2-m3 cross-encoder (≈6 s/query on CPU — keep off without GPU) |
