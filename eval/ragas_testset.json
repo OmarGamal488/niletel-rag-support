@@ -64,5 +64,101 @@
     "ground_truth": "",
     "expected_source": null,
     "expected_category": "OUT_OF_SCOPE"
+  },
+  {
+    "question": "إزاي أنقل رقمي من Vodafone لـ NileTel؟",
+    "ground_truth": "محتاج تجيب الـ UPC (Unique Porting Code) من Vodafone بالاتصال بـ *888#، تيجي للفرع ومعاك ID + الـ SIM القديمة + UPC + 50 جنيه رسوم MNP. الـ porting بياخد 24-48 ساعة. لو الـ UPC منتهي (صالح 30 يوم) أو في balance سالب أو عقد مش خلصان، الطلب بيترفض.",
+    "expected_source": "number_portability_mnp.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "What documents do I need to activate a new NileTel line?",
+    "ground_truth": "You need an original valid National ID, a clear ID scan from both sides, a live selfie holding the ID (mandatory since 2025), and proof of address if your ID address differs from the service location. The face match must score above 85% confidence. Egyptian adults can hold up to 4 lines; foreign residents up to 2 with a valid residence permit.",
+    "expected_source": "kyc_new_customer_onboarding.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "إزاي أفعل Auto-Pay على باقتي؟",
+    "ground_truth": "تقدر تفعّلها من Self-Care App: Billing → Auto-Pay → Setup. اختار طريقة الدفع (بطاقة Visa/MasterCard، محفظة Vodafone Cash/InstaPay/Fawry، أو Direct Debit من البنك). النظام بيعمل pre-auth 1 جنيه للتحقق وبيرجعها. الـ charge بيحصل يوم 5 من كل شهر. لو فعلت Auto-Pay بتاخد 5% خصم على باقتك.",
+    "expected_source": "autopay_recurring_billing.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "فاتورة الـ roaming جت 5000 جنيه وأنا مسافرتش، أعمل إيه؟!",
+    "ground_truth": "",
+    "expected_source": "roaming_fraud_prevention.md",
+    "expected_category": "COMPLAINT"
+  },
+  {
+    "question": "What is the difference between Platinum and Gold corporate SLA?",
+    "ground_truth": "Platinum SLA targets 99.95% uptime with a 2-hour MTTR and 10% service credit per hour of downtime. Gold targets 99.9% uptime with a 4-hour MTTR and 5% credit per hour. Platinum customers get dedicated 24/7 NOC support; Gold customers get business-hours support. Both tiers include a dedicated Account Manager and quarterly business reviews.",
+    "expected_source": "corporate_account_management.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "كام سعر باقة الـ IoT للـ POS machines؟",
+    "ground_truth": "باقة Standard-IoT المناسبة للـ POS بـ 80 جنيه/شهر وبتشمل 1 جيجا. لو محتاج شوية مرونة، عندنا Heavy-IoT بـ 300 جنيه/شهر مع 10 جيجا. التفعيل bulk لـ 50+ SIMs بياخد 24 ساعة عبر الـ IoT Provisioning Portal، والـ activation مرتبط بحسابك التجاري مش بكل device لوحده.",
+    "expected_source": "iot_m2m_sim_activation.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "أنا طالب في الجامعة، إيه الباقات المتاحة لي؟",
+    "ground_truth": "عندنا 3 باقات للطلاب: Student Mobile بـ 50 جنيه/شهر تشمل unlimited social media + 10 جيجا + unlimited calls داخل الشبكة + 200 دقيقة لشبكات تانية؛ Student FTTH بـ 250 جنيه/شهر للـ 100 ميجا (بدل 350) مع free installation؛ و Student Combo (Mobile + Home) بخصم 30% + Disney+ مجاناً 6 شهور. محتاج Student ID ساري + شهادة قيد + تحت 26 سنة.",
+    "expected_source": "student_youth_plans.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "How much does a 100 GB MiFi plan cost?",
+    "ground_truth": "The Tablet/MiFi plan with 100 GB postpaid costs 80 EGP/month. For MiFi specifically, the 75 EGP/month plan gives you 80 GB with a 50 Mbps speed cap. If you want a MiFi + device bundle, the Huawei E5577 4G MiFi with 100 GB for 6 months costs 1,200 EGP total. Activation fee is 50 EGP (refundable on plans above 100 EGP/month).",
+    "expected_source": "data_only_sim_mifi.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "الـ router بتاعي عنده مشكلة بعد update الـ firmware",
+    "ground_truth": "60% من الـ firmware issues بترجع لـ wrong configuration بعد الـ update. أول حاجة شيك الـ current version من web UI (192.168.1.1 → Status → System Info). لو الجهاز Huawei HG8245H مع firmware V3R017C10S210 ده memory leak معروف، لازم rollback أو update لـ V3R019. لو Boot loop، الـ rollback firmware متاح في الـ ACS. ولو ZTE F660 ده ما يقبلش remote update، الحل replacement device.",
+    "expected_source": "modem_firmware_update.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "كام الـ NTRA timeline لحل شكاوى الفواتير؟",
+    "ground_truth": "حسب NTRA Regulation 247/2024، شكاوى الفواتير لازم تتحل في timeline ملزم: First response في ساعة (call) أو 4 ساعات (ticket)، Investigation 7 أيام عمل، Resolution 14 يوم عمل كحد أقصى، و Refund processing في 30 يوم. لو ما اتحلتش في الـ timeline، العميل من حقه يقدم شكوى مباشرة للـ NTRA. أي تأخير بيعرضنا لغرامة من 5000 لـ 50000 جنيه.",
+    "expected_source": "consumer_rights_complaint_timeline.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "ما هي رسوم Static IP للشركات؟",
+    "ground_truth": "Single Static IP (/32): 50 جنيه/شهر، Self-Service approval خلال 24 ساعة. Small Block (/30) بـ 4 IPs (2 usable): 150 جنيه/شهر مع AM signature في 48 ساعة. Medium Block (/29) بـ 8 IPs (6 usable): 350 جنيه/شهر مع technical review في 5 أيام عمل. Large Block (/28 أو أكبر): custom pricing، 2-4 أسابيع للموافقة مع NTRA notification.",
+    "expected_source": "static_ip_business_allocation.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "إزاي أحجز رقم مميز؟",
+    "ground_truth": "تختار من الـ available pool في NileTel App اللي بيتجدد كل ساعة. الحجز صالح 48 ساعة بدون دفع أو 7 أيام بـ 10% deposit. الأسعار: Premium Tier 1 (golden numbers زي 01000000001) من 50,000 لـ 500,000 جنيه؛ Special Tier 2 (ست أرقام متكررة) من 5,000 لـ 25,000 جنيه؛ Premium-Lite من 1,000 لـ 3,000 جنيه. كل عميل max 3 أرقام Premium في نفس الوقت.",
+    "expected_source": "number_reservation_policy.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "الانترنت قطع عندي لـ 3 أيام، كام التعويض المستحق؟",
+    "ground_truth": "حسب الـ outage compensation policy: التعويض = (الفاتورة الشهرية/30) × عدد أيام الانقطاع × Multiplier. للانقطاع 24-72 ساعة الـ multiplier 1.5x، فلو فاتورتك 200 جنيه/شهر هياخد العميل تقريباً 30 جنيه. زائد 100 جنيه goodwill credit للانقطاع فوق 48 ساعة. الـ credit بيتطبق تلقائي في فاتورة الشهر التالي من بيانات الـ network monitoring، من غير ما العميل يحتاج يطلب.",
+    "expected_source": "outage_compensation_policy.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "إزاي أضيف member للـ family plan بتاعي؟",
+    "ground_truth": "من Self-Care App: Family → Add Member → اكتب رقم الموبايل أو اطلب SIM جديدة. لو الرقم في NileTel، invitation SMS بيتبعت للـ member للموافقة + يدخل OTP. الـ line بتتحول للـ Family Plan في 24 ساعة وبيحتفظ بنفس الرقم. للأعضاء تحت 18 محتاج parental consent + birth certificate. الـ NTRA Reg 89/2024 بتلزمنا إن الـ family plan يكون لـ family ties فعلية مش أصدقاء.",
+    "expected_source": "family_plan_management.md",
+    "expected_category": "INFO"
+  },
+  {
+    "question": "الـ ADSL عندي بطيء جداً!",
+    "ground_truth": "",
+    "expected_source": "adsl_legacy_troubleshooting.md",
+    "expected_category": "COMPLAINT"
+  },
+  {
+    "question": "What's the meaning of life?",
+    "ground_truth": "",
+    "expected_source": null,
+    "expected_category": "OUT_OF_SCOPE"
   }
 ]

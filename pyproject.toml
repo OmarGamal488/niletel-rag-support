@@ -9,7 +9,6 @@ dependencies = [
     "copilotkit>=0.1.88",
     "dspy-ai>=3.2.1",
     "fastapi>=0.136.1",
-    "groq>=1.2.0",
     "httpx>=0.28.1",
     "langchain>=1.2.17",
     "langchain-chroma>=1.1.0",

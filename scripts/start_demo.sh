@@ -108,16 +108,28 @@ esac
 stop_existing
 : > "$PID_FILE"
 
+# Resolve a Python that won't re-sync the lockfile every launch.
+# `uv run` is convenient but it pulls from uv.lock, which pins the
+# torch wheel; when local torch has been switched (e.g. CPU build after a
+# CUDA mismatch) `uv run` will silently re-install the wheel from the
+# lock and break the next call. Prefer the venv Python directly when it
+# exists.
+if [[ -x "./.venv/bin/python" ]]; then
+  PY="./.venv/bin/python"
+else
+  PY="uv run python"   # fallback for fresh checkouts
+fi
+
 echo "› starting FastAPI on :$API_PORT  (log: $API_LOG)"
 # Bind to 0.0.0.0 so the Prometheus container can reach /metrics via
 # host.docker.internal (Linux: host-gateway → 172.17.0.1). 127.0.0.1
 # only accepts loopback connections and Docker containers don't qualify.
-uv run uvicorn api.main:app --host 0.0.0.0 --port "$API_PORT" > "$API_LOG" 2>&1 &
+$PY -m uvicorn api.main:app --host 0.0.0.0 --port "$API_PORT" > "$API_LOG" 2>&1 &
 echo $! >> "$PID_FILE"
 
 if [[ "$FRONTEND" == "streamlit" || "$FRONTEND" == "both" ]]; then
   echo "› starting Streamlit on :$UI_PORT (log: $UI_LOG)"
-  uv run streamlit run app/streamlit_app.py \
+  $PY -m streamlit run app/streamlit_app.py \
     --server.port "$UI_PORT" --server.headless true > "$UI_LOG" 2>&1 &
   echo $! >> "$PID_FILE"
 fi

@@ -1,7 +1,9 @@
-"""LLM factory — swap providers via the LLM_PROVIDER env var.
+"""LLM factory — Lightning AI inference (DeepSeek V4 Pro).
 
-All three providers expose an OpenAI-compatible chat completions API,
-so a single ChatOpenAI client (with the right base_url) handles them.
+Lightning exposes an OpenAI-compatible chat completions API at
+`LIGHTNING_BASE_URL`, so a single LangChain `ChatOpenAI` client handles
+it. The model is whatever `LIGHTNING_MODEL` points at — in this project,
+`lightning-ai/deepseek-v4-pro`.
 """
 
 from __future__ import annotations
@@ -12,47 +14,17 @@ from langchain_openai import ChatOpenAI
 
 from src.config import settings
 
-PROVIDER_DEFAULTS = {
-    "groq": {
-        "base_url": "https://api.groq.com/openai/v1",
-        "default_model": "llama-3.1-70b-versatile",
-    },
-    "deepseek": {
-        "base_url": "https://api.deepseek.com/v1",
-        "default_model": "deepseek-chat",
-    },
-    "lightning": {
-        "base_url": None,  # user must set LIGHTNING_BASE_URL
-        "default_model": None,  # user must set LIGHTNING_MODEL
-    },
-}
-
 
 def _resolve() -> tuple[str, str, str]:
-    p = settings.llm_provider
-    if p == "groq":
-        return (
-            settings.groq_api_key,
-            PROVIDER_DEFAULTS["groq"]["base_url"],
-            settings.llm_model or PROVIDER_DEFAULTS["groq"]["default_model"],
+    if not settings.lightning_base_url or not settings.lightning_model:
+        raise ValueError(
+            "Lightning AI requires LIGHTNING_BASE_URL and LIGHTNING_MODEL in .env"
         )
-    if p == "deepseek":
-        return (
-            settings.deepseek_api_key,
-            PROVIDER_DEFAULTS["deepseek"]["base_url"],
-            settings.llm_model or PROVIDER_DEFAULTS["deepseek"]["default_model"],
-        )
-    if p == "lightning":
-        if not settings.lightning_base_url or not settings.lightning_model:
-            raise ValueError(
-                "Lightning AI requires LIGHTNING_BASE_URL and LIGHTNING_MODEL in .env"
-            )
-        return (
-            settings.lightning_api_key,
-            settings.lightning_base_url,
-            settings.lightning_model,
-        )
-    raise ValueError(f"Unknown LLM_PROVIDER: {p}")
+    return (
+        settings.lightning_api_key,
+        settings.lightning_base_url,
+        settings.lightning_model,
+    )
 
 
 @lru_cache(maxsize=1)

@@ -60,9 +60,6 @@ jobs:
           LIGHTNING_API_KEY: ci-stub
           LIGHTNING_BASE_URL: https://example.invalid/v1/
           LIGHTNING_MODEL: ci-stub-model
-          GROQ_API_KEY: ci-stub
-          DEEPSEEK_API_KEY: ci-stub
-          OPENAI_API_KEY: ci-stub
           TAVILY_API_KEY: ci-stub
           LANGFUSE_ENABLED: "false"
           # Keep ON so test_prometheus_metrics_endpoint can assert /metrics is mounted.

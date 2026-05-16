@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import time
 from datetime import datetime
 from pathlib import Path
@@ -49,7 +50,38 @@ def _run_graph_on_testset(
         logger.info("[%d/%d] %s", i, len(items), item["question"][:60])
         if i > 1:
             time.sleep(throttle_s)
-        result = graph.invoke({"query": item["question"]})
+
+        # Exponential-backoff retry — Lightning's free tier rate-limits
+        # sporadically and one transient 429 used to kill the whole run.
+        result: dict[str, Any] | None = None
+        delay = 4.0
+        for attempt in range(4):
+            try:
+                result = graph.invoke({"query": item["question"]})
+                break
+            except Exception as exc:  # noqa: BLE001
+                msg = str(exc).lower()
+                transient = (
+                    "rate" in msg
+                    or "429" in msg
+                    or "timeout" in msg
+                    or "503" in msg
+                    or "overload" in msg
+                )
+                if attempt == 3 or not transient:
+                    logger.warning(
+                        "[%d/%d] giving up after %d attempts (%s) — skipping",
+                        i, len(items), attempt + 1, exc.__class__.__name__,
+                    )
+                    result = {"_error": str(exc)[:200]}
+                    break
+                logger.warning(
+                    "[%d/%d] %s — sleeping %.0fs then retrying",
+                    i, len(items), exc.__class__.__name__, delay,
+                )
+                time.sleep(delay)
+                delay *= 2  # 4 → 8 → 16 → 32 s
+
         rows.append(
             {
                 "question": item["question"],
@@ -66,6 +98,7 @@ def _run_graph_on_testset(
                 "expected_source": item.get("expected_source"),
                 "ground_truth": item.get("ground_truth", ""),
                 "ticket_id": result.get("ticket_id"),
+                "error": result.get("_error"),
             }
         )
     return rows
@@ -160,9 +193,7 @@ def run_evaluation(
     report = {
         "timestamp": datetime.utcnow().isoformat(),
         "provider": settings.llm_provider,
-        "model": settings.lightning_model
-        if settings.llm_provider == "lightning"
-        else settings.llm_model,
+        "model": settings.lightning_model,
         "n_items": len(rows),
         "routing": _routing_accuracy(rows),
         "retrieval": _retrieval_hit_rate(rows),
@@ -170,6 +201,24 @@ def run_evaluation(
         "items": rows,
     }
     return report
+
+
+def _enable_eval_mode() -> None:
+    """Flip on the validation flags (triad_eval + CoVe + CRAG) for one run.
+
+    Live demo runs leave these off to keep COMPLAINT latency at ~5–10 s;
+    RAGAS evaluation runs flip them on for the highest quality numbers
+    in the report. Direct mutation works because the relevant nodes read
+    `settings.X` at call time rather than caching the values at import.
+    """
+    from src.config import settings
+
+    settings.triad_eval_enabled = True
+    settings.chain_of_verification = True
+    settings.crag_enabled = True
+    logger.info(
+        "EVAL_MODE: triad_eval + chain_of_verification + crag → ON for this run"
+    )
 
 
 def main() -> None:
@@ -188,7 +237,20 @@ def main() -> None:
         default=1.5,
         help="Seconds to wait between items (avoids API rate limits).",
     )
+    parser.add_argument(
+        "--eval-mode",
+        action="store_true",
+        help=(
+            "Enable triad_eval + chain_of_verification + CRAG for this run "
+            "only (best RAGAS numbers but slower)."
+        ),
+    )
     args = parser.parse_args()
+
+    # Honour either the CLI flag or the EVAL_MODE env var so the eval can
+    # be run in two-mode style without code changes.
+    if args.eval_mode or os.environ.get("EVAL_MODE", "").lower() in {"1", "true", "yes"}:
+        _enable_eval_mode()
 
     report = run_evaluation(
         testset_path=args.testset, quick=args.quick, throttle_s=args.throttle

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 import time
 from contextlib import asynccontextmanager
@@ -43,7 +44,10 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     build_graph()  # cached compile so first request is fast
-    logger.info("Graph compiled. Provider=%s model=%s", settings.llm_provider, settings.llm_model)
+    logger.info(
+        "Graph compiled. Provider=%s model=%s",
+        settings.llm_provider, settings.lightning_model,
+    )
     yield
 
 
@@ -246,14 +250,10 @@ def _invoke_graph(req: QueryRequest) -> dict:
 
 @app.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
-    if settings.llm_provider == "lightning" and settings.lightning_model:
-        active_model = settings.lightning_model
-    else:
-        active_model = settings.llm_model
     return HealthResponse(
         status="ok",
         provider=settings.llm_provider,
-        model=active_model,
+        model=settings.lightning_model or "(unset)",
     )
 
 
@@ -305,21 +305,71 @@ def query_endpoint(req: QueryRequest) -> QueryResponse:
 
 @app.post("/query/stream")
 async def query_stream(req: QueryRequest) -> StreamingResponse:
-    """SSE stream — emits the final answer in chunks. (Token-level streaming
-    requires the LLM client to support it; this implementation is a simple
-    chunked replay so downstream UIs can hook in immediately.)"""
+    """SSE stream — emits the final answer in chunks plus a closing event
+    carrying the metadata the UI needs (category, ticket_id, source docs,
+    awaiting_contact). Each `data: ...` line is a JSON object so the client
+    just needs `json.loads` per line:
+
+      {"type": "chunk", "text": "..."}      # repeated, ~40 char chunks
+      {"type": "done",
+       "category": "INFO",
+       "ticket_id": null,
+       "awaiting_contact": false,
+       "source_docs": [{"source": "...", "snippet": "...", "score": ...}]}
+
+    Token-level streaming would require the LLM client to expose deltas;
+    this implementation runs the graph to completion and then replays the
+    answer so the UI feels progressive without needing a graph rewrite.
+    """
 
     async def event_gen():
         loop = asyncio.get_running_loop()
-        result = await loop.run_in_executor(None, lambda: _invoke_graph(req))
+        try:
+            result = await loop.run_in_executor(None, lambda: _invoke_graph(req))
+        except Exception as exc:  # noqa: BLE001 — surface every failure to the client
+            err_payload = {
+                "type": "error",
+                "message": f"{exc.__class__.__name__}: {str(exc)[:300]}",
+            }
+            yield f"data: {json.dumps(err_payload, ensure_ascii=False)}\n\n"
+            return
+
         answer = result.get("answer", "")
         chunk_size = 40
         for i in range(0, len(answer), chunk_size):
-            yield f"data: {answer[i : i + chunk_size]}\n\n"
+            payload = {"type": "chunk", "text": answer[i : i + chunk_size]}
+            yield f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
             await asyncio.sleep(0.02)
-        yield "data: [DONE]\n\n"
 
-    return StreamingResponse(event_gen(), media_type="text/event-stream")
+        source_docs = [
+            {
+                "source": d.metadata.get("source", "?"),
+                "snippet": d.page_content[:400],
+                "score": d.metadata.get("score"),
+            }
+            for d in result.get("context_docs", []) or []
+        ]
+        done = {
+            "type": "done",
+            "category": result.get("category", "INFO"),
+            "ticket_id": result.get("ticket_id"),
+            "awaiting_contact": bool(result.get("awaiting_contact")),
+            "source_docs": source_docs,
+        }
+        yield f"data: {json.dumps(done, ensure_ascii=False)}\n\n"
+
+    # Headers prevent intermediaries (ngrok, nginx, gateways) from buffering
+    # the SSE stream — without them the client can sit blank for seconds
+    # because the proxy holds bytes back until it sees a full response.
+    return StreamingResponse(
+        event_gen(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache, no-transform",
+            "X-Accel-Buffering": "no",          # nginx-friendly
+            "Connection": "keep-alive",
+        },
+    )
 
 
 @app.get("/history/{session_id}", response_model=HistoryResponse)

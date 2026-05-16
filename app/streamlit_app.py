@@ -92,14 +92,6 @@ def render_source_cards_html(sources: list[dict]) -> str:
 
 DEFAULT_API = os.getenv("API_URL", "http://localhost:8000")
 
-EXAMPLES = [
-    "How do I check my data balance?",
-    "إزاي أغير باقتي للشهر الجاي؟",
-    "My internet has been down for 3 days, this is unacceptable",
-    "أهلاً، إزيك؟",
-    "Who won the football match last night?",
-]
-
 st.set_page_config(
     page_title="NileTel Support",
     page_icon="📞",
@@ -137,6 +129,87 @@ def call_backend(query: str) -> dict:
     )
     r.raise_for_status()
     return r.json()
+
+
+def call_backend_streaming(query: str, placeholder) -> dict:
+    """Use the SSE /query/stream endpoint and update `placeholder` as the
+    answer flows in. Returns the same dict shape as `call_backend` once
+    the closing `done` event lands.
+
+    Handles three terminal states the server may emit:
+      * `done`  — happy path, full metadata included
+      * `error` — graph raised (rate limit, timeout, etc.); shows the
+                  error to the user instead of silently hanging
+      * exception during the stream — falls back to the non-streaming
+                  POST so the message still lands in the transcript
+    """
+    import json as _json
+
+    answer_so_far = ""
+    metadata: dict = {}
+    server_error: str | None = None
+    try:
+        with httpx.stream(
+            "POST",
+            f"{st.session_state.api_url}/query/stream",
+            json={"query": query, "session_id": st.session_state.session_id},
+            timeout=120.0,
+        ) as r:
+            r.raise_for_status()
+            for raw in r.iter_lines():
+                if not raw or not raw.startswith("data: "):
+                    continue
+                try:
+                    payload = _json.loads(raw[6:])
+                except _json.JSONDecodeError:
+                    continue
+                kind = payload.get("type")
+                if kind == "chunk":
+                    answer_so_far += payload.get("text", "")
+                    placeholder.markdown(answer_so_far + " ▌")
+                elif kind == "error":
+                    server_error = payload.get("message", "unknown server error")
+                    break
+                elif kind == "done":
+                    metadata = payload
+                    break
+    except Exception:
+        # Stream broke at the transport layer — fall back to blocking.
+        return call_backend(query)
+
+    if server_error is not None:
+        msg = f"⚠️ Backend error: {server_error}"
+        placeholder.markdown(msg)
+        return {
+            "answer": msg,
+            "category": "OUT_OF_SCOPE",
+            "ticket_id": None,
+            "awaiting_contact": False,
+            "source_docs": [],
+        }
+
+    # If the stream closed without a `done` event the server hung up
+    # mid-response (proxy timeout, etc.). Surface that explicitly rather
+    # than rendering an empty bubble.
+    if not metadata:
+        msg = answer_so_far or "⚠️ No response received from backend."
+        placeholder.markdown(msg)
+        return {
+            "answer": msg,
+            "category": "OUT_OF_SCOPE",
+            "ticket_id": None,
+            "awaiting_contact": False,
+            "source_docs": [],
+        }
+
+    placeholder.markdown(answer_so_far)
+    return {
+        "answer": answer_so_far,
+        "category": metadata.get("category", "INFO"),
+        "ticket_id": metadata.get("ticket_id"),
+        "awaiting_contact": metadata.get("awaiting_contact", False),
+        "source_docs": metadata.get("source_docs", []),
+    }
 
 
 def call_graph_direct(query: str) -> dict:
@@ -271,11 +344,6 @@ with st.sidebar:
                 pass
         st.rerun()
 
-    st.markdown('<span class="nt-side-label">Examples</span>', unsafe_allow_html=True)
-    for i, ex in enumerate(EXAMPLES):
-        if st.button(ex, key=f"chip_{i}"):
-            st.session_state._pending_query = ex
-            st.rerun()
 
 
 # =========================================================================
@@ -406,6 +474,16 @@ with st.form("composer", clear_on_submit=True, border=False):
 prompt = pending or (composer_text.strip() if sent and composer_text else None)
 
 
+# --- Instant-feedback rerun: when the user submits via the composer, push
+# the text into the `_pending_query` slot and immediately rerun so the
+# next render shows the bubble + typing indicator BEFORE the backend
+# call (~3 s) blocks. Sidebar chips already use this path natively, this
+# just makes the composer behave the same way.
+if prompt and not pending:
+    st.session_state["_pending_query"] = prompt
+    st.rerun()
+
+
 # --- Process the pending prompt (after rendering, so user sees status first)
 if prompt:
     user_time = datetime.now().strftime("%H:%M")
@@ -414,14 +492,23 @@ if prompt:
     )
 
     t0 = time.perf_counter()
+    # Streaming preferred when backend is on — token-flow UX is significantly
+    # better-perceived than the blocking 5–15 s spinner. Falls back to the
+    # non-streaming path if backend toggle is OFF or the stream errors.
+    stream_target = st.empty() if st.session_state.use_backend else None
     try:
-        resp = ask(prompt)
+        if stream_target is not None:
+            resp = call_backend_streaming(prompt, stream_target)
+        else:
+            resp = ask(prompt)
     except Exception as exc:  # noqa: BLE001
         resp = {
             "answer": f"⚠️ Error contacting LLM: {exc}",
             "category": "OUT_OF_SCOPE",
             "source_docs": [],
         }
+    if stream_target is not None:
+        stream_target.empty()  # clear placeholder — re-rendered below on rerun
     latency_ms = (time.perf_counter() - t0) * 1000
 
     st.session_state.latencies.append(latency_ms)

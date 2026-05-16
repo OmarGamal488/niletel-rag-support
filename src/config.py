@@ -7,14 +7,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    llm_provider: Literal["groq", "deepseek", "lightning"] = "lightning"
-    llm_model: str = "llama-3.1-70b-versatile"
+    # Lightning AI hosts DeepSeek V4 Pro over an OpenAI-compatible endpoint.
+    # Kept as a single-value literal so an accidental override in the env
+    # surfaces as a validation error instead of silently breaking get_llm().
+    llm_provider: Literal["lightning"] = "lightning"
 
-    groq_api_key: str = ""
-    deepseek_api_key: str = ""
-    openai_api_key: str = ""
-
-    # Lightning AI (OpenAI-compatible)
     lightning_api_key: str = ""
     lightning_base_url: str = ""
     lightning_model: str = ""

@@ -28,23 +28,13 @@ COMPILED = Path("eval/dspy_compiled.json")
 
 
 def _configure_dspy() -> None:
-    """Wire DSPy to whichever provider .env points to (Lightning by default)."""
-    if settings.llm_provider == "lightning":
-        api_base = settings.lightning_base_url
-        api_key = settings.lightning_api_key
-        model = f"openai/{settings.lightning_model}"
-    elif settings.llm_provider == "groq":
-        api_base = "https://api.groq.com/openai/v1"
-        api_key = settings.groq_api_key
-        model = f"openai/{settings.llm_model}"
-    elif settings.llm_provider == "deepseek":
-        api_base = "https://api.deepseek.com/v1"
-        api_key = settings.deepseek_api_key
-        model = "openai/deepseek-chat"
-    else:
-        raise ValueError(f"Unsupported provider: {settings.llm_provider}")
-
-    lm = dspy.LM(model=model, api_base=api_base, api_key=api_key, temperature=0.2)
+    """Wire DSPy to Lightning AI (the project's only inference provider)."""
+    lm = dspy.LM(
+        model=f"openai/{settings.lightning_model}",
+        api_base=settings.lightning_base_url,
+        api_key=settings.lightning_api_key,
+        temperature=0.2,
+    )
     dspy.configure(lm=lm)
 
 

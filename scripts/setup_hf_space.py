@@ -63,7 +63,6 @@ except ImportError:
 # Anything safe to expose publicly — feature flags, model names, endpoints.
 VARIABLE_KEYS = {
     "LLM_PROVIDER",
-    "LLM_MODEL",
     "LIGHTNING_BASE_URL",
     "LIGHTNING_MODEL",
     "EMBEDDING_MODEL",
@@ -77,6 +76,8 @@ VARIABLE_KEYS = {
     "PII_REDACTION_ENABLED",
     "SEMANTIC_CACHE_ENABLED",
     "CITATIONS_ENABLED",
+    "CHAIN_OF_VERIFICATION",
+    "CRAG_ENABLED",
     "TOOL_AGENT_ENABLED",
     "TRIAD_EVAL_ENABLED",
     "LANGFUSE_ENABLED",
@@ -90,9 +91,6 @@ VARIABLE_KEYS = {
 # that grant write access, etc.
 SECRET_KEYS = {
     "LIGHTNING_API_KEY",
-    "GROQ_API_KEY",
-    "DEEPSEEK_API_KEY",
-    "OPENAI_API_KEY",
     "TAVILY_API_KEY",
     "LANGFUSE_PUBLIC_KEY",
     "LANGFUSE_SECRET_KEY",

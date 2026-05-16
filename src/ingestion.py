@@ -103,6 +103,69 @@ def _contextualise_one(
     return ""  # unreachable
 
 
+_CTX_CHECKPOINT = Path("./data/processed/contextualised_chunks.json")
+
+
+def _checkpoint_key(chunks: list[Document]) -> str:
+    """Fingerprint the input chunks so a checkpoint only loads when the
+    KB hasn't changed under us (count + content hash of every chunk)."""
+    import hashlib
+
+    h = hashlib.sha256()
+    h.update(str(len(chunks)).encode())
+    for c in chunks:
+        h.update(c.page_content.encode("utf-8"))
+        h.update(str(c.metadata.get("source", "")).encode("utf-8"))
+    return h.hexdigest()
+
+
+def _load_ctx_checkpoint(chunks: list[Document]) -> list[Document] | None:
+    if not _CTX_CHECKPOINT.exists():
+        return None
+    try:
+        import json as _json
+
+        payload = _json.loads(_CTX_CHECKPOINT.read_text(encoding="utf-8"))
+        if payload.get("key") != _checkpoint_key(chunks):
+            print(
+                "  checkpoint exists but KB fingerprint changed — "
+                "re-contextualising.",
+            )
+            return None
+        docs = [
+            Document(page_content=d["page_content"], metadata=d["metadata"])
+            for d in payload["docs"]
+        ]
+        print(
+            f"  ✓ loaded {len(docs)} contextualised chunks from checkpoint "
+            f"({_CTX_CHECKPOINT}) — skipping LLM calls.",
+            flush=True,
+        )
+        return docs
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("Checkpoint load failed (%s) — regenerating.", exc)
+        return None
+
+
+def _save_ctx_checkpoint(chunks_in: list[Document], chunks_out: list[Document]) -> None:
+    import json as _json
+
+    _CTX_CHECKPOINT.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "key": _checkpoint_key(chunks_in),
+        "docs": [
+            {"page_content": d.page_content, "metadata": d.metadata}
+            for d in chunks_out
+        ],
+    }
+    _CTX_CHECKPOINT.write_text(_json.dumps(payload), encoding="utf-8")
+    print(
+        f"  ✓ checkpoint saved: {_CTX_CHECKPOINT} "
+        f"({len(chunks_out)} chunks). Next run skips contextualisation.",
+        flush=True,
+    )
+
+
 def _contextualise_chunks(
     chunks: list[Document],
     full_docs: dict[str, str],
@@ -114,7 +177,15 @@ def _contextualise_chunks(
     `throttle_per_sec` keeps the call rate below the provider's limit —
     Lightning AI in this repo allows ~4 RPS, so 2 is a safe default. Bump
     via env if your provider is more generous.
+
+    Persists a checkpoint to data/processed/contextualised_chunks.json after
+    the LLM pass so a crash during the embedding step doesn't lose the work.
+    On re-entry, the checkpoint is loaded if the KB fingerprint matches.
     """
+    cached = _load_ctx_checkpoint(chunks)
+    if cached is not None:
+        return cached
+
     import time
 
     from src.llm import get_llm
@@ -160,6 +231,7 @@ def _contextualise_chunks(
             f"  NOTE: {failures}/{n} chunks fell back to raw (rate limits "
             "or transient errors). Re-run to retry only those if needed."
         )
+    _save_ctx_checkpoint(chunks, out)
     return out
 
 

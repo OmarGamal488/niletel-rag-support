@@ -52,10 +52,10 @@ In **Settings → Repository secrets**, add at minimum:
 
 | Key | Notes |
 |---|---|
-| `LIGHTNING_API_KEY` | or use a Groq/DeepSeek key instead |
+| `LIGHTNING_API_KEY` | your Lightning AI write token |
 | `LIGHTNING_BASE_URL` | `https://lightning.ai/api/v1/` |
-| `LIGHTNING_MODEL` | e.g. `lightning-ai/deepseek-v4-pro` |
-| `LLM_PROVIDER` | `lightning` (or `groq`, `deepseek`) |
+| `LIGHTNING_MODEL` | `lightning-ai/deepseek-v4-pro` |
+| `LLM_PROVIDER` | `lightning` (only supported provider) |
 
 Optional but recommended:
 

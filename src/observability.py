@@ -51,6 +51,19 @@ def get_langfuse_handler() -> Any | None:
     if not (settings.langfuse_public_key and settings.langfuse_secret_key):
         logger.info("Langfuse keys missing — tracing disabled.")
         return None
+
+    # Langfuse uses an OpenTelemetry OTLP exporter under the hood whose
+    # default HTTP timeout is 5s. Langfuse Cloud (especially the free tier)
+    # routinely exceeds that, producing noisy `Read timed out` ERROR logs.
+    # Bump to 30s + drop the exporter log level so failed exports no longer
+    # bubble up as ERROR. Both can be overridden via env.
+    import logging as _logging
+    import os as _os
+
+    _os.environ.setdefault("OTEL_EXPORTER_OTLP_TIMEOUT", "30")
+    _logging.getLogger(
+        "opentelemetry.exporter.otlp.proto.http.trace_exporter"
+    ).setLevel(_logging.CRITICAL)
     try:
         # New SDK (>=2.0) layout
         from langfuse.langchain import CallbackHandler  # type: ignore

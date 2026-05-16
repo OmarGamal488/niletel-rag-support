@@ -15,7 +15,7 @@ node is a pass-through so the trace stays identical):
                           └─ OUT_OF_SCOPE → rejector     → pii_restore → END
 
 The ACTION branch is an outer-graph ReAct loop (action_llm + ToolNode).
-This makes every `get_balance`/`list_open_tickets`/`escalate_to_human`
+This makes every `get_account_status` / `escalate_to_human`
 tool call a first-class graph event the AG-UI adapter can stream — so
 the Next.js + CopilotKit frontend's generative-UI cards render natively.
 """

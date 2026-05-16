@@ -158,46 +158,59 @@ def test_cache_disabled_returns_none(fake_cache):
 # =========================== Tool agent ===========================
 
 
-def test_get_balance_returns_seeded_customer(tmp_path):
+def test_get_account_status_returns_seeded_customer(tmp_path):
     db = tmp_path / "crm.sqlite"
     with _flags(crm_db_path=db):
-        result = tools_module.get_balance.invoke({"msisdn": "01012345678"})
+        result = tools_module.get_account_status.invoke({"msisdn": "01012345678"})
     assert result["name"] == "Ahmed Hassan"
-    assert result["credit_egp"] == pytest.approx(47.25)
+    assert result["plan"] == "Postpaid Gold 200"
+    assert result["balance"]["credit_egp"] == pytest.approx(47.25)
+    # Customer 1001 has TKT-2001 open in the seed data.
+    assert any(t["ticket_id"] == "TKT-2001" for t in result["open_tickets"])
 
 
-def test_get_balance_normalises_international_format(tmp_path):
+def test_get_account_status_normalises_international_format(tmp_path):
     db = tmp_path / "crm.sqlite"
     with _flags(crm_db_path=db):
-        result = tools_module.get_balance.invoke({"msisdn": "+20 1012345678"})
+        result = tools_module.get_account_status.invoke({"msisdn": "+20 1012345678"})
     assert result.get("name") == "Ahmed Hassan"
 
 
-def test_get_balance_missing_customer(tmp_path):
+def test_get_account_status_missing_customer(tmp_path):
     db = tmp_path / "crm.sqlite"
     with _flags(crm_db_path=db):
-        result = tools_module.get_balance.invoke({"msisdn": "01999999999"})
+        result = tools_module.get_account_status.invoke({"msisdn": "01999999999"})
     assert "error" in result
 
 
-def test_list_open_tickets_filters_by_status(tmp_path):
+def test_get_account_status_filters_closed_tickets(tmp_path):
+    # Customer 1004 only has TKT-2004 which is closed → open_tickets is empty.
     db = tmp_path / "crm.sqlite"
     with _flags(crm_db_path=db):
-        rows = tools_module.list_open_tickets.invoke({"account_id": "1004"})
-    # 1004 only has TKT-2004 which is closed → list should be empty.
-    assert rows == []
+        result = tools_module.get_account_status.invoke({"msisdn": "01234567890"})
+    assert result["name"] == "Khaled Ibrahim"
+    assert result["open_tickets"] == []
 
 
 def test_escalate_creates_new_ticket(tmp_path):
     db = tmp_path / "crm.sqlite"
     with _flags(crm_db_path=db):
         new = tools_module.escalate_to_human.invoke(
-            {"account_id": "1001", "reason": "test", "priority": "P2"}
+            {"msisdn": "01012345678", "reason": "test", "priority": "P2"}
         )
-        # And it shows up on subsequent reads.
-        rows = tools_module.list_open_tickets.invoke({"account_id": "1001"})
+        # And it shows up on subsequent reads via get_account_status.
+        status = tools_module.get_account_status.invoke({"msisdn": "01012345678"})
     assert new["ticket_id"].startswith("TKT-ESC-")
-    assert any(r["ticket_id"] == new["ticket_id"] for r in rows)
+    assert any(t["ticket_id"] == new["ticket_id"] for t in status["open_tickets"])
+
+
+def test_escalate_rejects_unknown_msisdn(tmp_path):
+    db = tmp_path / "crm.sqlite"
+    with _flags(crm_db_path=db):
+        out = tools_module.escalate_to_human.invoke(
+            {"msisdn": "01999999999", "reason": "test", "priority": "P3"}
+        )
+    assert "error" in out
 
 
 def test_action_agent_node_disabled_returns_friendly_fallback():

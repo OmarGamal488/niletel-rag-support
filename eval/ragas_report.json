@@ -1,23 +1,23 @@
 {
-  "timestamp": "2026-05-07T00:17:56.637560",
+  "timestamp": "2026-05-15T23:37:16.408153",
   "provider": "lightning",
   "model": "lightning-ai/deepseek-v4-pro",
-  "n_items": 11,
+  "n_items": 27,
   "routing": {
-    "routing_accuracy": 1.0,
-    "n": 11
+    "routing_accuracy": 0.9629629629629629,
+    "n": 27
   },
   "retrieval": {
-    "retrieval_hit_rate": 0.7142857142857143,
-    "n": 7
+    "retrieval_hit_rate": 0.8636363636363636,
+    "n": 22
   },
   "ragas": {
-    "n_evaluated": 9,
+    "n_evaluated": 24,
     "scores": {
-      "faithfulness": 0.5714285714285715,
-      "answer_relevancy": 0.6153305215763599,
-      "context_precision": 0.5416666666125,
-      "context_recall": 0.5972222222222222
+      "faithfulness": 0.8203235076010382,
+      "answer_relevancy": 0.7486724542749293,
+      "context_precision": 0.29166666664361107,
+      "context_recall": 0.6236842105263157
     }
   },
   "items": [
@@ -25,201 +25,211 @@
       "question": "ليه النت بطيء أوي بعد تفعيل الـ FTTH؟",
       "category": "INFO",
       "expected_category": "INFO",
-      "answer": "يا فندم، في أسباب كتير ممكن تسبب بطء في الـ FTTH:\n1. WiFi interference من أجهزة تانية\n2. Old router مش مدعوم\n3. Quota exceeded → throttling\n4. Problem في الـ splitter port\n\nنعمل إيه دلوقتي؟\n- اعمل speed test مباشرة من الـ ONT (مش من الواي فاي)\n- لو السرعة كويسة من الـ ONT، المشكلة في الـ WiFi\n- لو لسه بطيئة، هنرفع ticket P2 ونبعت engineer",
+      "answer": "يا فندم، في أسباب كتير ممكن تسبب بطء في الـ FTTH:\n1. تداخل في الواي فاي من أجهزة تانية\n2. راوتر قديم مش مدعوم\n3. تجاوز حد الاستهلاك → تخفيض السرعة\n4. مشكلة في منفذ الـ splitter\n\nنعمل إيه دلوقتي؟\n- اعمل اختبار سرعة مباشرة من الـ ONT (مش من الواي فاي)\n- لو السرعة كويسة من الـ ONT، المشكلة في الـ WiFi\n- لو لسه بطيئة، هنرفع تذكرة P2 ونبعت مهندس [4]",
       "contexts": [
-        "FAQ: Why is my fiber internet slow?\n\nأسئلة شائعة - بطء السرعة في الـ FTTH\n\nسؤال شائع: \"ليه النت بطيء أوي بعد تفعيل الفايبر؟\"\n\nالرد الموصى به:\n\"يا فندم، في أسباب كتير ممكن تسبب بطء في الـ FTTH:\n1. WiFi interference من أجهزة تانية\n2. Old router مش مدعوم\n3. Quota exceeded → throttling\n4. Problem في الـ splitter port\n\nنعمل إيه دلوقتي؟\n- اعمل speed test مباشرة من الـ ONT (مش من الواي فاي)\n- لو السرعة كويسة من الـ ONT، المشكلة في الـ WiFi\n- لو لسه بطيئة، هنرفع ticket P2 ونبعت engineer\"",
-        "الهدف: تقليل الـ churn للـ VIP customers لأقل من 2% شهرياً.\n\nLast Updated: March 2026 | Retention Department",
-        "Fiber Activation Policy - NileTel 2026\n\nسياسة تفعيل الـ FTTH في 2026\n\nيا فندم، النهاردة هنتكلم عن سياسة تفعيل الفايبر. \nالـ installation fee دلوقتي 1500 جنيه مصري ويتم دفعه قبل ما نبدأ الـ provisioning خالص.\nالوقت المتوسط للتفعيل من 3 لـ 5 أيام عمل في المنصورة والدلتا والقاهرة، بس لو العميل VIP بنعمل priority provisioning خلال 48 ساعة بالكتير.",
-        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support"
+        "هذا المقطع هو افتتاحية دليل حل مشاكل ADSL القديم، ويوجه فريق الدعم بطلب رقم الخط للتأكد من كون العميل على باقة ADSL قبل بدء استكشاف المشكلة.\n\nADSL Legacy Troubleshooting Guide\n\nدليل حل مشاكل الـ ADSL القديم\n\nيا فندم، عندنا لسه عدد كبير من العملاء على خطوط ADSL خصوصاً في المحافظات اللي لسه ما عندهاش FTTH كامل. لما العميل يبلغ إن النت بطيء أو مفصول، اتبع الخطوات دي:\n\nأولاً: اطلب رقم الخط واتأكد إن العميل على باقة ADSL مش fiber في الـ CRM. كتير عملاء بيتصلوا وهما متحولين لـ FTTH من فترة وما يعرفوش.",
+        "في هذا القسم من سياسة تفعيل الفايبر، نستعرض المشاكل الشائعة بعد التركيب ونصائح للوكلاء حول التواصل مع العميل.\n\nالمشاكل الشائعة:\n- ONT not detected → غالباً fiber cut أو wrong splitter port.\n- Slow speed بعد التفعيل → لازم نطلب speed test مباشرة من الـ ONT.\n\nنصيحة للـ agents: دايماً قول للعميل \"يا فندم، هنتابع معاك خطوة بخطوة ونبعتلك الـ ETA فوراً\". \nلو في تأخير، لازم نعمل update في التذكرة ونبلغ الـ supervisor.\n\nLast Updated: March 2026 | Department: Network Operations",
+        "الجزء الأول من وثيقة \"سياسة تفعيل الـ FTTH في 2026\" يوضح رسوم التركيب ومتوسط وقت التفعيل.\n\nFiber Activation Policy - NileTel 2026\n\nسياسة تفعيل الـ FTTH في 2026\n\nيا فندم، النهاردة هنتكلم عن سياسة تفعيل الفايبر. \nالـ installation fee دلوقتي 1500 جنيه مصري ويتم دفعه قبل ما نبدأ الـ provisioning خالص.\nالوقت المتوسط للتفعيل من 3 لـ 5 أيام عمل في المنصورة والدلتا والقاهرة، بس لو العميل VIP بنعمل priority provisioning خلال 48 ساعة بالكتير.",
+        "هذا رد موصى به من فريق الدعم الفني للرد على استفسارات العملاء عن بطء خدمة الفايبر.\n\nFAQ: Why is my fiber internet slow?\n\nأسئلة شائعة - بطء السرعة في الـ FTTH\n\nسؤال شائع: \"ليه النت بطيء أوي بعد تفعيل الفايبر؟\"\n\nالرد الموصى به:\n\"يا فندم، في أسباب كتير ممكن تسبب بطء في الـ FTTH:\n1. WiFi interference من أجهزة تانية\n2. Old router مش مدعوم\n3. Quota exceeded → throttling\n4. Problem في الـ splitter port\n\nنعمل إيه دلوقتي؟\n- اعمل speed test مباشرة من الـ ONT (مش من الواي فاي)\n- لو السرعة كويسة من الـ ONT، المشكلة في الـ WiFi\n- لو لسه بطيئة، هنرفع ticket P2 ونبعت engineer\""
       ],
       "retrieved_sources": [
-        "faq_fiber_slow_speed.md",
-        "vip_retention_script.md",
+        "adsl_legacy_troubleshooting.md",
         "fiber_activation_policy_2026.md",
-        "roaming_charges_guide.md"
+        "fiber_activation_policy_2026.md",
+        "faq_fiber_slow_speed.md"
       ],
       "expected_source": "faq_fiber_slow_speed.md",
       "ground_truth": "في كذا سبب: WiFi interference، router قديم مش مدعوم، تجاوز الـ quota و throttling، أو مشكلة في splitter port. الحل: speed test من الـ ONT مباشرة، ولو السرعة كويسة المشكلة في الـ WiFi.",
-      "ticket_id": null
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "إزاي أصلح مشكلة الـ 5G لما مش بيتصل؟",
       "category": "INFO",
       "expected_category": "INFO",
-      "answer": "أهلاً بك. لتصلح مشكلة عدم اتصال الـ 5G، اتبع الخطوات التالية بالترتيب:\n\n1.  تأكد أولاً أن جهازك يدعم تقنية 5G SA (وليس فقط NSA).\n2.  قم بعمل إعادة تشغيل للجهاز، ثم شغّل وضع الطيران لمدة 30 ثانية.\n3.  اذهب إلى الإعدادات → شبكة المحمول → واختر 5G/4G تلقائي.\n\nلو المشكلة ما زالت موجودة بعد هذه الخطوات، سأقوم بعمل فحص تشخيصي عن بُعد لجهازك، وإذا لزم الأمر سأرفع تذكرة دعم فني للمختصين.",
+      "answer": "يا فندم، لو الـ 5G مش بيتصل على موبايلي، نتبع الخطوات دي بالترتيب:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس) [4]\n2. اعمل restart للجهاز وشغل Airplane mode لمدة 30 ثانية [4]\n3. روح Settings → Mobile Network → اختار 5G/4G auto [4]\n4. شوف في الـ OSS لو في congestion في الـ cell site [4]\n\nلو لسه مش بيتصل، هنعمل remote diagnostics ولو محتاج نرفع ticket [4]",
       "contexts": [
-        "FAQ: 5G not connecting\n\nأسئلة شائعة - الـ 5G مش بيتصل\n\nسؤال: \"الـ 5G مش بيشتغل على موبايلي\"\n\nالخطوات:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس)\n2. اعمل restart + Airplane mode 30 ثانية\n3. روح Settings → Mobile Network → اختار 5G/4G auto\n4. شوف في الـ OSS لو في congestion في الـ cell site\n\nلو لسه مش بيتصل:\n\"يا فندم، هنعمل remote diagnostics ولو محتاج نرفع ticket\"\n\nLast Updated: March 2026",
-        "5G Throttling Troubleshooting Guide\n\nدليل حل مشاكل الـ 5G Throttling\n\nيا فندم، لو العميل شاكي إن السرعة بطيئة على الـ 5G، نتبع الخطوات دي بالترتيب:\n\nأول حاجة نسأله: \"هل تجاوزت الـ monthly quota بتاعتك؟\" لأن بعد الـ Fair Usage Policy بيحصل throttling تلقائي.\nثانياً، نطلب منه يشيك الـ signal strength: لازم الـ RSRP يكون أفضل من -90 dBm والـ SINR أعلى من 10 dB.\nثالثاً: \"اعمل restart للجهاز، شغل Airplane mode لمدة 30 ثانية، وبعدين re-attach للـ 5G SA network\".",
-        "الفئات الرئيسية:\n- Network Issue → 5G Slow Speed / 4G Drop / FTTH Outage / ADSL Problem\n- Billing → Overcharge / Refund Request / Double Billing / Roaming Charges\n- Service Request → New Line Activation / Upgrade Package / Cancellation / Prepaid to Postpaid Migration\n- Technical → Device Not Connecting / App Error / Account Lock / ONT Issue\n- VIP / Retention → Special handling for high-value customers\n\nنصيحة: لو المشكلة فيها أكتر من فئة، اختار الأهم ودوّن التفاصيل في الـ description.",
-        "Contract Cancellation Process\n\nإجراءات إلغاء العقد\n\nيا فندم، لما العميل يطلب cancellation، لازم نتبع الإجراء ده عشان نقلل الـ churn ونحاول نعمل retention أولاً."
+        "هذا المقتطف هو بداية دليل استكشاف أخطاء 5G Throttling وإصلاحها، حيث يبدأ بتحية فنية ويذكر الخطوات الثلاث الأولى.\n\n5G Throttling Troubleshooting Guide\n\nدليل حل مشاكل الـ 5G Throttling\n\nيا فندم، لو العميل شاكي إن السرعة بطيئة على الـ 5G، نتبع الخطوات دي بالترتيب:\n\nأول حاجة نسأله: \"هل تجاوزت الـ monthly quota بتاعتك؟\" لأن بعد الـ Fair Usage Policy بيحصل throttling تلقائي.\nثانياً، نطلب منه يشيك الـ signal strength: لازم الـ RSRP يكون أفضل من -90 dBm والـ SINR أعلى من 10 dB.\nثالثاً: \"اعمل restart للجهاز، شغل Airplane mode لمدة 30 ثانية، وبعدين re-attach للـ 5G SA network\".",
+        "For devices not covered under warranty due to accidental damage or loss, the following replacement charges apply.\n\nDamaged/Lost Device Charges:\nلو العميل بيطلب replacement بسبب damage مش covered:\n- FTTH router: 350-800 جنيه (حسب الـ model)\n- 5G CPE: 1,200-2,500 جنيه\n- MiFi: 600-900 جنيه\n- STB: 500 جنيه\n- Insurance plan متاحة: 30 جنيه/شهر تغطي accidental damage (deductible 100 جنيه)",
+        "هذا المقطع هو افتتاحية دليل حل مشاكل ADSL القديم، ويوجه فريق الدعم بطلب رقم الخط للتأكد من كون العميل على باقة ADSL قبل بدء استكشاف المشكلة.\n\nADSL Legacy Troubleshooting Guide\n\nدليل حل مشاكل الـ ADSL القديم\n\nيا فندم، عندنا لسه عدد كبير من العملاء على خطوط ADSL خصوصاً في المحافظات اللي لسه ما عندهاش FTTH كامل. لما العميل يبلغ إن النت بطيء أو مفصول، اتبع الخطوات دي:\n\nأولاً: اطلب رقم الخط واتأكد إن العميل على باقة ADSL مش fiber في الـ CRM. كتير عملاء بيتصلوا وهما متحولين لـ FTTH من فترة وما يعرفوش.",
+        "دي قايمة بالخطوات اللي المفروض نتبعها لما حد يشتكي إن الـ 5G مش بيشتغل على موبايلي.\n\nFAQ: 5G not connecting\n\nأسئلة شائعة - الـ 5G مش بيتصل\n\nسؤال: \"الـ 5G مش بيشتغل على موبايلي\"\n\nالخطوات:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس)\n2. اعمل restart + Airplane mode 30 ثانية\n3. روح Settings → Mobile Network → اختار 5G/4G auto\n4. شوف في الـ OSS لو في congestion في الـ cell site\n\nلو لسه مش بيتصل:\n\"يا فندم، هنعمل remote diagnostics ولو محتاج نرفع ticket\"\n\nLast Updated: March 2026"
       ],
       "retrieved_sources": [
-        "faq_5g_not_connecting.md",
         "5g_throttling_troubleshooting.md",
-        "ticket_categories_list.md",
-        "contract_cancellation_process.md"
+        "device_replacement_warranty.md",
+        "adsl_legacy_troubleshooting.md",
+        "faq_5g_not_connecting.md"
       ],
       "expected_source": "faq_5g_not_connecting.md",
       "ground_truth": "تأكد إن الجهاز يدعم 5G SA، اعمل restart مع Airplane mode 30 ثانية، روح Settings → Mobile Network واختار 5G/4G auto، ولو لسه فيه مشكلة هنعمل remote diagnostics ونرفع ticket لو محتاج.",
-      "ticket_id": null
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "إزاي أعمل refund للفاتورة؟",
       "category": "INFO",
       "expected_category": "INFO",
-      "answer": "يا فندم، فهمت طلبك. عشان نعمل refund لازم نعمل review للـ usage logs أولاً.  \nهفتح ticket P3 دلوقتي وهتابع مع الـ billing team.  \nلو الشكوى صحيحة، الـ credit note هيحصل خلال 48 ساعة.  \nلو عايز تعرف الخطوات، هقولك التفاصيل.",
+      "answer": "يا فندم، عشان نعمل refund لازم نعمل review للـ usage logs الأول. هفتح ticket P3 دلوقتي وهتابع مع الـ billing team. لو الشكوى صحيحة، الـ credit note هيحصل خلال 48 ساعة. ممنوع أوعدك باسترداد قبل الموافقة [4].",
       "contexts": [
-        "FAQ: Refund Request\n\nأسئلة شائعة - طلب استرداد فلوس\n\nسؤال: \"عايز أرجع فلوسي من الفاتورة\"\n\nالرد:\n\"يا فندم، فهمت طلبك. عشان نعمل refund لازم نعمل review للـ usage logs أولاً.\nهفتح ticket P3 دلوقتي وهتابع مع الـ billing team.\nلو الشكوى صحيحة، الـ credit note هيحصل خلال 48 ساعة.\nلو عايز تعرف الخطوات، هقولك التفاصيل.\"\n\nممنوع توعد باسترداد قبل الموافقة.\n\nLast Updated: April 2026",
-        "النقاط المهمة:\n- دايماً اطلب الـ Corporate Account ID أو Company Contract Number في أول الاتصال.\n- معظم الشكاوى بتكون متعلقة بـ SD-WAN أو leased lines أو multiple FTTH connections.\n- الـ SLA بتاعهم أقوى: response time 10 دقايق و resolution time 2 ساعات لـ critical issues.\n- لو في outage، ارفع التذكرة كـ P1 فوراً وأبلغ الـ Key Account Manager.",
-        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support",
-        "Corporate Customer Handling Guide\n\nدليل التعامل مع العملاء الـ Corporate\n\nيا فندم، العملاء الـ Corporate (شركات ومؤسسات) ليهم معاملة مختلفة شوية عن العملاء العاديين لأن ARPU بتاعهم عالي وعدد الـ lines كتير."
+        "هذا القسم يشرح سياسة استرداد المبالغ ونصيحة الاحتفاظ بالعملاء ضمن دليل إعداد الدفع التلقائي والفوترة المتكررة.\n\nRefund Policy للـ wrong charges:\n- لو العميل قال إن الـ auto-pay خصمته غلط، اعمل investigation في 48 ساعة\n- لو الخصم فعلاً غلط: refund كامل في 5 أيام عمل\n- لو الخصم صحيح: قدم explanation + offer payment plan لو فيه dispute\n\nنصيحة retention:\n\"يا فندم، لما تفعّل Auto-Pay بنديك 5% خصم على باقتك دلوقتي ودي offer دائم.\" الـ acceptance rate 41%.\n\nLast Updated: March 2026 | Billing Operations",
+        "يتناول هذا الجزء سياسات التعويض والباقات المتاحة للعملاء بعد التعامل مع شكاوى فواتير التجوال.\n\nالـ Goodwill Limits على Roaming:\n- لو العميل أول مرة يحصل له ده: refund 100% بحد 3000 جنيه (no questions)\n- لو متكرر: 50% goodwill + education عن الـ caps + recommend roaming bundle\n\nRoaming Bundles (offer دائم):\n- 5 جيجا داخل المنطقة العربية: 200 جنيه\n- 5 جيجا أوروبا: 350 جنيه\n- 10 جيجا عالمي: 600 جنيه\nكل bundle بيشمل voice + SMS + data caps واضحة.",
+        "دي الخطوات اللي المفروض تتبعها لما العميل يشتكي من فاتورة عالية بعد ما يسافر.\n\nالعميل بيتصل وبيشتكي من فاتورة عالية:\n1. اعتذر بصدق: \"يا فندم، فاتورة عالية مش متوقعة دي مشكلة فعلية، خليني أراجع معاك.\"\n2. شيك الـ usage logs في الـ CRM → روح Roaming Tab\n3. لو الاستخدام واضح + موثق: شرح للعميل (مثلاً \"اتصالات للسعودية 3 ساعات في يوم 15\")\n4. لو واضح إن في fraud: refund كامل + ticket للـ Fraud Team + offer SIM swap",
+        "هذا المقطع يجيب على سؤال العميل عن استرداد الفلوس من الفاتورة من خلال إجراءات المراجعة والتذكرة.\n\nFAQ: Refund Request\n\nأسئلة شائعة - طلب استرداد فلوس\n\nسؤال: \"عايز أرجع فلوسي من الفاتورة\"\n\nالرد:\n\"يا فندم، فهمت طلبك. عشان نعمل refund لازم نعمل review للـ usage logs أولاً.\nهفتح ticket P3 دلوقتي وهتابع مع الـ billing team.\nلو الشكوى صحيحة، الـ credit note هيحصل خلال 48 ساعة.\nلو عايز تعرف الخطوات، هقولك التفاصيل.\"\n\nممنوع توعد باسترداد قبل الموافقة.\n\nLast Updated: April 2026"
       ],
       "retrieved_sources": [
-        "faq_refund_request.md",
-        "corporate_customer_handling.md",
-        "roaming_charges_guide.md",
-        "corporate_customer_handling.md"
+        "autopay_recurring_billing.md",
+        "roaming_fraud_prevention.md",
+        "roaming_fraud_prevention.md",
+        "faq_refund_request.md"
       ],
       "expected_source": "faq_refund_request.md",
       "ground_truth": "عشان نعمل refund لازم review للـ usage logs أولاً. هنفتح ticket P3 ونتابع مع billing team. لو الشكوى صحيحة، credit note يحصل خلال 48 ساعة. ممنوع نوعد بـ refund قبل الموافقة.",
-      "ticket_id": null
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "الـ 5G مش بيشتغل على موبايلي خالص!",
       "category": "COMPLAINT",
       "expected_category": "COMPLAINT",
-      "answer": "أهلاً بيك يا فندم، خلينا نتبع الخطوات دي بالترتيب عشان نحل المشكلة:\n\n1.  تأكد إن جهازك بيدعم تقنية 5G SA (مش بس NSA).\n2.  اعمل إعادة تشغيل للجهاز، وبعدين شغّل Airplane mode لمدة 30 ثانية.\n3.  روح على Settings → Mobile Network واختار 5G/4G auto.\n4.  هشوف في النظام لو فيه ضغط على الـ cell site اللي انت متصل بيه.\n\nلو لسه المشكلة موجودة، هنعمل remote diagnostics ولو احتجنا هنرفع ticket.",
+      "answer": "Before I open a ticket for you, please share your **name** and either a **phone number** or **email** so our support team can follow up.\n\n_Example:_  Ahmed Mohamed, 0101 234 5678, ahmed@example.com\n\n---\n\nيا فندم، لو الـ 5G مش بيشتغل على موبايلك خالص، نتبع الخطوات دي بالترتيب:\n\n1.  تأكد إن جهازك بيدعم 5G SA (مش NSA بس) [4]\n2.  اعمل restart للموبايل وشغّل Airplane mode لمدة 30 ثانية [4]\n3.  روح على Settings → Mobile Network واختار 5G/4G auto [4]\n4.  لو لسه المشكلة موجودة، بنشوف في الـ OSS لو في congestion في الـ cell site [4]\n\nلو لسه مش شغال بعد كده، هنعمل remote diagnostics ولو احتجنا نرفع ticket [4].",
       "contexts": [
-        "FAQ: 5G not connecting\n\nأسئلة شائعة - الـ 5G مش بيتصل\n\nسؤال: \"الـ 5G مش بيشتغل على موبايلي\"\n\nالخطوات:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس)\n2. اعمل restart + Airplane mode 30 ثانية\n3. روح Settings → Mobile Network → اختار 5G/4G auto\n4. شوف في الـ OSS لو في congestion في الـ cell site\n\nلو لسه مش بيتصل:\n\"يا فندم، هنعمل remote diagnostics ولو محتاج نرفع ticket\"\n\nLast Updated: March 2026",
-        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support",
-        "5G Throttling Troubleshooting Guide\n\nدليل حل مشاكل الـ 5G Throttling\n\nيا فندم، لو العميل شاكي إن السرعة بطيئة على الـ 5G، نتبع الخطوات دي بالترتيب:\n\nأول حاجة نسأله: \"هل تجاوزت الـ monthly quota بتاعتك؟\" لأن بعد الـ Fair Usage Policy بيحصل throttling تلقائي.\nثانياً، نطلب منه يشيك الـ signal strength: لازم الـ RSRP يكون أفضل من -90 dBm والـ SINR أعلى من 10 dB.\nثالثاً: \"اعمل restart للجهاز، شغل Airplane mode لمدة 30 ثانية، وبعدين re-attach للـ 5G SA network\".",
-        "الفئات الرئيسية:\n- Network Issue → 5G Slow Speed / 4G Drop / FTTH Outage / ADSL Problem\n- Billing → Overcharge / Refund Request / Double Billing / Roaming Charges\n- Service Request → New Line Activation / Upgrade Package / Cancellation / Prepaid to Postpaid Migration\n- Technical → Device Not Connecting / App Error / Account Lock / ONT Issue\n- VIP / Retention → Special handling for high-value customers\n\nنصيحة: لو المشكلة فيها أكتر من فئة، اختار الأهم ودوّن التفاصيل في الـ description."
+        "هذا المقتطف هو بداية دليل استكشاف أخطاء 5G Throttling وإصلاحها، حيث يبدأ بتحية فنية ويذكر الخطوات الثلاث الأولى.\n\n5G Throttling Troubleshooting Guide\n\nدليل حل مشاكل الـ 5G Throttling\n\nيا فندم، لو العميل شاكي إن السرعة بطيئة على الـ 5G، نتبع الخطوات دي بالترتيب:\n\nأول حاجة نسأله: \"هل تجاوزت الـ monthly quota بتاعتك؟\" لأن بعد الـ Fair Usage Policy بيحصل throttling تلقائي.\nثانياً، نطلب منه يشيك الـ signal strength: لازم الـ RSRP يكون أفضل من -90 dBm والـ SINR أعلى من 10 dB.\nثالثاً: \"اعمل restart للجهاز، شغل Airplane mode لمدة 30 ثانية، وبعدين re-attach للـ 5G SA network\".",
+        "For devices not covered under warranty due to accidental damage or loss, the following replacement charges apply.\n\nDamaged/Lost Device Charges:\nلو العميل بيطلب replacement بسبب damage مش covered:\n- FTTH router: 350-800 جنيه (حسب الـ model)\n- 5G CPE: 1,200-2,500 جنيه\n- MiFi: 600-900 جنيه\n- STB: 500 جنيه\n- Insurance plan متاحة: 30 جنيه/شهر تغطي accidental damage (deductible 100 جنيه)",
+        "تشرح الوثيقة الفروق الأساسية بين IoT SIMs و consumer SIMs من حيث الصوت والبيانات والتفعيل.\n\nالفروق الأساسية:\n1. **No voice / SMS by default** — data-only، إلا لو العميل طلب SMS مفعل (للـ alerts)\n2. **APN مخصص** — مش \"internet.niletel.com.eg\" زي الـ consumer، بقى \"iot.niletel.com.eg\" مع private IP pool\n3. **No KYC fingerprint per SIM** — الـ corporate account هو المسؤول، مش الـ end device\n4. **Bulk activation** — لازم بـ batches 50+ SIMs\n5. **Lifetime activation** — مش بيتعلق لو ما استخدمش (الـ consumer SIM بيتعلق بعد 90 يوم idle)",
+        "دي قايمة بالخطوات اللي المفروض نتبعها لما حد يشتكي إن الـ 5G مش بيشتغل على موبايلي.\n\nFAQ: 5G not connecting\n\nأسئلة شائعة - الـ 5G مش بيتصل\n\nسؤال: \"الـ 5G مش بيشتغل على موبايلي\"\n\nالخطوات:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس)\n2. اعمل restart + Airplane mode 30 ثانية\n3. روح Settings → Mobile Network → اختار 5G/4G auto\n4. شوف في الـ OSS لو في congestion في الـ cell site\n\nلو لسه مش بيتصل:\n\"يا فندم، هنعمل remote diagnostics ولو محتاج نرفع ticket\"\n\nLast Updated: March 2026"
       ],
       "retrieved_sources": [
-        "faq_5g_not_connecting.md",
-        "roaming_charges_guide.md",
         "5g_throttling_troubleshooting.md",
-        "ticket_categories_list.md"
+        "device_replacement_warranty.md",
+        "iot_m2m_sim_activation.md",
+        "faq_5g_not_connecting.md"
       ],
       "expected_source": null,
       "ground_truth": "",
-      "ticket_id": "LOCAL-45A4F540"
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "إزاي أعمل escalate لمشكلة فاتورة كبيرة؟",
       "category": "INFO",
       "expected_category": "INFO",
-      "answer": "أهلاً بيك يا فندم. بناءً على المعلومات المتاحة، إليك خطوات التصعيد لمشكلة الفاتورة:\n\n1.  **كمستوى أول (Level 1):** حاول تحل المشكلة بنفسك خلال 30 دقيقة باستخدام كل خطوات استكشاف الأخطاء المتاحة في قاعدة المعرفة. لو قدرت تحلها، قفل التذكرة واطلب تقييم الخدمة.\n2.  **لو محتاج تصعّد:** لو المشكلة معقدة أو العميل مش راضي وعايز يكلم مشرف، تقدر تقول له: \"تمام يا فندم، أنا هصعد التذكرة دلوقتي للـ supervisor. هيتصل بيك خلال 15 دقيقة بالكتير.\" ومتنساش تبعت له رسالة تأكيد بعد التصعيد.\n\nلو محتاج مساعدة في حاجة تانية، أنا موجود.",
+      "answer": "لو العميل بيشتكي من فاتورة عالية بعد السفر، اتبع الخطوات دي الأول: اعتذر بصدق، وراجع الـ usage logs في الـ CRM تحت Roaming Tab. لو الاستخدام واضح وموثق، اشرحه للعميل. لكن لو واضح إن في fraud، اعمل refund كامل وارفع ticket لفريق الـ Fraud واعرض على العميل SIM swap [4].\n\nولو المشكلة معقدة أو العميل زعلان جداً، ارفع escalate حسب مصفوفة التصعيد: Level 1 المفروض تحل المشكلة خلال 30 دقيقة باستخدام كل خطوات الـ troubleshooting المتاحة. لو مقدرتش تحلها، تتصعد للمستوى الأعلى [3].",
       "contexts": [
-        "Customer Escalation Matrix\n\nمصفوفة التصعيد لشكاوى العملاء\n\nيا فندم، لو المشكلة معقدة أو العميل زعلان أوي، لازم نعرف نعمل escalate بالطريقة الصحيحة عشان نحافظ على الـ CSAT ونمنع الـ churn.\n\nLevel 1 – Support Agent:\n- حل المشكلة خلال 30 دقيقة كحد أقصى.\n- استخدم كل الـ troubleshooting steps المتاحة في الـ knowledge base.\n- لو قدرت تحلها، قفل التذكرة واطلب feedback.",
-        "FAQ: Customer Wants to Escalate\n\nأسئلة شائعة - العميل عايز يصعد الشكوى\n\nسؤال: \"مش راضي، عايز أكلم supervisor\"\n\nالرد الموصى:\n\"تمام يا فندم، أنا هصعد التذكرة دلوقتي للـ supervisor.\nهيتصل بيك خلال 15 دقيقة بالكتير.\nرقم التذكرة دلوقتي هو #T-78452.\nلو عايز أي حاجة تانية قولي.\"\n\nدايماً ابعت confirmation message بعد التصعيد.\n\nLast Updated: April 2026",
-        "القواعد المهمة:\n- ممنوع تماماً مشاركة رقم الموبايل أو contract details أو usage history مع أي حد خارج الـ ticketing system.\n- كل التفاعلات (مكالمات، شات، تذاكر) لازم تتسجل في الـ CRM لأغراض الـ compliance.\n- لو العميل طلب يعرف إيه البيانات اللي عندنا عنه، نرجعه للـ privacy portal في التطبيق.\n- في حال أي شك في data breach (حتى لو صغير)، escalate فوراً للـ InfoSec team خلال 15 دقيقة.",
-        "نصيحة: دايماً قول \"يا فندم، إحنا ملتزمين بكل لوائح الـ NTRA وهنحل مشكلتك في أسرع وقت\".\n\nLast Updated: March 2026 | Department: Legal & Compliance"
+        "في SLA العملاء الـ VIP، بيتم التركيز على متطلبات رفع التذاكر والإسكاليشن ونصائح جودة التعامل.\n\nكل تذاكر الـ VIP لازم تترفع كـ P1 في الـ CRM والـ ticketing system، والـ supervisor يراجعها يومياً.\nالهدف بتاعنا: VIP CSAT أعلى من 95% و FCR أعلى من 85%.\n\nلو العميل قال \"هشتكي للـ NTRA\" أو ذكر أي تهديد قانوني → escalate فوراً للـ Retention team.\n\nنصيحة للـ agent: استخدم كلام لطيف زي \"يا فندم، أنا آسف جداً على المشكلة دي، وهنحلها في أسرع وقت ونبلغك بالـ compensation لو لزم الأمر\".\n\nLast Updated: February 2026 | Department: Customer Experience",
+        "شرح مستويات الخدمة ومسار التصعيد لحل مشاكل عملاء الشركات في NileTel.\n\nSLA Tiers:\n- Platinum DIA: 99.95% uptime, MTTR 2 ساعة, credit 10% لكل ساعة downtime\n- Gold DIA: 99.9% uptime, MTTR 4 ساعات, credit 5%\n- Silver: 99.5% uptime, MTTR 8 ساعات\n- لو الـ uptime تحت الـ SLA: credit بيتطبق تلقائي في فاتورة الشهر التالي\n\nEscalation Path:\n- L1 (Account Manager): مشاكل routine\n- L2 (Corporate Operations Center): technical issues, network changes\n- L3 (Engineering): complex problems, custom configurations\n- L4 (CTO Office): contract issues, major outages",
+        "This chunk is the opening part of the Customer Escalation Matrix, introducing how agents should handle complex or upset customer issues to maintain CSAT and prevent churn.\n\nCustomer Escalation Matrix\n\nمصفوفة التصعيد لشكاوى العملاء\n\nيا فندم، لو المشكلة معقدة أو العميل زعلان أوي، لازم نعرف نعمل escalate بالطريقة الصحيحة عشان نحافظ على الـ CSAT ونمنع الـ churn.\n\nLevel 1 – Support Agent:\n- حل المشكلة خلال 30 دقيقة كحد أقصى.\n- استخدم كل الـ troubleshooting steps المتاحة في الـ knowledge base.\n- لو قدرت تحلها، قفل التذكرة واطلب feedback.",
+        "دي الخطوات اللي المفروض تتبعها لما العميل يشتكي من فاتورة عالية بعد ما يسافر.\n\nالعميل بيتصل وبيشتكي من فاتورة عالية:\n1. اعتذر بصدق: \"يا فندم، فاتورة عالية مش متوقعة دي مشكلة فعلية، خليني أراجع معاك.\"\n2. شيك الـ usage logs في الـ CRM → روح Roaming Tab\n3. لو الاستخدام واضح + موثق: شرح للعميل (مثلاً \"اتصالات للسعودية 3 ساعات في يوم 15\")\n4. لو واضح إن في fraud: refund كامل + ticket للـ Fraud Team + offer SIM swap"
       ],
       "retrieved_sources": [
+        "sla_vip_golden_customers.md",
+        "corporate_account_management.md",
         "escalation_matrix.md",
-        "faq_escalation.md",
-        "data_privacy_policy.md",
-        "ntra_regulations_summary.md"
+        "roaming_fraud_prevention.md"
       ],
       "expected_source": "escalation_matrix.md",
       "ground_truth": "Level 1 يحاول يحل في 30 دقيقة. لو فشل أو العميل ذكر NTRA يصعد لـ Level 2 (Supervisor) اللي يقدر يعمل goodwill credit. VIP أو لو فيه legal threat يروح Level 3 (Retention). مشاكل network/OSS تروح Level 4 (NOC).",
-      "ticket_id": null
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "ما هي خطوات إلغاء العقد؟",
       "category": "INFO",
       "expected_category": "INFO",
-      "answer": "أهلاً بك! بناءً على المعلومات المتوفرة عندي، لما العميل يطلب إلغاء العقد، لازم نتبع إجراء معين عشان نحاول نعمل **retention** أولاً ونقلل الـ **churn**. لكن للأسف، التفاصيل الكاملة لخطوات الإجراء مش مذكورة في السياق اللي قدامي.\n\nهل تحب أحولك لفريق **Retention Department** عشان يساعدك بالتفاصيل الكاملة؟",
+      "answer": "أهلاً بك. خطوات إلغاء العقد هي كالتالي:\n\n1.  اسأل عن سبب الإلغاء (مثلاً: billing, speed, service quality, moving to another city). [2]\n2.  حاول تقديم عرض للاحتفاظ بالعميل (retention offer): مثل extra GB أو discount حسب الـ ARPU. [2]\n3.  لو العميل مصر على الإلغاء: تحقق من الـ outstanding balance في الـ BSS. [2]\n4.  أنشئ cancellation request وخذ confirmation من العميل. [2]\n5.  لو عايز ينقل الرقم، ابدأ عملية Port-out (قد تستغرق حتى 7 أيام). [2]\n\nملاحظات مهمة:\n*   Cancellation fee يطبق لو العقد لسه في الـ commitment period. [2]\n*   عملاء VIP: يجب تصعيدهم إلى فريق Retention قبل أي إجراء. [2]",
       "contexts": [
-        "نصيحة: استخدم المصطلحات الإنجليزية زي ما هي في كل التذاكر، بس شرحها للعميل بالعربي المصري عشان يفهم.\n\nLast Updated: April 2026 | Department: Training & Quality",
-        "الهدف: تقليل الـ churn للـ VIP customers لأقل من 2% شهرياً.\n\nLast Updated: March 2026 | Retention Department",
-        "Contract Cancellation Process\n\nإجراءات إلغاء العقد\n\nيا فندم، لما العميل يطلب cancellation، لازم نتبع الإجراء ده عشان نقلل الـ churn ونحاول نعمل retention أولاً.",
-        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support"
+        "This is the opening section of the contract cancellation guide, where the agent is instructed to first focus on retention before processing any cancellation.\n\nContract Cancellation Process\n\nإجراءات إلغاء العقد\n\nيا فندم، لما العميل يطلب cancellation، لازم نتبع الإجراء ده عشان نقلل الـ churn ونحاول نعمل retention أولاً.",
+        "دي الخطوات اللي بنمشي عليها لما العميل يطلب إلغاء العقد عشان نعمل retention ونقلل الـ churn.\n\nالخطوات الكاملة:\n1. اسأل عن سبب الإلغاء (billing, speed, service quality, moving to another city, etc.).\n2. حاول retention offer: extra GB أو discount حسب الـ ARPU.\n3. لو مصر على الإلغاء: تحقق من outstanding balance في الـ BSS.\n4. أنشئ cancellation request وخد confirmation من العميل.\n5. Port-out process لو عايز ينقل الرقم (ياخد حتى 7 أيام).\n\nImportant Notes:\n- Cancellation fee يطبق لو العقد لسه في الـ commitment period.\n- VIP customers: escalate to Retention team قبل أي إجراء.",
+        "إليك الجدول الزمني للعروض والخطوات لاستعادة العملاء بعد إلغاء الخدمة فعلياً.\n\n**Stage 4: Post-Cancellation Win-Back**\nلو العميل خرج فعلاً:\n- 30 days later: SMS \"نفتقدك يا فندم، عندنا offer comeback لك\"\n- 60 days: phone call مع ex-customer agent متخصص\n- 90 days: final email with strongest offer\n- لو ما ردش: ندخله في dormant pool، إعادة محاولة بعد سنة\n\nWin-Back Offers:\n- 50% off للشهر الأول من العودة\n- نفس الرقم رجوع مجاناً (reservation حتى 6 شهور بعد churn)\n- 100 جنيه welcome credit\n- Free FTTH installation لو هو home customer\n\nCommon Objections & Responses:",
+        "دي نصيحة بتتقال في نهاية دليل إجراءات إلغاء العقد عشان تشجيع العميل على الاحتفاظ بالخدمة.\n\nنصيحة للـ agent: \"يا فندم، خلينا نحاول نحل المشكلة اللي مخليك تلغي قبل ما نكمل الإجراءات.\"\n\nLast Updated: April 2026 | Department: Retention & Billing"
       ],
       "retrieved_sources": [
-        "telecom_glossary.md",
-        "vip_retention_script.md",
         "contract_cancellation_process.md",
-        "roaming_charges_guide.md"
+        "contract_cancellation_process.md",
+        "win_back_churn_prevention.md",
+        "contract_cancellation_process.md"
       ],
       "expected_source": "contract_cancellation_process.md",
       "ground_truth": "1) اسأل عن سبب الإلغاء، 2) جرب retention offer، 3) لو مصر، اتأكد من outstanding balance، 4) أنشئ cancellation request وخد confirmation، 5) port-out لو ينقل الرقم. Cancellation fee في commitment period. VIP يصعد لـ Retention team أولاً.",
-      "ticket_id": null
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "العميل بيقول روح NTRA — أعمل إيه؟",
       "category": "INFO",
       "expected_category": "INFO",
-      "answer": "يا فندم، إحنا ملتزمين بكل لوائح الـ NTRA وهنحل مشكلتك في أسرع وقت.  \n\nممكن توضح لي المشكلة اللي بتواجهها عشان أقدر أساعدك وأسجل التفاصيل بشكل كامل، ولو احتجت تصعيد هنعمل كده فوراً.",
+      "answer": "يا فندم، إحنا ملتزمين بكل لوائح الـ NTRA وهنحل مشكلتك في أسرع وقت [1].",
       "contexts": [
-        "نصيحة: دايماً قول \"يا فندم، إحنا ملتزمين بكل لوائح الـ NTRA وهنحل مشكلتك في أسرع وقت\".\n\nLast Updated: March 2026 | Department: Legal & Compliance",
-        "NTRA Key Regulations Summary 2026\n\nملخص اللوائح التنظيمية من الجهاز القومي لتنظيم الاتصالات (NTRA)\n\nيا فندم، كل الـ agents لازم يعرفوا القواعد دي عشان نتجنب أي غرامات أو complaints رسمية.",
-        "Audit & Compliance Logging Requirements\n\nمتطلبات تسجيل التفاعلات للـ audit والامتثال\n\nيا فندم، كل تفاعل مع العميل لازم يتسجل كويس عشان الـ NTRA والـ internal audit.\n\nما يجب تسجيله:\n- Full customer statements and sentiment.\n- All troubleshooting steps taken.\n- Any promises or compensation offered.\n- Ticket category, priority, and resolution code.\n\nنصيحة: \"لو مش متأكد، دوّن أكتر من اللي محتاج\" – ده بيحميك وبيحمي الشركة.\n\nLast Updated: March 2026 | Compliance Department",
-        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support"
+        "الجزء الأخير من ملخص لوائح NTRA ينصح الموظفين بكيفية الطمأنة عند تهديد العميل بالشكوى.\n\nنصيحة: دايماً قول \"يا فندم، إحنا ملتزمين بكل لوائح الـ NTRA وهنحل مشكلتك في أسرع وقت\".\n\nLast Updated: March 2026 | Department: Legal & Compliance",
+        "هذه الفقرة الافتتاحية توضّح المتطلبات التنظيمية والأوراق الأساسية اللازمة لبدء إجراءات تفعيل خط جديد.\n\nKYC (Know Your Customer) — New Subscriber Onboarding\n\nإجراءات الـ KYC لتفعيل خط جديد\n\nيا فندم، الـ NTRA بتلزم كل المشغلين بتطبيق KYC صارم على كل خط جديد، وأي خط ينشَّط من غير الإجراء الكامل بيتسبب في غرامة 25,000 جنيه + إيقاف الخط فوراً.\n\nالأوراق المطلوبة:\n- بطاقة الرقم القومي الأصلية (سارية، مش منتهية)\n- صورة الـ ID من الوجهين (clear scan في الـ CRM)\n- live selfie للعميل ماسك الـ ID (مطلوب من 2025)\n- proof of address إذا الـ ID address مختلف عن العنوان اللي العميل عايز الخدمة فيه",
+        "تشرح الوثيقة حقوق المستهلك الأساسية الستة اللي ضمنتها NTRA بـ Regulation 247/2024، ودي أول خمس حقوق منها.\n\n1. **Right to Refund** — في حالة service unavailability > 24 ساعة متواصلة، refund تلقائي.\n2. **Right to Information** — الـ tariffs، الـ fair usage policy، الـ contract terms لازم تكون متاحة بـ Arabic وEnglish.\n3. **Right to Cancellation** — في 14 يوم من signing بدون أي رسوم (cooling-off period).\n4. **Right to Number Portability** — مجاناً، خلال 24 ساعة.\n5. **Right to Data Privacy** — العميل يقدر يطلب نسخة من بياناته، أو حذفها (مع الإستثناءات القانونية).",
+        "This right is part of the Customer Rights Charter, which outlines consumer protections under NTRA Regulation 247/2024.\n\n6. **Right to Independent Arbitration** — لو في disagreement، الـ NTRA Mediation Office بيتدخل مجاناً."
       ],
       "retrieved_sources": [
         "ntra_regulations_summary.md",
-        "ntra_regulations_summary.md",
-        "audit_and_compliance_logging.md",
-        "roaming_charges_guide.md"
+        "kyc_new_customer_onboarding.md",
+        "consumer_rights_complaint_timeline.md",
+        "consumer_rights_complaint_timeline.md"
       ],
       "expected_source": "escalation_matrix.md",
       "ground_truth": "ده trigger للتصعيد لـ Level 2 (Supervisor) فوراً حسب الـ escalation matrix. الـ supervisor يقدر يعمل goodwill credit أو يعدل الـ priority لـ P2.",
-      "ticket_id": null
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "ما المقصود بـ ONT و OLT؟",
       "category": "INFO",
       "expected_category": "INFO",
-      "answer": "عذراً، المعلومات المتوفرة لدي لا تحتوي على شرح لمصطلحي ONT و OLT. هل تريد أن أقوم بتصعيد استفسارك إلى فريق الدعم الفني المتخصص؟",
+      "answer": "عذراً، المعلومات المتوفرة لا تشرح معنى ONT أو OLT بشكل مباشر. هل تود أن أقوم بتصعيد استفسارك إلى فريق الدعم الفني المختص؟",
       "contexts": [
-        "Field Engineer Dispatch Rules\n\nقواعد إرسال المهندس الميداني\n\nيا فندم، الـ field engineer يتم إرساله فقط بعد ما نفشل في كل خطوات الـ remote troubleshooting.\n\nالأولوية في الإرسال:\n1. VIP و Golden customers\n2. Corporate customers\n3. Residential customers عاديين\n\nالمعلومات المطلوبة في التذكرة قبل الـ dispatch:\n- العنوان الكامل + GPS coordinates\n- وصف الأعراض بالعربي المصري (مثلاً: \"النت بيقطع كل 10 دقايق\")\n- serial number للـ ONT\n- كل الخطوات اللي عملها الـ agent قبل كده",
-        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support",
-        "Handling CSAT Survey After Ticket Closure\n\nالتعامل مع استطلاع رضا العملاء بعد إغلاق التذكرة\n\nيا فندم، بعد ما تقفل التذكرة، العميل بياخد CSAT survey.\n\nنصائح عشان تحسن الـ score:\n- قبل ما تقفل، قول: \"يا فندم، لو المشكلة اتحلت، لو سمحت قيم الخدمة عشان نتحسن.\"\n- لو العميل زعلان، اعمل follow-up call قبل ما يملى الاستطلاع.\n- Target: CSAT > 85% و FCR > 75%.\n\nLast Updated: March 2026 | Quality Assurance",
-        "الهدف: تقليل الـ churn للـ VIP customers لأقل من 2% شهرياً.\n\nLast Updated: March 2026 | Retention Department"
+        "This chunk details the steps to replace a faulty ONT after confirming a hardware problem, followed by a customer reassurance message.\n\nReplacement Process:\n1. Remote diagnostics via OSS.\n2. If hardware fault confirmed → create replacement work order.\n3. Field engineer swaps the ONT and re-provisions.\n\nنصيحة: \"يا فندم، لو الـ ONT فيه عطل، هنبعتلك واحد جديد مجاناً ونركبه في أسرع وقت.\"\n\nLast Updated: April 2026 | Technical Support",
+        "هذا المقطع يوضح الأجهزة المرفوضة ونصائح التعامل معها، بالإضافة إلى إرشادات التوثيق بعد التركيب.\n\nالأجهزة غير المدعومة:\n- أي ONT قديم من شركات تانية أو routers قديمة (مثل TP-Link Archer C20)\n- هتسبب frequent disconnections ومشاكل في الـ provisioning\n\nنصيحة للـ agents:\nلو العميل بيستخدم جهاز غير مدعوم، قوله \"يا فندم، الجهاز ده مش مدعوم من NileTel، لو ركبنا الـ Huawei HG8145V5 هتحسن السرعة والاستقرار كتير. عايز نعمل replace؟\"\n\nبعد أي installation، لازم نكتب في التذكرة نوع الـ ONT والـ router المستخدم.\n\nLast Updated: April 2026 | Department: Network Engineering",
+        "دا دول الخطوات اللي بيتبعها الـ agent من أول فتح الـ CRM لحد ما يتأكد إن السرعة بعد تركيب الفايبر واصلة 80% على الأقل.\n\nالخطوات كاملة:\n1. الـ agent يفتح الـ CRM ويأكد من الـ contract ID ويطلب الـ ONT serial number.\n2. يشيك في الـ OSS system على توافر الـ splitter port في العنوان.\n3. يعمل work order ويبعت الـ field engineer.\n4. المهندس يركب الـ ONT ويعمل test للـ signal (يجب أن يكون أحسن من -25 dBm).\n5. بعد التفعيل لازم نعمل speed test ونتأكد إن السرعة واصلة 80% على الأقل من الـ subscribed speed.",
+        "This is the opening section of the document that introduces common ONT faults and their symptoms before the replacement process is explained.\n\nCommon ONT Hardware Faults & Replacement\n\nالأعطال الشائعة في الـ ONT وإجراءات الاستبدال\n\nيا فندم، الـ ONT هو أهم جهاز في الـ FTTH، وكتير من المشاكل بتبدأ منه.\n\nأعطال شائعة:\n- Red light / no power → check power adapter or PoE.\n- No internet light → fiber issue or wrong configuration.\n- Frequent reboot → overheating or firmware outdated.\n- Slow WiFi from ONT → interference or old firmware."
       ],
       "retrieved_sources": [
-        "field_engineer_dispatch.md",
-        "roaming_charges_guide.md",
-        "customer_satisfaction_survey_handling.md",
-        "vip_retention_script.md"
+        "common_ont_hardware_faults.md",
+        "supported_hardware.md",
+        "fiber_activation_policy_2026.md",
+        "common_ont_hardware_faults.md"
       ],
       "expected_source": "telecom_glossary.md",
       "ground_truth": "ONT (Optical Network Terminal) هو الجهاز اللي بيتركب عند العميل في الـ FTTH. الـ OLT (Optical Line Terminal) هو الجهاز الرئيسي في الـ central office.",
-      "ticket_id": null
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "الانترنت مش شغال خالص!",
       "category": "COMPLAINT",
       "expected_category": "COMPLAINT",
-      "answer": "عذراً على المشكلة يا فندم.  \nهل تقدر توضح لي أكتر؟ هل المشكلة في كل الأجهزة ولا جهاز واحد؟ وهل ظهرت لك أي رسالة خطأ معينة؟  \nلو الانقطاع عام في منطقتك، الفريق الفني شغال على حلها والمتوقع رجوع الخدمة خلال ساعتين بالكتير.",
+      "answer": "Before I open a ticket for you, please share your **name** and either a **phone number** or **email** so our support team can follow up.\n\n_Example:_  Ahmed Mohamed, 0101 234 5678, ahmed@example.com\n\n---\n\nأهلاً بك! عشان نقدر نساعدك بدقة، محتاجين نعرف شوية تفاصيل عن نوع الجهاز اللي بتستخدمه.\n\nهل المشكلة في:\n- **راوتر منزلي (Router)**؟ لو كده، أول خطوة نتأكد من محول الكهرباء (Power adapter) لأنه السبب في 50% من الحالات، وتكلفة الجديد 50 جنيه بس [1].\n- **راوتر متنقل (MiFi)**؟ لو البطارية بتخلص بسرعة أو الجهاز مش بيشتغل خالص، لو الضمان أقل من 12 شهر ممكن يكون فيه استبدال مجاني [1]. كمان نتأكد إن الشريحة مركبة صح [4].\n- **شريحة بيانات (Data SIM)**؟ لو الرصيد موجود والنت مش شغال، 90% من الأوقات المشكلة بتكون في إعدادات الـ APN على جهازك [4].\n\nممكن توضح لي نوع جهازك عشان أدلك على الحل المناسب؟",
       "contexts": [
-        "لو العميل شاكي من رسوم عالية:\n- افتح الـ usage logs في الـ BSS.\n- لو في خطأ، اعمل credit note.\n- لو مش خطأ، شرح له الـ charges بالتفصيل.\n\nLast Updated: February 2026 | Customer Support",
-        "FAQ: 5G not connecting\n\nأسئلة شائعة - الـ 5G مش بيتصل\n\nسؤال: \"الـ 5G مش بيشتغل على موبايلي\"\n\nالخطوات:\n1. تأكد إن الجهاز يدعم 5G SA (مش NSA بس)\n2. اعمل restart + Airplane mode 30 ثانية\n3. روح Settings → Mobile Network → اختار 5G/4G auto\n4. شوف في الـ OSS لو في congestion في الـ cell site\n\nلو لسه مش بيتصل:\n\"يا فندم، هنعمل remote diagnostics ولو محتاج نرفع ticket\"\n\nLast Updated: March 2026",
-        "الهدف: تقليل الـ churn للـ VIP customers لأقل من 2% شهرياً.\n\nLast Updated: March 2026 | Retention Department",
-        "Network Outage Communication Templates\n\nقوالب الرد على انقطاع الشبكة\n\nيا فندم، لما يحصل network outage، لازم نرد على العملاء بنفس الطريقة المهنية والواضحة.\n\nTemplate 1 – Phone / Chat:\n\"عزيزي العميل، بنعتذر جداً عن انقطاع الخدمة في منطقتك. الفريق الفني شغال دلوقتي على حل المشكلة. Expected resolution time: ساعتين بالكتير. هنبعتلك إشعار فور ما ترجع الخدمة. شكراً لصبرك يا فندم.\"\n\nTemplate 2 – SMS / App Notification:\n\"نعتذر عن انقطاع الـ FTTH في منطقتك. Expected fix: 2 ساعات. NileTel\""
+        "في قسم المشكلات الشائعة والحلول السريعة لدعم الأجهزة، نوضح الأسباب التقنية والإجراءات المتبعة:\n\nCommon Issues & Quick Solutions:\n\n\"Router مش بيشتغل\" → Power adapter check first (50% of cases). New adapter بـ 50 جنيه vs full replacement.\n\n\"Wi-Fi مفصول كل ساعة\" → Firmware update (70% of cases solve)، أو RF interference\n\n\"MiFi بطارية تنفد بسرعة\" → لو > 18 شهر: out of warranty. لو < 12: free replacement.\n\n\"STB مش بيشغل التطبيقات\" → Storage full (مش hardware)، factory reset\n\nLast Updated: March 2026 | Customer Devices & Logistics",
+        "هذا جزء من إجراءات منع سوء الاستخدام ضمن باقات الطلاب والشباب.\n\nMisuse Prevention:\nعندنا حالات الـ ID بيتم share مع شخص مش طالب. الـ detection:\n- إذا الـ usage pattern مش zone جامعية (مثلاً استخدام liveة في الـ industrial area كل يوم 9-5)\n- إذا الـ device IMEI متغير كتير\n- إذا الـ social media usage صفر\n\nفي الحالات دي، رسالة approval من الجامعة المعتمدة + visit للـ branch لتأكيد الهوية.",
+        "قسم \"Common Misconceptions\" في سياسة تخصيص الـ Static IPs يوضح المفاهيم الخاطئة الشائعة عند العملاء التجاريين.\n\nCommon Misconceptions:\n- \"أنا عايز IP ثابت عشان النت يبقى أسرع\" → لا، الـ static IP ما يؤثرش على السرعة\n- \"محتاج IP عشان WhatsApp Business يشتغل\" → لا، WhatsApp ما يحتاجش IP ثابت\n- \"Static IP بيخلي الـ port forwarding يشتغل\" → جزئياً، الـ static IP ضروري لـ inbound services بس مش كافي وحده",
+        "دي أمثلة للاستخدامات الشائعة لشرايح الداتا وحلول سريعة للمشاكل التقنية اللي ممكن تواجهها.\n\nCommon Use Cases:\n- **Students** — tablet للدراسة، MiFi للسكن الجامعي\n- **Freelancers** — MiFi للـ on-site work\n- **Field engineers** — secondary connection لو الـ home internet فصل\n- **Tourists** — prepaid data SIM للزيارة (max 90 يوم)\n\nTroubleshooting:\n- \"الـ data ما يشتغلش رغم balance موجود\" → 90% الأوقات الـ APN غلط على الـ device\n- \"السرعة بطيئة\" → شيك lo الـ FUP cap اتعدّى، أو الـ peak hour throttling\n- \"MiFi مش بيشغل\" → battery، firmware update، أو SIM مش properly seated"
       ],
       "retrieved_sources": [
-        "roaming_charges_guide.md",
-        "faq_5g_not_connecting.md",
-        "vip_retention_script.md",
-        "network_outage_template.md"
+        "device_replacement_warranty.md",
+        "student_youth_plans.md",
+        "static_ip_business_allocation.md",
+        "data_only_sim_mifi.md"
       ],
       "expected_source": null,
       "ground_truth": "",
-      "ticket_id": "LOCAL-AB114559"
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "مرحبا",
       "category": "GREETING",
       "expected_category": "GREETING",
-      "answer": "مرحباً! كيف أقدر أساعدك اليوم؟",
+      "answer": "أهلاً وسهلاً! كيف أقدر أساعدك اليوم؟",
       "contexts": [],
       "retrieved_sources": [],
       "expected_source": null,
       "ground_truth": "",
-      "ticket_id": null
+      "ticket_id": null,
+      "error": null
     },
     {
       "question": "What is 2+2?",
@@ -230,7 +240,350 @@
       "retrieved_sources": [],
       "expected_source": null,
       "ground_truth": "",
-      "ticket_id": null
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "إزاي أنقل رقمي من Vodafone لـ NileTel؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "عشان تنقل رقمك من Vodafone لـ NileTel، الخطوات كالتالي:\n\n1.  الأول لازم تجيب الـ **Unique Porting Code (UPC)** من Vodafone عن طريق الاتصال بكود `*888#` [4].\n2.  تحضر معاك **بطاقة الرقم القومي** + **شريحة Vodafone القديمة** + **الكود (UPC)** [4].\n3.  تدفع **50 جنيه** رسوم نقل المرة الواحدة [4].\n4.  تروح أقرب فرع لـ NileTel، وهناك هنفتح طلب MNP في النظام ونختار \"Inbound Port\" [2].\n5.  هنعمل مسح ضوئي (KYC) للبطاقة وصورة شخصية، وندخل الكود والرقم في بوابة الـ MNP [2].\n6.  هتستلم إيصال تأكيد (acknowledgment receipt) فيه التاريخ المتوقع لنقل الرقم، والمفروض يتم في خلال **24-48 ساعة** [2].\n7.  بعد الموافقة، الرقم بينقل تلقائي في 4 ساعات، وكل اللي عليك إنك تدخل شريحة NileTel الجديدة وتستنى رسالة تأكيد [2].\n\nلو احتجت أي مساعدة تانية، أنا موجود.",
+      "contexts": [
+        "هتشرح إزاي تقدر تفعّل Auto-Pay سواء من التطبيق أو من الفرع أو الكول سنتر.\n\nالتفعيل من Self-Care App:\n1. العميل يفتح NileTel App → Billing → Auto-Pay → Setup\n2. يختار طريقة الدفع\n3. يدخل بيانات البطاقة → النظام بيعمل 1 جنيه pre-auth + refund تلقائي للتحقق\n4. يستلم SMS تأكيد + email\n\nالتفعيل من الـ branch / call center:\n- لازم العميل يكون مع الـ ID\n- لازم رقم الموبايل مسجل عليه نفس الـ National ID\n- ما نقدرش نسجل بطاقة لشخص تاني (الـ NTRA بتمنع ده تماماً)",
+        "يشرح القسم ده إجراءات الفرع والأنظمة الخلفية لمعالجة طلب نقل الرقم الوارد لـ NileTel.\n\nعندنا في الـ branch:\n- افتح طلب MNP في الـ CRM واختار \"Inbound Port\".\n- اعمل KYC scan للـ ID + photo.\n- ادخل الـ UPC والـ MSISDN في الـ MNP portal.\n- اطبع للعميل الـ acknowledgment receipt مع expected port date (24-48 ساعة).\n\nفي الـ backend:\n- النظام بيبعت request للـ Donor Operator عبر الـ Centralized MNP Database.\n- بعد ما يوافق، الرقم بيتنقل تلقائي في 4 ساعات.\n- العميل لازم يدخل الـ SIM الجديدة من NileTel ويستنى SMS تأكيد.",
+        "في قسم استفسارات العملاء عن الأرقام، يتم توضيح سياسة استرجاع الأرقام المفقودة أو بيعها رسميًا.\n\n\"الرقم بتاعي خصمه ضاع، عايز أرجعه\" — الأرقام المتعلقة بـ National ID للعميل بتفضل reserved له لمدة سنة بعد الـ deactivation. بعد كده تروح للـ public pool.\n\n\"عايز أبيع رقمي لحد تاني\" — رسمياً مسموح بعد سنتين من التفعيل، لازم legal transfer في الـ branch مع شهود + رسوم نقل 1000 جنيه + KYC للمشتري.",
+        "هذا هو بداية إجراءات نقل الرقم من شبكة تانية لـ NileTel والخطوات المطلوبة من العميل.\n\nMobile Number Portability (MNP) Procedure\n\nإجراءات نقل الرقم (MNP) من شبكة تانية لـ NileTel\n\nيا فندم، الـ NTRA بتلزمنا نخلص طلب الـ porting في 24 ساعة عمل من لحظة استلامه، وأي تأخير بيخلينا مغرّمين 500 جنيه عن كل يوم.\n\nالخطوات اللي العميل لازم يعملها:\n1. يجيب الـ Unique Porting Code (UPC) من المشغل الحالي بتاعه بالاتصال بـ *955# لـ Etisalat، *888# لـ Vodafone، *567# لـ Orange.\n2. يحضر بطاقة الرقم القومي + الـ SIM card القديمة + UPC.\n3. يدفع 50 جنيه رسوم MNP (مرة واحدة)."
+      ],
+      "retrieved_sources": [
+        "autopay_recurring_billing.md",
+        "number_portability_mnp.md",
+        "number_reservation_policy.md",
+        "number_portability_mnp.md"
+      ],
+      "expected_source": "number_portability_mnp.md",
+      "ground_truth": "محتاج تجيب الـ UPC (Unique Porting Code) من Vodafone بالاتصال بـ *888#، تيجي للفرع ومعاك ID + الـ SIM القديمة + UPC + 50 جنيه رسوم MNP. الـ porting بياخد 24-48 ساعة. لو الـ UPC منتهي (صالح 30 يوم) أو في balance سالب أو عقد مش خلصان، الطلب بيترفض.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "What documents do I need to activate a new NileTel line?",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "I don't have information about the documents needed to activate a new NileTel line in the provided context. Would you like me to escalate this to a specialist who can help?",
+      "contexts": [
+        "هذا المقطع يشرح خطوات إضافة عضو لخطة العائلة في خدمات NileTel.\n\nCommon Scenarios:\n\n**Adding a Member**:\n1. Owner يدخل Self-Care App → Family → Add Member\n2. يكتب الـ phone number أو يطلب SIM جديدة\n3. لو رقم موجود في NileTel: invitation SMS للـ member للموافقة\n4. Member يوافق + يدخل OTP\n5. الـ line transfers للـ Family Plan في 24 ساعة، يحتفظ بنفس الرقم",
+        "هذه التعليمات جزء من قسم إجراءات وكلاء خدمة العملاء في دليل الامتثال للاعتراض القانوني والإفصاح القانوني الخاص بـ NileTel.\n\nWhat Customer Care Agents Must Do:\n\n**If a customer asks \"did anyone request my data?\"**\n- Answer: \"يا فندم، NileTel ما تفصحش عن أي طلبات قانونية. ده compliance issue لازم تتواصل مع الـ Legal Department على legal@niletel.com.eg.\"\n- لا تـ confirm أو تـ deny\n\n**If a customer says \"the police asked you for my info, what did you give?\"**\n- Same response above\n- Do NOT discuss any specifics\n- Document the conversation in CRM",
+        "This is a later section of the IoT/M2M SIM Activation Guide listing real-world client deployment examples.\n\nCommon IoT Use Cases عند NileTel customers:\n- **Smart electricity meters** — Egyptian Electricity Holding Company, 850K SIMs\n- **Vehicle tracking** — fleet management شركات النقل\n- **POS machines** — مطاعم، سوبر ماركتس\n- **ATM connectivity** — backup link لما الـ wired link يفصل\n- **Agriculture sensors** — soil moisture، weather stations في الدلتا",
+        "This section explains the different types of lawful requests NileTel handles, specifically covering Type C Location Data and Type D Network Suspension procedures.\n\n**Type C: Location Data**\n- Real-time or historical cell tower location\n- Court order required\n- Response in 1 hour for emergency, 24 hours otherwise\n\n**Type D: Network Suspension**\n- Block specific subscriber, SIM, or IMEI\n- NTRA order or court order\n- Immediate (within 30 minutes)\n\nWhat Customer Care Agents Must Do:"
+      ],
+      "retrieved_sources": [
+        "family_plan_management.md",
+        "lawful_intercept_compliance.md",
+        "iot_m2m_sim_activation.md",
+        "lawful_intercept_compliance.md"
+      ],
+      "expected_source": "kyc_new_customer_onboarding.md",
+      "ground_truth": "You need an original valid National ID, a clear ID scan from both sides, a live selfie holding the ID (mandatory since 2025), and proof of address if your ID address differs from the service location. The face match must score above 85% confidence. Egyptian adults can hold up to 4 lines; foreign residents up to 2 with a valid residence permit.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "إزاي أفعل Auto-Pay على باقتي؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "تقدر تفعّل Auto-Pay من خلال Self-Care App أو من الفرع أو الكول سنتر [4].\n\n**من التطبيق:**\n1. افتح تطبيق NileTel ← Billing ← Auto-Pay ← Setup\n2. اختار طريقة الدفع\n3. أدخل بيانات البطاقة (النظام بيعمل خصم 1 جنيه مؤقتاً للتحقق ويرجعه تلقائي)\n4. هتستلم SMS تأكيد وإيميل [4]\n\n**من الفرع أو الكول سنتر:**\n- لازم تكون معاك البطاقة الشخصية\n- رقم الموبايل لازم يكون مسجل بنفس الرقم القومي\n- ما ينفعش تسجل بطاقة لشخص تاني (NTRA تمنع ده) [4]\n\nطرق الدفع المدعومة: بطاقة ائتمان (Visa/MasterCard) بدون رسوم، محفظة إلكترونية (Vodafone Cash, InstaPay, Fawry Pay) برسوم 0.5%، أو خصم مباشر من حساب بنكي مجاناً [1]. ولو فعّلت Auto-Pay هتاخد خصم 5% دائم على باقتك [3].",
+      "contexts": [
+        "يبدأ دليل إعداد الدفع التلقائي والفواتير المتكررة بمقدمة تشرح أهمية تفعيله لتقليل نسبة انقطاع العملاء وطرق الدفع المدعومة.\n\nAuto-Pay & Recurring Billing Setup\n\nتفعيل وإلغاء الـ Auto-Pay والـ Recurring Billing\n\nيا فندم، الـ Auto-Pay بيقلل churn بـ 34% حسب آخر تحليل لينا، فلازم نعرضه على كل عميل postpaid لما يكلمنا.\n\nطرق الـ Auto-Pay المدعومة:\n1. **بطاقة ائتمان (Visa/MasterCard)** — رسوم 0%، الـ charge بيحصل يوم الفاتورة\n2. **محفظة إلكترونية (Vodafone Cash, InstaPay, Fawry Pay)** — رسوم 0.5% على المعاملة\n3. **خصم مباشر من حساب بنكي (Direct Debit)** — مجاني، بياخد 3 أيام عمل للـ initial setup",
+        "فيما يلي تفاصيل توقيت الخصم والإلغاء لخدمة الـ Auto-Pay في NileTel.\n\nالـ Charge Timing:\n- الفاتورة بتصدر يوم 1 من كل شهر\n- Auto-pay بيحاول يخصم يوم 5\n- لو الـ payment فشل: retry بعد 24 ساعة، 48 ساعة، 72 ساعة\n- بعد 3 محاولات فاشلة → SMS تنبيه للعميل + suspend بعد 7 أيام\n\nالإلغاء:\nالعميل يقدر يلغي في أي وقت من Self-Care App أو بـ SMS فاضي لـ 9444. ممنوع نمنعه أو نأجل الإلغاء.",
+        "هذا القسم يشرح سياسة استرداد المبالغ ونصيحة الاحتفاظ بالعملاء ضمن دليل إعداد الدفع التلقائي والفوترة المتكررة.\n\nRefund Policy للـ wrong charges:\n- لو العميل قال إن الـ auto-pay خصمته غلط، اعمل investigation في 48 ساعة\n- لو الخصم فعلاً غلط: refund كامل في 5 أيام عمل\n- لو الخصم صحيح: قدم explanation + offer payment plan لو فيه dispute\n\nنصيحة retention:\n\"يا فندم، لما تفعّل Auto-Pay بنديك 5% خصم على باقتك دلوقتي ودي offer دائم.\" الـ acceptance rate 41%.\n\nLast Updated: March 2026 | Billing Operations",
+        "هتشرح إزاي تقدر تفعّل Auto-Pay سواء من التطبيق أو من الفرع أو الكول سنتر.\n\nالتفعيل من Self-Care App:\n1. العميل يفتح NileTel App → Billing → Auto-Pay → Setup\n2. يختار طريقة الدفع\n3. يدخل بيانات البطاقة → النظام بيعمل 1 جنيه pre-auth + refund تلقائي للتحقق\n4. يستلم SMS تأكيد + email\n\nالتفعيل من الـ branch / call center:\n- لازم العميل يكون مع الـ ID\n- لازم رقم الموبايل مسجل عليه نفس الـ National ID\n- ما نقدرش نسجل بطاقة لشخص تاني (الـ NTRA بتمنع ده تماماً)"
+      ],
+      "retrieved_sources": [
+        "autopay_recurring_billing.md",
+        "autopay_recurring_billing.md",
+        "autopay_recurring_billing.md",
+        "autopay_recurring_billing.md"
+      ],
+      "expected_source": "autopay_recurring_billing.md",
+      "ground_truth": "تقدر تفعّلها من Self-Care App: Billing → Auto-Pay → Setup. اختار طريقة الدفع (بطاقة Visa/MasterCard، محفظة Vodafone Cash/InstaPay/Fawry، أو Direct Debit من البنك). النظام بيعمل pre-auth 1 جنيه للتحقق وبيرجعها. الـ charge بيحصل يوم 5 من كل شهر. لو فعلت Auto-Pay بتاخد 5% خصم على باقتك.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "فاتورة الـ roaming جت 5000 جنيه وأنا مسافرتش، أعمل إيه؟!",
+      "category": "INFO",
+      "expected_category": "COMPLAINT",
+      "answer": "أتفهم موقفك يا فندم، فاتورة بهذا المبلغ دون سفر شيء غير متوقع. خلينا نراجع الموقف مع بعض.\n\nبما أنك لم تسافر، فهذا مؤشر قوي على وجود احتيال (fraud). في هذه الحالة، الإجراء المتبع هو:\n- استرداد كامل للمبلغ (refund كامل).\n- فتح تذكرة (ticket) لفريق مكافحة الاحتيال (Fraud Team) للتحقيق.\n- عرض استبدال شريحة (SIM swap) لحماية خطك. [4]\n\nهل تريد مني أن أبدأ هذه الإجراءات لك الآن؟",
+      "contexts": [
+        "يبدأ القسم بشرح مشكلة صدمة فواتير التجوال والحدود الافتراضية المطبقة تلقائيًا لحماية العملاء.\n\nRoaming Fraud Prevention & Bill Shock Mitigation\n\nمنع الـ roaming fraud وتجنب فواتير الـ shock\n\nيا فندم، الـ roaming bill shock من أكتر أسباب الشكاوى عندنا، خصوصاً بعد المواسم السياحية. الـ NTRA بتلزمنا نطبق caps لحماية العميل من فواتير غير متوقعة.\n\nالـ Default Roaming Caps (مطبقة تلقائياً على كل خط):\n- Data roaming: 500 جنيه/شهر، بعدها block تلقائي مع SMS notification\n- Voice roaming: 1000 جنيه/شهر\n- SMS roaming: 200 جنيه/شهر\n- العميل يقدر يرفع أو يلغي الـ cap من Self-Care App",
+        "يتناول هذا الجزء سياسات التعويض والباقات المتاحة للعملاء بعد التعامل مع شكاوى فواتير التجوال.\n\nالـ Goodwill Limits على Roaming:\n- لو العميل أول مرة يحصل له ده: refund 100% بحد 3000 جنيه (no questions)\n- لو متكرر: 50% goodwill + education عن الـ caps + recommend roaming bundle\n\nRoaming Bundles (offer دائم):\n- 5 جيجا داخل المنطقة العربية: 200 جنيه\n- 5 جيجا أوروبا: 350 جنيه\n- 10 جيجا عالمي: 600 جنيه\nكل bundle بيشمل voice + SMS + data caps واضحة.",
+        "لتجنب فواتير التجوال المرتفعة، يتم اتباع قائمة التحقق قبل السفر للعميل.\n\nPre-departure Checklist (لما العميل يقول إنه مسافر):\n1. ابعت له SMS بالـ destination rates\n2. اعرض عليه roaming bundle مناسب\n3. فعّل له strict cap (200 جنيه بدل 500)\n4. ذكره يقفل auto-update للـ apps قبل ما يسافر\n\nLast Updated: April 2026 | Fraud Management & Customer Protection",
+        "دي الخطوات اللي المفروض تتبعها لما العميل يشتكي من فاتورة عالية بعد ما يسافر.\n\nالعميل بيتصل وبيشتكي من فاتورة عالية:\n1. اعتذر بصدق: \"يا فندم، فاتورة عالية مش متوقعة دي مشكلة فعلية، خليني أراجع معاك.\"\n2. شيك الـ usage logs في الـ CRM → روح Roaming Tab\n3. لو الاستخدام واضح + موثق: شرح للعميل (مثلاً \"اتصالات للسعودية 3 ساعات في يوم 15\")\n4. لو واضح إن في fraud: refund كامل + ticket للـ Fraud Team + offer SIM swap"
+      ],
+      "retrieved_sources": [
+        "roaming_fraud_prevention.md",
+        "roaming_fraud_prevention.md",
+        "roaming_fraud_prevention.md",
+        "roaming_fraud_prevention.md"
+      ],
+      "expected_source": "roaming_fraud_prevention.md",
+      "ground_truth": "",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "What is the difference between Platinum and Gold corporate SLA?",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "The main differences between Platinum and Gold corporate SLAs are:\n\n- **Uptime**: Platinum guarantees 99.95% uptime, while Gold guarantees 99.9% [4]\n- **MTTR (Mean Time to Repair)**: Platinum has a 2-hour MTTR, while Gold has a 4-hour MTTR [4]\n- **Credit for downtime**: Platinum receives 10% credit per hour of downtime, while Gold receives 5% [4]\n\nAdditionally, from the account tier perspective, Platinum requires an annual contract over 1M EGP with dedicated AM and 24/7 NOC support, while Gold requires 300K–1M EGP with dedicated AM and business hours support [1].",
+      "contexts": [
+        "This table breaks down the four corporate account tiers at NileTel based on annual contract size and support level.\n\nتصنيف حسابات الـ Corporate:\n- **Platinum** — Annual contract > 1M EGP، dedicated AM + 24/7 NOC support\n- **Gold** — 300K - 1M EGP، dedicated AM + business hours support\n- **Silver** — 50K - 300K EGP، shared AM + standard support\n- **SoHo (Small Office/Home Office)** — < 50K EGP، self-service + tickets",
+        "تشرح قائمة تسليم الـ shift أدوات التواصل وفحص الجودة بين وكلاء خدمة العملاء.\n\nCommunication Channels:\n- **Slack #cc-handover** — quick notes between agents\n- **Confluence — Daily Shift Log** — written record كل shift\n- **Phone briefing** — لو في critical incident، 5-min call between shift leads\n\nQuality Checks:\nالـ team supervisor بـ random sampling 5% من الـ handovers اليومية:\n- Was the handover note complete?\n- Did the next agent pick it up within SLA?\n- Was the customer's perception consistent across shifts?\n- Score: 0-10، target 8.5+",
+        "This chunk is the beginning of the document that introduces the purpose and general rules for issuing goodwill credits by supervisors.\n\nIssuing Goodwill Credit Procedure (Supervisor Level)\n\nإجراءات إصدار goodwill credit (للـ supervisors بس)\n\nيا فندم، الـ goodwill credit بنستخدمه عشان نحافظ على العملاء المهمين أو في حال SLA breach.\n\nالقواعد:\n- Max 20% of monthly bill for regular customers.\n- Up to 50% for VIP / Golden customers.\n- Must have valid ticket (P1 or P2) with proper documentation.\n- Approval chain: Supervisor → Billing team → OSS credit note.",
+        "شرح مستويات الخدمة ومسار التصعيد لحل مشاكل عملاء الشركات في NileTel.\n\nSLA Tiers:\n- Platinum DIA: 99.95% uptime, MTTR 2 ساعة, credit 10% لكل ساعة downtime\n- Gold DIA: 99.9% uptime, MTTR 4 ساعات, credit 5%\n- Silver: 99.5% uptime, MTTR 8 ساعات\n- لو الـ uptime تحت الـ SLA: credit بيتطبق تلقائي في فاتورة الشهر التالي\n\nEscalation Path:\n- L1 (Account Manager): مشاكل routine\n- L2 (Corporate Operations Center): technical issues, network changes\n- L3 (Engineering): complex problems, custom configurations\n- L4 (CTO Office): contract issues, major outages"
+      ],
+      "retrieved_sources": [
+        "corporate_account_management.md",
+        "agent_shift_handover.md",
+        "issuing_goodwill_credit.md (Supervisor-only).md",
+        "corporate_account_management.md"
+      ],
+      "expected_source": "corporate_account_management.md",
+      "ground_truth": "Platinum SLA targets 99.95% uptime with a 2-hour MTTR and 10% service credit per hour of downtime. Gold targets 99.9% uptime with a 4-hour MTTR and 5% credit per hour. Platinum customers get dedicated 24/7 NOC support; Gold customers get business-hours support. Both tiers include a dedicated Account Manager and quarterly business reviews.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "كام سعر باقة الـ IoT للـ POS machines؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "باقة الـ IoT المناسبة لأجهزة الـ POS هي **Standard-IoT**، وسعرها **80 جنيه شهرياً** [4].",
+      "contexts": [
+        "بعد شرح باقات الـ IoT وعملية التفعيل، يوضح الدليل حالات إدارة دورة حياة الـ SIM وخيارات الـ Static IPs.\n\nLifecycle Management:\n- **Active**: working normally, data flowing\n- **Inactive**: in stock, not deployed yet\n- **Suspended**: deployed but temporarily disabled (e.g., theft suspected)\n- **Deactivated**: end-of-life, can't reactivate\n\nStatic IPs للـ IoT:\n- /30 per device بـ 50 جنيه/شهر إضافي\n- /29 per device بـ 150 جنيه/شهر\n- لازم العميل يثبت إن الـ device بيحتاج reachability من خارج الشبكة",
+        "هذه قائمة بأجهزة الـ Mobile / IoT و Set-Top Boxes الموزعة من NileTel، تليها مباشرة مدة الضمان الخاصة بكل فئة.\n\n**Mobile / IoT**:\n- Huawei E5577 MiFi (4G)\n- ZTE MF286 CPE (5G)\n- Huawei B636 5G FWA Router\n- Various MiFi pocket devices\n\n**Set-Top Boxes** (للـ TV bundles):\n- NileTel STB v3 (Android TV)\n- Samsung shared OEM\n\nWarranty Periods:",
+        "This opening section of the IoT/M2M SIM Activation Guide introduces the growing IoT department and the key differences from consumer SIMs.\n\nIoT / M2M SIM Activation Guide\n\nدليل تفعيل الـ IoT / M2M SIMs\n\nيا فندم، عندنا قسم IoT بينمو بسرعة كبيرة — العميل المصري بقى يحتاج SIMs لـ smart meters، GPS trackers، POS machines، vending machines، الخ. الـ SIM ده مختلف عن الـ consumer SIM في كذا حاجة جوهرية.",
+        "بعد شرح الفروق الأساسية بين SIM الـ IoT والـ consumer SIM، يقدم الدليل الباقات المتاحة للاختيار من بينها.\n\nالباقات الـ IoT المتاحة:\n- **Micro-IoT**: 100 MB/شهر، 30 جنيه. مناسب لـ smart meters، sensors بسيطة\n- **Standard-IoT**: 1 GB/شهر، 80 جنيه. مناسب لـ POS, trackers\n- **Heavy-IoT**: 10 GB/شهر، 300 جنيه. مناسب لـ surveillance cameras, in-vehicle\n- **Custom pool**: shared pool عبر كل الـ fleet، pricing بالميجا بعد negotiation"
+      ],
+      "retrieved_sources": [
+        "iot_m2m_sim_activation.md",
+        "device_replacement_warranty.md",
+        "iot_m2m_sim_activation.md",
+        "iot_m2m_sim_activation.md"
+      ],
+      "expected_source": "iot_m2m_sim_activation.md",
+      "ground_truth": "باقة Standard-IoT المناسبة للـ POS بـ 80 جنيه/شهر وبتشمل 1 جيجا. لو محتاج شوية مرونة، عندنا Heavy-IoT بـ 300 جنيه/شهر مع 10 جيجا. التفعيل bulk لـ 50+ SIMs بياخد 24 ساعة عبر الـ IoT Provisioning Portal، والـ activation مرتبط بحسابك التجاري مش بكل device لوحده.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "أنا طالب في الجامعة، إيه الباقات المتاحة لي؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "أهلاً بيك يا فندم! الطلاب شريحة مهمة جداً عندنا [4]. بالنسبة للباقات المتاحة ليك كطالب جامعي، فيه باقة ممتازة:\n\n**باقة Student Mobile (Postpaid)**:\n- 50 جنيه/شهر\n- سوشيال ميديا غير محدودة (Instagram, Snapchat, TikTok, Twitter)\n- 10 جيجابايت داتا عادية\n- مكالمات غير محدودة جوه الشبكة\n- 200 دقيقة للشبكات التانية\n- رسوم التفعيل مجاناً [3]\n\nولو عايز تعرف المستندات المطلوبة للاشتراك، هتحتاج:\n- كارنيه الجامعة (ساري)\n- شهادة قيد من الكلية (لأول مرة تفعيل)\n- البطاقة الشخصية (لو فوق 16 سنة) [3]\n\nهل تحب أساعدك في حاجة تانية؟",
+      "contexts": [
+        "بعد شرح الفروق الأساسية بين SIM الـ IoT والـ consumer SIM، يقدم الدليل الباقات المتاحة للاختيار من بينها.\n\nالباقات الـ IoT المتاحة:\n- **Micro-IoT**: 100 MB/شهر، 30 جنيه. مناسب لـ smart meters، sensors بسيطة\n- **Standard-IoT**: 1 GB/شهر، 80 جنيه. مناسب لـ POS, trackers\n- **Heavy-IoT**: 10 GB/شهر، 300 جنيه. مناسب لـ surveillance cameras, in-vehicle\n- **Custom pool**: shared pool عبر كل الـ fleet، pricing بالميجا بعد negotiation",
+        "Here's how to handle a customer calling to cancel, starting with the Basic tier retention offers.\n\n**Stage 3: Cancellation In-Progress**\nلو العميل بيتصل ليلغي:\n1. أول سؤال: \"يا فندم، عايز أفهم بس إيه اللي مضايقك؟\"\n2. Listen بدون counter-arguments للأول دقيقتين\n3. اعتذر بصدق لو في issue حقيقي\n4. اعرض retention offer (based on customer tier):\n\n**Retention Offers Matrix**:\n\nFor Basic Customers (< 100 EGP/month):\n- 20% discount لمدة 6 شهور\n- Free 5 GB monthly data pack\n- Apology free month لو في complaint pending",
+        "هذه قائمة المستندات المطلوبة للاشتراك تتبعها تفاصيل باقة الموبايل للطلاب.\n\nاللي محتاج تسأل عليه:\n1. الـ University ID (ساري)\n2. شهادة قيد من الكلية (للـ first-time activation)\n3. National ID (لو فوق 16)\n4. Parent ID + consent form (لو تحت 18)\n\nالباقات المتاحة:\n\n**Student Mobile (Postpaid)**:\n- 50 جنيه/شهر\n- Unlimited social media (Instagram, Snapchat, TikTok, Twitter)\n- 10 GB regular data\n- Unlimited calls داخل الـ network\n- 200 دقيقة لشبكات تانية\n- Activation fee مجاناً",
+        "هذه الفقرة تقدّم شريحة الطلاب الاستراتيجية والفئات المؤهّلة للانضمام، وتأتي في افتتاح دليل باقات الطلاب والشباب.\n\nStudent & Youth Plans\n\nباقات الطلاب والشباب\n\nيا فندم، الطلاب شريحة استراتيجية — العميل اللي بنكسبه وهو طالب بيفضل معانا 8 سنين في المتوسط (vs 3 سنين للـ acquisition العادي).\n\nالفئات المؤهلة:\n- **University Students** — جامعة معتمدة، ID ساري، تحت 26 سنة\n- **High School Students** — 14-18 سنة، بـ guardian consent\n- **Recent Graduates** — أول سنة بعد التخرج (grace period)"
+      ],
+      "retrieved_sources": [
+        "iot_m2m_sim_activation.md",
+        "win_back_churn_prevention.md",
+        "student_youth_plans.md",
+        "student_youth_plans.md"
+      ],
+      "expected_source": "student_youth_plans.md",
+      "ground_truth": "عندنا 3 باقات للطلاب: Student Mobile بـ 50 جنيه/شهر تشمل unlimited social media + 10 جيجا + unlimited calls داخل الشبكة + 200 دقيقة لشبكات تانية؛ Student FTTH بـ 250 جنيه/شهر للـ 100 ميجا (بدل 350) مع free installation؛ و Student Combo (Mobile + Home) بخصم 30% + Disney+ مجاناً 6 شهور. محتاج Student ID ساري + شهادة قيد + تحت 26 سنة.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "How much does a 100 GB MiFi plan cost?",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "The 100 GB MiFi plan is not listed as a standalone monthly option. However, there is a **MiFi + Device Bundle** that includes a Huawei E5577 4G MiFi with 100 GB for 6 months at 1200 EGP [1].  \n\nIf you're looking for a 100 GB data-only SIM without a device, the prepaid Pay-as-You-Go plan offers 100 GB valid for 30 days at 200 EGP [3].  \n\nWould you like me to help you choose between these, or do you need more details?",
+      "contexts": [
+        "هذه هي باقات الـ MiFi وباقات الأجهزة المجمعة المتاحة لشريحة عملاء الداتا فقط.\n\n**MiFi Mobile Hotspot**:\n- 30 جنيه/شهر — 20 GB، unlimited social media\n- 75 جنيه/شهر — 80 GB، speed cap 50 Mbps\n- 150 جنيه/شهر — 250 GB، no speed cap (lower priority during peak)\n\n**MiFi + Device Bundle**:\n- Huawei E5577 4G MiFi + 100 GB لمدة 6 شهور بـ 1200 جنيه\n- ZTE MF286 5G CPE + 250 GB لمدة 12 شهور بـ 3500 جنيه",
+        "For devices not covered under warranty due to accidental damage or loss, the following replacement charges apply.\n\nDamaged/Lost Device Charges:\nلو العميل بيطلب replacement بسبب damage مش covered:\n- FTTH router: 350-800 جنيه (حسب الـ model)\n- 5G CPE: 1,200-2,500 جنيه\n- MiFi: 600-900 جنيه\n- STB: 500 جنيه\n- Insurance plan متاحة: 30 جنيه/شهر تغطي accidental damage (deductible 100 جنيه)",
+        "تتضمن خدمة Data-Only & MiFi باقات Pay-as-You-Go المدفوعة مُسبقًا لتناسب المستخدمين المختلفين.\n\n**Pay-as-You-Go (Prepaid Data SIM)**:\n- 5 GB صالحة 7 أيام = 25 جنيه\n- 20 GB صالحة 30 يوم = 70 جنيه\n- 100 GB صالحة 30 يوم = 200 جنيه\n- بعد الـ quota، السرعة بتنزل لـ 256 kbps حتى recharge\n\nFair Usage Policy:\n- بعد 80% من الـ quota → notification بـ SMS\n- بعد 100% → speed throttle لـ 1 Mbps (للـ \"unlimited\" plans)\n- بعد 200% → block + suggest plan upgrade",
+        "This is the opening section of a service guide introducing data-only plans for tablets, MiFi devices, and laptops, and it starts listing postpaid tablet plan options.\n\nData-Only SIM & MiFi Service\n\nخطوط الـ Data-Only والـ MiFi\n\nيا فندم، شريحة العملاء اللي عايزة data بس (للـ tablets، MiFi devices، secondary laptops) شريحة بتنمو بسرعة. الـ data-only SIM ما يحتاجش KYC منفصل لو العميل عنده mobile line معانا — بنطبق simplified KYC.\n\nأنواع الباقات:\n\n**Tablet Plan (Postpaid)**:\n- 15 جنيه/شهر — 5 GB\n- 40 جنيه/شهر — 25 GB\n- 80 جنيه/شهر — 100 GB"
+      ],
+      "retrieved_sources": [
+        "data_only_sim_mifi.md",
+        "device_replacement_warranty.md",
+        "data_only_sim_mifi.md",
+        "data_only_sim_mifi.md"
+      ],
+      "expected_source": "data_only_sim_mifi.md",
+      "ground_truth": "The Tablet/MiFi plan with 100 GB postpaid costs 80 EGP/month. For MiFi specifically, the 75 EGP/month plan gives you 80 GB with a 50 Mbps speed cap. If you want a MiFi + device bundle, the Huawei E5577 4G MiFi with 100 GB for 6 months costs 1,200 EGP total. Activation fee is 50 EGP (refundable on plans above 100 EGP/month).",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "الـ router بتاعي عنده مشكلة بعد update الـ firmware",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "أهلاً بيك يا فندم، تقدر توضح لي نوع الراوتر اللي عندك عشان أقدر أساعدك بشكل أدق؟  \nفي كل الأحوال، خليني أذكرك ببعض النقاط المهمة اللي ممكن تكون سبب المشكلة بعد التحديث:\n\n- لو جهازك **Huawei HG8245H**، فيه إصدار Firmware معين (V3R017C10S210) ممكن يسبب مشكلة تسريب في الذاكرة بعد 14 يوم من التشغيل، والحل هو التحديث لإصدار V3R019 أو أحدث. ولو الجهاز دخل في حلقة إعادة تشغيل (boot loop) بعد التحديث، فيه نسخة استرجاع (rollback) متاحة في الـ ACS [3].  \n- لو جهازك **Nokia G-2425G-A**، بعض إصدارات الفيرموير بتعمل إعادة تعيين لكلمة سر الـ Wi-Fi (WPA password)، فممكن تحتاج تتأكد من كلمة السر بعد التحديث [4].  \n- لو جهازك **ZTE F660**، الجهاز ده ما بيقبلش التحديث عن بُعد، ولازم يتم يدويًا أو استبداله من الفرع بتكلفة 100 جنيه لو الجهاز ملكك [4].\n\nممكن تقول لي نوع الراوتر وإيه المشكلة اللي بتواجهها بالضبط عشان أرشدك للخطوة الصح؟",
+      "contexts": [
+        "هذه هي مقدمة الدليل التي تشرح أهمية التحقق من إصدار الفيرموير كخطوة أولى قبل تصعيد أي شكوى.\n\nModem & Router Firmware Update Guide\n\nدليل تحديث الـ firmware للـ modems والـ routers\n\nيا فندم، 28% من شكاوى الـ FTTH اللي بتتقفل بـ \"no fault found\" بترجع أصلاً لـ firmware قديم. لما العميل يبلغ مشكلة connectivity أو speed، شيك على الـ firmware version قبل أي escalation.",
+        "هذا المقطع يوضح الأجهزة المرفوضة ونصائح التعامل معها، بالإضافة إلى إرشادات التوثيق بعد التركيب.\n\nالأجهزة غير المدعومة:\n- أي ONT قديم من شركات تانية أو routers قديمة (مثل TP-Link Archer C20)\n- هتسبب frequent disconnections ومشاكل في الـ provisioning\n\nنصيحة للـ agents:\nلو العميل بيستخدم جهاز غير مدعوم، قوله \"يا فندم، الجهاز ده مش مدعوم من NileTel، لو ركبنا الـ Huawei HG8145V5 هتحسن السرعة والاستقرار كتير. عايز نعمل replace؟\"\n\nبعد أي installation، لازم نكتب في التذكرة نوع الـ ONT والـ router المستخدم.\n\nLast Updated: April 2026 | Department: Network Engineering",
+        "قبل ما تبدأ أي تحديث للـ firmware، لازم تتأكد من الشروط دي وتكون عارف المشاكل المعروفة لكل جهاز.\n\nPre-Update Checks:\n1. شيك الـ battery backup لو فيه (للأجهزة الـ FTTH)\n2. تأكد من signal strength (RX power أعلى من -25 dBm)\n3. warn العميل: \"هيحصل reboot واحد، النت هيرجع في 5 دقايق\"\n4. خد screenshot لـ current config (لو هيتعمل factory reset مع الـ update، رجّعها بعدين)\n\nKnown Issues per Device:\n\n**Huawei HG8245H**:\n- Firmware V3R017C10S210 → عنده memory leak بعد 14 يوم uptime. Update لـ V3R019 أو أحدث.\n- لو الـ device في حالة boot loop بعد الـ update → الـ rollback firmware موجود في الـ ACS",
+        "يتم سرد المشكلات المعروفة لكل جهاز، بدءًا من ZTE F660 ثم Nokia G-2425G-A، ضمن قسم \"Known Issues per Device\".\n\n**ZTE F660**:\n- ما يقبلش update remote، لازم manual أو device replacement\n- الفرع الأقرب يقدم replacement بـ 100 جنيه لو الـ device حر vs upgrade الباقة\n\n**Nokia G-2425G-A**:\n- يحتاج reboot بعد الـ update عشان الـ Wi-Fi profile يـ apply\n- بعض الـ firmware versions بتـ reset الـ WPA password → تأكد من العميل بعد الـ update"
+      ],
+      "retrieved_sources": [
+        "modem_firmware_update.md",
+        "supported_hardware.md",
+        "modem_firmware_update.md",
+        "modem_firmware_update.md"
+      ],
+      "expected_source": "modem_firmware_update.md",
+      "ground_truth": "60% من الـ firmware issues بترجع لـ wrong configuration بعد الـ update. أول حاجة شيك الـ current version من web UI (192.168.1.1 → Status → System Info). لو الجهاز Huawei HG8245H مع firmware V3R017C10S210 ده memory leak معروف، لازم rollback أو update لـ V3R019. لو Boot loop، الـ rollback firmware متاح في الـ ACS. ولو ZTE F660 ده ما يقبلش remote update، الحل replacement device.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "كام الـ NTRA timeline لحل شكاوى الفواتير؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "أنا آسف، المعلومات المتاحة لا تشمل الجدول الزمني الإلزامي لحل شكاوى الفواتير. هل تحب أن أصعّد استفسارك لفريق مختص لمساعدتك؟",
+      "contexts": [
+        "توضح الوثيقة حقوق المستهلك وخطة تصعيد الشكاوى، ومنها الجدول الزمني الإلزامي لحل مشكلات الخصوصية وانتهاكات البيانات.\n\n**Tier 4: Privacy / Data Violations**:\n- First response: فورياً (15 دقيقة)\n- Investigation: 24 ساعة\n- Resolution: 7 أيام\n- Mandatory report للـ NTRA Data Protection Officer\n\nCustomer Rights Charter:",
+        "هذه أفضل الممارسات اللي لازم الوكلاء يتبعوها عند التعامل مع شكاوى العملاء حسب لينة NTRA.\n\nAgent Best Practices:\n- لما العميل يقول \"هاشكي للـ NTRA\": ما تخوّفش منه، قول \"حقك يا فندم، بس خليني أحاول أحل لك الموضوع الأول.\"\n- وثّق كل خطوة في الـ ticket حسب الـ NTRA reporting standards (issue category, root cause, resolution time, customer feedback)\n- لو الشكوى مرت 50% من الـ allowed timeline بدون progress، auto-escalate",
+        "وفقًا لـ Regulation 247/2024، دي أول timeline ملزم لمعالجة شكاوى انقطاع الخدمة.\n\nالـ Mandatory Resolution Timeline:\n\n**Tier 1: Service Disruption (anything affecting connectivity)**:\n- First response: 30 دقيقة من تسجيل الشكوى\n- Initial diagnosis: 4 ساعات\n- Resolution أو escalation: 24 ساعة\n- Status update for customer: كل 8 ساعات\n- Final resolution: max 5 أيام عمل\n- لو فشل الـ resolution: refund prorated للأيام اللي ما اشتغلش فيها الـ service",
+        "دي بداية المستند اللي بيشرح حقوق المستهلك والجدول الزمني الإلزامي لحل الشكاوى حسب تنظيم NTRA.\n\nConsumer Rights & Complaint Escalation Timeline\n\nحقوق المستهلك والـ timeline للشكاوى\n\nيا فندم، الـ NTRA بـ Regulation 247/2024 حددت timeline ملزم لكل المشغلين عشان معالجة شكاوى العملاء. أي شكوى تخرج عن الـ timeline ده بتعرضنا لغرامة من 5000 لـ 50000 جنيه حسب الـ severity.\n\nالـ Mandatory Resolution Timeline:"
+      ],
+      "retrieved_sources": [
+        "consumer_rights_complaint_timeline.md",
+        "consumer_rights_complaint_timeline.md",
+        "consumer_rights_complaint_timeline.md",
+        "consumer_rights_complaint_timeline.md"
+      ],
+      "expected_source": "consumer_rights_complaint_timeline.md",
+      "ground_truth": "حسب NTRA Regulation 247/2024، شكاوى الفواتير لازم تتحل في timeline ملزم: First response في ساعة (call) أو 4 ساعات (ticket)، Investigation 7 أيام عمل، Resolution 14 يوم عمل كحد أقصى، و Refund processing في 30 يوم. لو ما اتحلتش في الـ timeline، العميل من حقه يقدم شكوى مباشرة للـ NTRA. أي تأخير بيعرضنا لغرامة من 5000 لـ 50000 جنيه.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "ما هي رسوم Static IP للشركات؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "رسوم تخصيص الـ Static IP للشركات حسب الفئة كالتالي:\n\n- **Single Static IP (/32):** 50 جنيه شهرياً إضافياً على الاشتراك الأساسي [4]\n- **Small Block (/30):** 150 جنيه شهرياً [4]",
+      "contexts": [
+        "يبدأ المستند بشرح الأهلية وأنواع التخصيص المتاحة لطلبات الـ IP الثابت للعملاء التجاريين.\n\nStatic IP Allocation for Business Customers\n\nتخصيص الـ Static IPs للعملاء التجاريين\n\nيا فندم، طلب Static IPs من العملاء البيزنس بقى متكرر جداً مع انتشار VPN, remote work, hosted servers. الـ allocation policy عندنا صارمة لأن الـ IPv4 pool محدود ومرتبط بـ APNIC quota.\n\nالـ Eligibility:\n- لازم العميل عنده Business contract (مش consumer)\n- لازم Commercial Register ساري\n- مطلوب technical justification مكتوبة\n- ممنوع لـ illegal hosting (gambling, adult content, etc.)\n\nAllocation Tiers:",
+        "في قسم المشكلات الشائعة مع تخصيص الـ Static IPs للعملاء التجاريين، نوضح سياسات التعامل مع تغير الـ IP أو الطلبات الطارئة.\n\nCommon Issues:\n- \"الـ IP اتغير بدون ما أعرف\" → ده ما بيحصلش مع Static IP طول العقد ساري. لو حصل: investigation فوري + apology + service credit\n- \"محتاج المزيد من الـ IPs مفاجئ\" → emergency allocation متاحة في 24 ساعة بضمان temporary، capacity planning بياخد لـ 5 أيام للـ permanent\n\nLast Updated: March 2026 | Network Engineering & Capacity Planning",
+        "قسم \"Common Misconceptions\" في سياسة تخصيص الـ Static IPs يوضح المفاهيم الخاطئة الشائعة عند العملاء التجاريين.\n\nCommon Misconceptions:\n- \"أنا عايز IP ثابت عشان النت يبقى أسرع\" → لا، الـ static IP ما يؤثرش على السرعة\n- \"محتاج IP عشان WhatsApp Business يشتغل\" → لا، WhatsApp ما يحتاجش IP ثابت\n- \"Static IP بيخلي الـ port forwarding يشتغل\" → جزئياً، الـ static IP ضروري لـ inbound services بس مش كافي وحده",
+        "بيوضح جزء من سياسة تخصيص الـ Static IPs للعملاء التجاريين حسب الفئات والموافقات المطلوبة.\n\nAllocation Tiers:\n\n**Single Static IP (/32)**:\n- 50 جنيه/شهر إضافي على الـ baseline\n- Purpose: remote access (VPN endpoint), CCTV, single web server\n- Approval: 24 ساعة، self-service من Self-Care Business Portal\n\n**Small Block (/30)**:\n- 4 IPs (2 usable)\n- 150 جنيه/شهر\n- Purpose: small mail server + backup\n- Approval: 48 ساعة، AM signature"
+      ],
+      "retrieved_sources": [
+        "static_ip_business_allocation.md",
+        "static_ip_business_allocation.md",
+        "static_ip_business_allocation.md",
+        "static_ip_business_allocation.md"
+      ],
+      "expected_source": "static_ip_business_allocation.md",
+      "ground_truth": "Single Static IP (/32): 50 جنيه/شهر، Self-Service approval خلال 24 ساعة. Small Block (/30) بـ 4 IPs (2 usable): 150 جنيه/شهر مع AM signature في 48 ساعة. Medium Block (/29) بـ 8 IPs (6 usable): 350 جنيه/شهر مع technical review في 5 أيام عمل. Large Block (/28 أو أكبر): custom pricing، 2-4 أسابيع للموافقة مع NTRA notification.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "إزاي أحجز رقم مميز؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "للأسف، المعلومات المتوفرة لدي لا تشمل إجراءات حجز الأرقام المميزة للأفراد. السياق يوضح فقط سياسة حجز الأرقام للشركات وإجراءات استرجاع العملاء المميزين [3][4]. هل ترغب في تصعيد استفسارك إلى المشرف للحصول على مساعدة أكثر تفصيلاً؟",
+      "contexts": [
+        "الده كان جزء من الأسئلة الشائعة لشرح إجراءات تصعيد الشكاوى للعملاء.\n\nFAQ: Customer Wants to Escalate\n\nأسئلة شائعة - العميل عايز يصعد الشكوى\n\nسؤال: \"مش راضي، عايز أكلم supervisor\"\n\nالرد الموصى:\n\"تمام يا فندم، أنا هصعد التذكرة دلوقتي للـ supervisor.\nهيتصل بيك خلال 15 دقيقة بالكتير.\nرقم التذكرة دلوقتي هو #T-78452.\nلو عايز أي حاجة تانية قولي.\"\n\nدايماً ابعت confirmation message بعد التصعيد.\n\nLast Updated: April 2026",
+        "هتشرح إزاي تقدر تفعّل Auto-Pay سواء من التطبيق أو من الفرع أو الكول سنتر.\n\nالتفعيل من Self-Care App:\n1. العميل يفتح NileTel App → Billing → Auto-Pay → Setup\n2. يختار طريقة الدفع\n3. يدخل بيانات البطاقة → النظام بيعمل 1 جنيه pre-auth + refund تلقائي للتحقق\n4. يستلم SMS تأكيد + email\n\nالتفعيل من الـ branch / call center:\n- لازم العميل يكون مع الـ ID\n- لازم رقم الموبايل مسجل عليه نفس الـ National ID\n- ما نقدرش نسجل بطاقة لشخص تاني (الـ NTRA بتمنع ده تماماً)",
+        "كده وصلنا لجزء السوق الموازي وإجراءات استرجاع العملاء المميزين اللي بيفكروا يسيبونا.\n\nResale Market:\nفي موقع OLX وSouq فيها أرقام مميزة من NileTel معروضة. NileTel:\n- ما تعترفش بالـ transactions غير الـ official transfers\n- بنبلغ الـ NTRA عن الـ commercial reseller activities\n- العميل اللي يشتري من market غير رسمي بيخسر الـ ownership والـ deposit\n\nWin-Back للأرقام المخسرة:\nلو العميل يهدد يـ port out مع رقم premium:\n- عرض 30% discount على الباقة + free 6 months Disney+\n- exclusive VIP support\n- مدير حساب مخصص\nالـ acceptance rate في الحالات دي 67%.",
+        "هذا القسم يوضح تفاصيل حجز الأرقام للشركات ثم يتناول كيفية التعامل مع استفسارات العملاء حول تشابه الأرقام العائلية.\n\nReservation للـ Corporate Customers:\n- شركات بتاخد block من 100-1000 رقم\n- لازم business justification\n- Custom prefix possible (مثلاً كل الأرقام 0107XXX لشركة محددة)\n- Pricing: 80% من retail price بـ corporate discount\n\nCustomer Inquiries:\n\n\"عايز رقم زي رقم أخويا\" — شيك في الـ system هل الـ rule of 4 (مش ممكن 4 أرقام متتالية في نفس الـ family member) بتنطبق. لو طبيعي، اعرض على العميل options."
+      ],
+      "retrieved_sources": [
+        "faq_escalation.md",
+        "autopay_recurring_billing.md",
+        "number_reservation_policy.md",
+        "number_reservation_policy.md"
+      ],
+      "expected_source": "number_reservation_policy.md",
+      "ground_truth": "تختار من الـ available pool في NileTel App اللي بيتجدد كل ساعة. الحجز صالح 48 ساعة بدون دفع أو 7 أيام بـ 10% deposit. الأسعار: Premium Tier 1 (golden numbers زي 01000000001) من 50,000 لـ 500,000 جنيه؛ Special Tier 2 (ست أرقام متكررة) من 5,000 لـ 25,000 جنيه؛ Premium-Lite من 1,000 لـ 3,000 جنيه. كل عميل max 3 أرقام Premium في نفس الوقت.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "الانترنت قطع عندي لـ 3 أيام، كام التعويض المستحق؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "حسب سياسة التعويض عن انقطاع الخدمة، لو الانقطاع استمر أكثر من 48 ساعة، يحق لك تعويض بقيمة 100 جنيه كرصيد goodwill [2]. ولو الانقطاع تعدى 7 أيام، تستحق شهر خدمة مجاني [2]. التعويض بيتحسب تلقائيًا من النظام وبيتم إضافته كرصيد في فاتورة الشهر التالي، ومش محتاج تطلب [2].",
+      "contexts": [
+        "يتناول هذا الجزء سياسات التعويض والباقات المتاحة للعملاء بعد التعامل مع شكاوى فواتير التجوال.\n\nالـ Goodwill Limits على Roaming:\n- لو العميل أول مرة يحصل له ده: refund 100% بحد 3000 جنيه (no questions)\n- لو متكرر: 50% goodwill + education عن الـ caps + recommend roaming bundle\n\nRoaming Bundles (offer دائم):\n- 5 جيجا داخل المنطقة العربية: 200 جنيه\n- 5 جيجا أوروبا: 350 جنيه\n- 10 جيجا عالمي: 600 جنيه\nكل bundle بيشمل voice + SMS + data caps واضحة.",
+        "Plus:\n- 100 جنيه goodwill credit لـ outage > 48 ساعة\n- Free service month لـ outage > 7 أيام\n```\n\nHow It's Applied:\n- النظام بيحسب تلقائي من الـ network monitoring data (لما الـ device offline timestamp مسجلة)\n- بيـ apply كـ credit في فاتورة الشهر التالي\n- لا يحتاج العميل يطلب — preemptive credit\n- SMS بيتبعت: \"يا فندم، اعتذرنا عن الانقطاع. تم إضافة XX جنيه credit في حسابك.\"\n\nSpecial Cases:",
+        "دي تفاصيل فئات الشكاوى من Tier 2 و Tier 3 ضمن الـ Mandatory Resolution Timeline المُحددة من الـ NTRA.\n\n**Tier 2: Billing Disputes**:\n- First response: 1 ساعة (لو call) أو 4 ساعات (لو ticket)\n- Investigation: 7 أيام عمل\n- Resolution: 14 يوم عمل (max)\n- Refund processing: 30 يوم\n- لو لسه ما تمش: العميل من حقه يقدم شكوى للـ NTRA مباشرة\n\n**Tier 3: Service Quality Complaints (slow speed, dropped calls)**:\n- First response: 24 ساعة\n- Investigation: 14 يوم\n- Resolution أو explanation: 30 يوم\n- لو الشكوى مكررة لنفس المشكلة: escalation تلقائية لـ Engineering Team",
+        "في بداية الوثيقة، بنوضح الفئات المستهدفة ونظام التعويض لحضرتك كعميل VIP أو Golden.\n\nSLA for VIP & Golden Customers\n\nاتفاقية مستوى الخدمة (SLA) للعملاء الـ VIP و Golden\n\nيا فندم، العملاء الـ VIP (ARPU أعلى من 500 جنيه أو مدة اشتراك أكتر من 3 سنين) ليهم معاملة خاصة خالص.\n\nالـ Response time لازم يكون 15 دقيقة كحد أقصى على التليفون.\nالـ Resolution time: 4 ساعات لأي network issue و 24 ساعة لمشاكل الفواتير.\nلو حصل breach في الـ SLA، العميل ياخد compensation تلقائي 50% discount على الفاتورة الجاية."
+      ],
+      "retrieved_sources": [
+        "roaming_fraud_prevention.md",
+        "outage_compensation_policy.md",
+        "consumer_rights_complaint_timeline.md",
+        "sla_vip_golden_customers.md"
+      ],
+      "expected_source": "outage_compensation_policy.md",
+      "ground_truth": "حسب الـ outage compensation policy: التعويض = (الفاتورة الشهرية/30) × عدد أيام الانقطاع × Multiplier. للانقطاع 24-72 ساعة الـ multiplier 1.5x، فلو فاتورتك 200 جنيه/شهر هياخد العميل تقريباً 30 جنيه. زائد 100 جنيه goodwill credit للانقطاع فوق 48 ساعة. الـ credit بيتطبق تلقائي في فاتورة الشهر التالي من بيانات الـ network monitoring، من غير ما العميل يحتاج يطلب.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "إزاي أضيف member للـ family plan بتاعي؟",
+      "category": "INFO",
+      "expected_category": "INFO",
+      "answer": "لتضيف عضو لخطة العائلة، اتبع الخطوات التالية:\n\n1.  ادخل على تطبيق Self-Care.\n2.  اذهب إلى قسم Family ثم اختر Add Member.\n3.  اكتب رقم الهاتف المطلوب أو اطلب شريحة SIM جديدة.\n4.  إذا كان الرقم موجوداً بالفعل في NileTel، سيتم إرسال رسالة دعوة للعضو للموافقة.\n5.  يوافق العضو ويدخل رمز التحقق (OTP).\n6.  يتم نقل الخط إلى خطة العائلة خلال 24 ساعة مع الاحتفاظ بنفس الرقم. [3]",
+      "contexts": [
+        "Account Structure:\n- لازم Family Owner واحد (Primary Account Holder)\n- Owner هو اللي بيدفع، بيشوف الـ usage، ويـ manage الباقة\n- كل خط تابع له member name + relationship (spouse, child, parent, etc.)\n- Owner يقدر يقفل individual lines (مثلاً child line بعد saa 11 PM)\n\nKYC للـ Family Plan:\n- Owner: full KYC (ID + selfie)\n- Members تحت 18: parental consent + birth certificate\n- Members فوق 18: KYC منفصل\n- Non-family members ممنوع (NTRA Reg 89/2024 — الـ plan لازم actual family ties)",
+        "هنا بنشرح الحالات الخاصة في إدارة باقات العائلة مثل سفر الأعضاء أو الانفصال الأسري.\n\n**Family Member Leaving Egypt**:\n- لو السفر دائم: الـ line يتحول لـ international plan أو يتقفل\n- لو سفر مؤقت: الـ family يحتفظ بالـ line بـ \"suspend\" status بدون رسوم لمدة 6 شهور\n\n**Divorce / Family Split**:\nحالة معقدة بنتعامل معاها بحساسية:\n- Owner يقدم formal request مع copy من divorce ruling\n- Ex-spouse + children lines: choice of staying in original plan or transferring to new plan\n- Account Manager يتولى الموضوع personally\n- No early termination fees في الحالات دي",
+        "هذا المقطع يشرح خطوات إضافة عضو لخطة العائلة في خدمات NileTel.\n\nCommon Scenarios:\n\n**Adding a Member**:\n1. Owner يدخل Self-Care App → Family → Add Member\n2. يكتب الـ phone number أو يطلب SIM جديدة\n3. لو رقم موجود في NileTel: invitation SMS للـ member للموافقة\n4. Member يوافق + يدخل OTP\n5. الـ line transfers للـ Family Plan في 24 ساعة، يحتفظ بنفس الرقم",
+        "The following rules apply when removing members or transferring ownership in a Family Plan.\n\n**Removing a Member**:\n- Owner يقدر يـ remove، بس الـ member بيتحول لـ standard plan تلقائياً\n- لو الـ member تحت 18: ما يقدرش يـ delete إلا بـ parental verification\n- لو الـ member هو الـ owner: لازم transfer ownership للـ admin تاني الأول\n\n**Ownership Transfer**:\n- Owner الحالي يـ initiate في Self-Care\n- New Owner: يستلم SMS verification, يوافق\n- الـ billing بيتحول للـ new owner من اليوم اللي بعده\n- لو الـ outgoing owner عنده balance سالب: لازم يـ settle قبل الـ transfer"
+      ],
+      "retrieved_sources": [
+        "family_plan_management.md",
+        "family_plan_management.md",
+        "family_plan_management.md",
+        "family_plan_management.md"
+      ],
+      "expected_source": "family_plan_management.md",
+      "ground_truth": "من Self-Care App: Family → Add Member → اكتب رقم الموبايل أو اطلب SIM جديدة. لو الرقم في NileTel، invitation SMS بيتبعت للـ member للموافقة + يدخل OTP. الـ line بتتحول للـ Family Plan في 24 ساعة وبيحتفظ بنفس الرقم. للأعضاء تحت 18 محتاج parental consent + birth certificate. الـ NTRA Reg 89/2024 بتلزمنا إن الـ family plan يكون لـ family ties فعلية مش أصدقاء.",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "الـ ADSL عندي بطيء جداً!",
+      "category": "COMPLAINT",
+      "expected_category": "COMPLAINT",
+      "answer": "Before I open a ticket for you, please share your **name** and either a **phone number** or **email** so our support team can follow up.\n\n_Example:_  Ahmed Mohamed, 0101 234 5678, ahmed@example.com\n\n---\n\nأهلاً بك. بما إنك ذكرت إن الـ ADSL عندك بطيء، خلينا نتبع خطوات استكشاف المشكلة.\n\nأولاً، محتاج أتأكد من رقم خطك عشان أراجع بياناته في النظام وأتأكد إنك فعلاً على باقة ADSL [4].\n\nبعد التأكيد، هعمل اختبار للخط من السنترال وأشوف إحصائياته:\n*   سرعة المزامنة (Sync Rate) لازم تكون أعلى من 4 ميجابت في الثانية لو باقة 8 ميجا.\n*   نسبة الإشارة للضوضاء (SNR Margin) لازم تكون أعلى من 6 ديسيبل.\n*   التوهين (Attenuation) لازم يكون أقل من 50 ديسيبل.\nلو الأرقام دي مش كويسة، المشكلة غالباً في كابل النحاس الواصل من السنترال لبيتك [1].\n\nلو إحصائيات الخط سليمة، هطلب منك تعمل اختبار سرعة من جهاز متوصل بكابل مباشر بالراوتر (مش واي فاي)، وهشوف سجل الاستهلاك بتاعك عشان أتأكد إنك ما تعديتش سياسة الاستخدام العادل [1].\n\nولو لقينا إن المشكلة مستمرة، ممكن يكون في حل أفضل ليك. لو خدمة الفايبر (FTTH) متاحة في منطقتك، أقدر أعرض عليك ترقية لباقة فايبر بخصم 50% على رسوم التركيب، وده عرض كويس جداً لأن نسبة كبيرة من العملاء بيوافقوا عليه [2].",
+      "contexts": [
+        "بعد ما تتأكد إن العميل على ADSL وتعمل line test، لو الإشارة سليمة ارجع لتحليل الأداء كالتالي:\n\nثانياً: اعمل line test من الـ DSLAM:\n- شيك على الـ sync rate (لازم يكون أعلى من 4 Mbps للباقات 8 ميجا)\n- SNR margin لازم يكون أعلى من 6 dB\n- attenuation أقل من 50 dB\n- لو الـ stats سيئة، المشكلة في كابل الـ copper من الـ exchange للعميل\n\nثالثاً: لو الـ line stats كويسة بس السرعة بطيئة:\n- اطلب من العميل يعمل speed test من جهاز متوصل بكابل مباشرة بالـ router\n- اتأكد إنه مش متوصل بـ WiFi 2.4GHz بس\n- شيك على الـ usage logs، ممكن يكون تخطى الـ Fair Usage Policy",
+        "للاحتفاظ بالعميل، يُنصح بعرض ترقية لـ FTTH إذا كان متاحًا في منطقته.\n\nنصيحة لـ retention:\nADSL technology بقت قديمة. لو العميل في منطقة فيها FTTH coverage، اعرض عليه upgrade بـ 50% خصم على installation. النسبة عندنا 73% بيوافقوا لما العرض يتقدم في وقت المشكلة.\n\nLast Updated: February 2026 | Network Operations Department",
+        "هذا رد موصى به من فريق الدعم الفني للرد على استفسارات العملاء عن بطء خدمة الفايبر.\n\nFAQ: Why is my fiber internet slow?\n\nأسئلة شائعة - بطء السرعة في الـ FTTH\n\nسؤال شائع: \"ليه النت بطيء أوي بعد تفعيل الفايبر؟\"\n\nالرد الموصى به:\n\"يا فندم، في أسباب كتير ممكن تسبب بطء في الـ FTTH:\n1. WiFi interference من أجهزة تانية\n2. Old router مش مدعوم\n3. Quota exceeded → throttling\n4. Problem في الـ splitter port\n\nنعمل إيه دلوقتي؟\n- اعمل speed test مباشرة من الـ ONT (مش من الواي فاي)\n- لو السرعة كويسة من الـ ONT، المشكلة في الـ WiFi\n- لو لسه بطيئة، هنرفع ticket P2 ونبعت engineer\"",
+        "هذا المقطع هو افتتاحية دليل حل مشاكل ADSL القديم، ويوجه فريق الدعم بطلب رقم الخط للتأكد من كون العميل على باقة ADSL قبل بدء استكشاف المشكلة.\n\nADSL Legacy Troubleshooting Guide\n\nدليل حل مشاكل الـ ADSL القديم\n\nيا فندم، عندنا لسه عدد كبير من العملاء على خطوط ADSL خصوصاً في المحافظات اللي لسه ما عندهاش FTTH كامل. لما العميل يبلغ إن النت بطيء أو مفصول، اتبع الخطوات دي:\n\nأولاً: اطلب رقم الخط واتأكد إن العميل على باقة ADSL مش fiber في الـ CRM. كتير عملاء بيتصلوا وهما متحولين لـ FTTH من فترة وما يعرفوش."
+      ],
+      "retrieved_sources": [
+        "adsl_legacy_troubleshooting.md",
+        "adsl_legacy_troubleshooting.md",
+        "faq_fiber_slow_speed.md",
+        "adsl_legacy_troubleshooting.md"
+      ],
+      "expected_source": "adsl_legacy_troubleshooting.md",
+      "ground_truth": "",
+      "ticket_id": null,
+      "error": null
+    },
+    {
+      "question": "What's the meaning of life?",
+      "category": "OUT_OF_SCOPE",
+      "expected_category": "OUT_OF_SCOPE",
+      "answer": "يا فندم، أنا مساعد NileTel وبقدر أساعدك بس في حاجات تخص خدمات NileTel (الإنترنت، الفواتير، الباقات، إلخ). ممكن تسألني سؤال يخص الخدمة؟",
+      "contexts": [],
+      "retrieved_sources": [],
+      "expected_source": null,
+      "ground_truth": "",
+      "ticket_id": null,
+      "error": null
     }
   ]
 }

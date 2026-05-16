@@ -1,10 +1,16 @@
 """Fake CRM tool layer (Tier 3 #9).
 
-Three SQLite-backed tools the ReAct agent can call:
+Two SQLite-backed tools the ReAct agent can call — both take `msisdn`
+(the customer's phone number) as the unique identifier, following the
+tool-consolidation pattern from agent design literature (Vercel d0,
+Singh et al., 2025): one read, one write, no chained lookups.
 
-  * `get_balance(msisdn)`         — credit + data balance for a phone
-  * `list_open_tickets(account_id)` — open tickets for an account
-  * `escalate_to_human(...)`      — file a new escalation ticket
+  * `get_account_status(msisdn)` — name, plan, balance, open tickets
+  * `escalate_to_human(msisdn, reason, priority)` — file a new ticket
+
+Legacy aliases `get_balance` + `list_open_tickets` are kept as thin
+wrappers so existing tests + agent prompts continue to work; new code
+should use `get_account_status` for the one-call combined view.
 
 The DB is seeded on first import (5 fake customers, 4 tickets) so the
 demo is deterministic without any external service. A real deployment
@@ -188,21 +194,98 @@ def list_open_tickets(account_id: str) -> list[dict]:
     return [dict(r) for r in rows]
 
 
+def _resolve_account_id(msisdn: str) -> str | None:
+    """Look up the internal account_id for a phone. Returns None if not found."""
+    n = _normalize_msisdn(msisdn)
+    with _conn() as conn:
+        row = conn.execute(
+            "SELECT account_id FROM customers WHERE msisdn = ?", (n,)
+        ).fetchone()
+    return row["account_id"] if row else None
+
+
 @tool
-def escalate_to_human(
-    account_id: str, reason: str, priority: str = "P3"
-) -> dict:
-    """File a new escalation ticket for a human agent.
+def get_account_status(msisdn: str) -> dict:
+    """One-call view of a NileTel customer's account: identity, plan,
+    balance, and open tickets. Use this for any "who is this customer?"
+    or "what's going on with this number?" question — replaces the older
+    pattern of calling get_balance + list_open_tickets separately.
 
     Args:
-        account_id: The NileTel account number, e.g. "1001".
+        msisdn: The Egyptian mobile number, e.g. "01012345678".
+                Variations like "+20 1012345678" or "0020 101..." are
+                normalised automatically.
+
+    Returns:
+        A dict shaped like:
+        {
+          "msisdn": "01012345678",
+          "name": "Ahmed Hassan",
+          "plan": "Postpaid Gold 200",
+          "balance": {"credit_egp": 47.25, "data_balance_gb": 18.4,
+                      "last_recharge": "2026-05-02"},
+          "open_tickets": [
+            {"ticket_id": "TKT-2001", "status": "open", "priority": "P3",
+             "summary": "...", "opened_at": "..."},
+          ]
+        }
+        Returns {"error": "..."} if the phone isn't registered.
+    """
+    n = _normalize_msisdn(msisdn)
+    with _conn() as conn:
+        cust = conn.execute(
+            """
+            SELECT c.msisdn, c.account_id, c.name, c.plan,
+                   b.credit_egp, b.data_balance_gb, b.last_recharge
+            FROM customers c JOIN balances b USING(msisdn)
+            WHERE c.msisdn = ?
+            """,
+            (n,),
+        ).fetchone()
+        if cust is None:
+            return {"error": f"No customer found for {msisdn}"}
+        tickets = conn.execute(
+            """
+            SELECT ticket_id, status, priority, summary, opened_at
+            FROM tickets
+            WHERE account_id = ? AND status IN ('open', 'escalated')
+            ORDER BY opened_at DESC
+            """,
+            (cust["account_id"],),
+        ).fetchall()
+    return {
+        "msisdn": cust["msisdn"],
+        "name": cust["name"],
+        "plan": cust["plan"],
+        "balance": {
+            "credit_egp": cust["credit_egp"],
+            "data_balance_gb": cust["data_balance_gb"],
+            "last_recharge": cust["last_recharge"],
+        },
+        "open_tickets": [dict(r) for r in tickets],
+    }
+
+
+@tool
+def escalate_to_human(
+    msisdn: str, reason: str, priority: str = "P3"
+) -> dict:
+    """File a new escalation ticket for a human agent. Identifies the
+    customer by phone — the internal account_id is resolved automatically.
+
+    Args:
+        msisdn: The Egyptian mobile number, e.g. "01012345678".
         reason: One sentence describing why escalation is needed.
         priority: P1 (critical) | P2 (high) | P3 (normal) | P4 (low).
                   Defaults to P3.
 
     Returns:
         The new ticket as a dict with ticket_id and confirmation details.
+        Returns {"error": "..."} if the phone isn't registered.
     """
+    account_id = _resolve_account_id(msisdn)
+    if account_id is None:
+        return {"error": f"No customer found for {msisdn} — cannot escalate."}
     ticket_id = f"TKT-ESC-{int(time.time())}"
     opened_at = time.strftime("%Y-%m-%d %H:%M")
     with _conn() as conn:
@@ -210,7 +293,7 @@ def escalate_to_human(
             "INSERT INTO tickets VALUES (?,?,?,?,?,?)",
             (
                 ticket_id,
-                str(account_id),
+                account_id,
                 "escalated",
                 priority,
                 reason[:200],
@@ -220,6 +303,7 @@ def escalate_to_human(
         conn.commit()
     return {
         "ticket_id": ticket_id,
+        "account_id": account_id,
         "status": "escalated",
         "priority": priority,
         "summary": reason[:200],
@@ -227,4 +311,6 @@ def escalate_to_human(
     }
 
 
-TOOLS = [get_balance, list_open_tickets, escalate_to_human]
+# Active tool set the ReAct agent sees. Two tools, one read + one write,
+# all keyed on msisdn (the user-facing identifier).
+TOOLS = [get_account_status, escalate_to_human]
